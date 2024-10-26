@@ -1,0 +1,48 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+    "formatter": {
+        "attributePosition": "auto",
+        "enabled": true,
+        "formatWithErrors": false,
+        "ignore": [
+            ".astro/",
+            ".devcontainer/devcontainer.json",
+            "archive/",
+            "build/",
+            "bun.lockb",
+            "node_modules/",
+            "public/"
+        ],
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "lf",
+        "lineWidth": 100
+    },
+    "javascript": {
+        "formatter": {
+            "arrowParentheses": "asNeeded",
+            "attributePosition": "auto",
+            "bracketSameLine": false,
+            "bracketSpacing": true,
+            "indentStyle": "space",
+            "indentWidth": 4,
+            "jsxQuoteStyle": "double",
+            "lineEnding": "lf",
+            "lineWidth": 100,
+            "quoteProperties": "asNeeded",
+            "quoteStyle": "double",
+            "semicolons": "always",
+            "trailingCommas": "all"
+        }
+    },
+    "linter": {
+        "enabled": false
+    },
+    "organizeImports": { "enabled": true },
+    "overrides": [{ "include": ["*.astro"] }],
+    "vcs": {
+        "clientKind": "git",
+        "defaultBranch": "main",
+        "enabled": true
+    }
+}

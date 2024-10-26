@@ -1,0 +1,7 @@
+{
+    "$schema": "https://json.schemastore.org/prettierrc",
+    "arrowParens": "avoid",
+    "jsonRecursiveSort": true,
+    "printWidth": 100,
+    "tabWidth": 4
+}
