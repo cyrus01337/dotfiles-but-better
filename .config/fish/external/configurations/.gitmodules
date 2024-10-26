@@ -1,0 +1,9 @@
+[submodule "devcontainers/neovim"]
+	path = devcontainers/neovim
+	url = https://github.com/cyrus01337/neovim-devcontainer
+[submodule "devcontainers/bun"]
+	path = devcontainers/bun
+	url = https://github.com/cyrus01337/bun-devcontainer
+[submodule "devcontainers/shell"]
+	path = devcontainers/shell
+	url = https://github.com/cyrus01337/shell-devcontainer.git

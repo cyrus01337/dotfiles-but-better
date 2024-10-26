@@ -1,0 +1,8 @@
+{
+    "name": "Shell",
+    "image": "cyrus01337/shell-devcontainer",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    }
+}

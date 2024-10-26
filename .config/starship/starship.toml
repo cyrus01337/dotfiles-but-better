@@ -1,0 +1,84 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+follow_symlinks = false
+format = "$directory $git_branch$all$username[❯](pink) "
+palette = "dracula"
+right_format = "$cmd_duration $character"
+scan_timeout = 500
+command_timeout = 604_800_000  # 1 week
+
+[palettes.dracula]
+background = "#282a36"
+current_line = "#44475a"
+foreground = "#f8f8f2"
+comment = "#6272a4"
+cyan = "#8be9fd"
+green = "#50fa7b"
+orange = "#ffb86c"
+pink = "#ff79c6"
+purple = "#bd93f9"
+red = "#ff5555"
+yellow = "#f1fa8c"
+
+[bun]
+detect_extensions = ["bun.js", "bun.ts"]
+format = "[$symbol]($style)"
+
+[character]
+success_symbol = "[✔️](green)"
+error_symbol = "[❌](red)"
+
+[cmd_duration]
+format = "[$duration](comment)"
+min_time = 1_000
+min_time_to_notify = 20_000
+show_notifications = true
+
+[deno]
+format = "[$symbol]($style)"
+
+[directory]
+format = "[$read_only]($read_only_style)[$path]($style)"
+truncation_length = 3
+
+[docker_context]
+format = "[$symbol]($style)"
+
+[git_branch]
+format = "[\\(]($style)$git_status[$branch]($style)$git_state[\\)]($style) "
+
+[git_state]
+format = " - [$state](bold red) [$progress_current/$progress_total](bold orange)"
+
+[git_status]
+format = "[$all_status](orange)"
+
+[golang]
+format = "[$symbol]($style)"
+
+[lua]
+format = "[🌕]($style)"
+
+[nodejs]
+detect_extensions = []
+detect_files = [
+    ".node-version",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml"
+]
+detect_folders = []
+
+[package]
+disabled = true
+
+[php]
+format = "[$symbol]($style)"
+
+[python]
+format = "[$symbol]($style)"
+
+[rust]
+format = "[$symbol]($style)"
+
+[username]
+format = "[$user]($style)"
