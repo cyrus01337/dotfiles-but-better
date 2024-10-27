@@ -1,3 +1,4 @@
 **/.Trash-*/
 fish_plugins
 fish_variables
+.config/tmux/plugins/*/
