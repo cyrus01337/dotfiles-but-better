@@ -11,7 +11,7 @@ exists() {
 }
 
 get_system_package_manager() {
-    for $system_package_manager in $SYSTEM_PACKAGE_MANAGERS; do
+    for system_package_manager in $SYSTEM_PACKAGE_MANAGERS; do
         if exists $system_package_manager; then
             echo $system_package_manager
 
