@@ -166,6 +166,6 @@ cd ~/Projects/personal/dotfiles
 git submodule update --init --recursive
 stow . -t ../../../
 
-if [[ $SHELL =~ $DEFAULT_SHELL ]]; then
+if [[ $(basename $SHELL) =~ $DEFAULT_SHELL ]]; then
     chsh -s $(which fish)
 fi
