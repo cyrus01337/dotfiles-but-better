@@ -132,7 +132,7 @@ install_docker_with() {
 }
 
 install_starship_system_agnostically() {
-    curl -sS https://starship.rs/install.sh | sh -- -y
+    sh -c "$(curl -sS https://starship.rs/install.sh)" -- -y
 }
 
 install_using_system_package_manager() {
