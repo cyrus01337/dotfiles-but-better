@@ -11,7 +11,7 @@ exists() {
 }
 
 get_system_package_manager() {
-    for system_package_manager in $SYSTEM_PACKAGE_MANAGERS; do
+    for system_package_manager in ${SYSTEM_PACKAGE_MANAGERS[@]}; do
         if exists $system_package_manager; then
             echo $system_package_manager
 
@@ -25,7 +25,7 @@ get_system_package_manager() {
 get_packages_to_be_installed_with() {
     system_package_manager=$1
 
-    for package in $REQUIRED_PACKAGES; do
+    for package in ${REQUIRED_PACKAGES[@]}; do
         if ! exists $package; then
             echo $package
         fi
