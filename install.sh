@@ -84,5 +84,5 @@ stow . -t ../../../
 if [[ $(basename $SHELL) != $DEFAULT_SHELL ]]; then
     echo "Changing default shell to Fish..."
 
-    chsh -s $(which fish)
+    sudo chsh -s $(which fish) $USER
 fi
