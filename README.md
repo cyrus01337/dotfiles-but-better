@@ -12,8 +12,8 @@ install with my dotfiles because I'm cool like that :)
 Run this I dare you:
 ```sh
 which curl &> /dev/null \
-    && curl https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash \
-    || wget -q -O - https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash
+    && curl -LH "Cache-Control: no-cache" https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash \
+    || wget --no-cache -qO - https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash
 ```
 
 ### Author's Note
