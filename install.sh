@@ -41,6 +41,8 @@ get_packages_to_be_installed_with() {
 
 install_docker() {
     sudo sh -c "$(curl -fsSL https://get.docker.com)"
+    sudo usermod -aG docker $USER
+
     sudo systemctl start --quiet docker.service
 }
 
