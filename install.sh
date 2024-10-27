@@ -69,7 +69,7 @@ install_docker_with() {
             # TODO: Use $distro_name to convert related commands to their
             # respective equivalent based on the distro name
             sudo apt-get update
-            sudo apt-get install -y ca-certificates curl
+            sudo apt-get install -y ca-certificates
             sudo install -m 0755 -d /etc/apt/keyrings
 
             case $distro_name in
