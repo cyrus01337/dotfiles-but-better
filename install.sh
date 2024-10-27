@@ -128,7 +128,7 @@ install_using_system_package_manager() {
     system_package_manager=$1
     arguments=("${@[@]:1}")
 
-    if [ $INSTALLING_DOCKER_FLAG = true ]; then
+    if [[ $INSTALLING_DOCKER_FLAG = true ]]; then
         install_docker_with $system_package_manager
     fi
 
@@ -151,6 +151,6 @@ cd ~/Projects/personal/dotfiles
 git submodule update --init --recursive
 stow . -t ../../../
 
-if [ $SHELL =~ $DEFAULT_SHELL ]; then
+if [[ $SHELL =~ $DEFAULT_SHELL ]]; then
     chsh -s $(which fish)
 fi
