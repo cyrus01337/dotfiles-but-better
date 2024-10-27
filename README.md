@@ -11,7 +11,9 @@ install with my dotfiles because I'm cool like that :)
 ### Setup
 Run this I dare you:
 ```sh
-curl https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash
+which curl &> /dev/null \
+    && curl https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash \
+    || wget -q -O - https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash
 ```
 
 ### Author's Note
