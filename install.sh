@@ -144,7 +144,7 @@ install_using_system_package_manager() {
 system_package_manager=$(get_system_package_manager)
 packages_to_be_installed=($(get_packages_to_be_installed_with $system_package_manager))
 
-install_using_system_package_manager $(get_system_package_manager) $packages_to_be_installed
+install_using_system_package_manager $system_package_manager ${packages_to_be_installed[@]}
 mkdir -p ~/Projects/personal
 git clone https://github.com/cyrus01337/dotfiles-but-better.git ~/Projects/personal/dotfiles
 cd ~/Projects/personal/dotfiles
