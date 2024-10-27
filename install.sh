@@ -133,11 +133,11 @@ install_using_system_package_manager() {
     fi
 
     if [[ $system_package_manager = "apt-get" ]]; then
-        $system_package_manager install $arguments
+        sudo $system_package_manager install $arguments
     elif [[ $system_package_manager = "dnf" ]]; then
-        $system_package_manager install $arguments
+        sudo $system_package_manager install $arguments
     elif [[ $system_package_manager = "pacman" ]]; then
-        $system_package_manager -S $arguments
+        sudo $system_package_manager -S $arguments
     fi
 }
 
