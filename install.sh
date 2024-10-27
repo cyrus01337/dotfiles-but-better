@@ -39,99 +39,12 @@ get_packages_to_be_installed_with() {
     done
 }
 
-get_distro_name() {
-    id_like_property="ID_LIKE="
-    id_property="ID="
-    id_like_property_found=$(cat /etc/os-release | grep -Po "^ID_LIKE=\".+\"")
-    id_property_found=$(cat /etc/os-release | grep -Po "^ID=.+")
-
-    if [[ $id_like_property_found ]]; then
-        similar_distros=$( $id_like_property_found | sed 's/ID_LIKE="\(.*\)"/\1/' )
-
-        if [[ $similar_distros == *"ubuntu"* ]]; then
-            echo "ubuntu"
-        else
-            echo "debian"
-        fi
-    elif [[ $id_property_found ]]; then
-        stripped_distro_name=$( $id_property_found | sed 's/ID=\(.*\)/\1/' )
-
-        echo $stripped_distro_name
-    fi
+install_docker() {
+    sudo sh -c "$(curl -fsSL https://get.docker.com)"
+    sudo systemctl start --quiet docker.service
 }
 
-maybe_start_docker_service() {
-    if ! sudo systemctl is-active --quiet docker.service; then
-        sudo systemctl start docker.service
-    fi
-}
-
-install_docker_with() {
-    system_package_manager=$1
-
-    case $system_package_manager in
-        "apt-get")
-            distro_name=$(get_distro_name)
-
-            # TODO: Use $distro_name to convert related commands to their
-            # respective equivalent based on the distro name
-            sudo apt-get update
-            sudo apt-get install -y ca-certificates
-            sudo install -m 0755 -d /etc/apt/keyrings
-
-            case $distro_name in
-                ubuntu)
-                    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-                    sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-                    echo \
-                        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-                        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-                        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-                    ;;
-                debian)
-                    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-                    sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-                    echo \
-                        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-                        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-                        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-                    ;;
-                *)
-                    echo "Docker installation for $distro_name is not supported, please create an issue"
-
-                    exit 1
-
-                    ;;
-            esac
-
-            sudo apt-get update
-            sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-            ;;
-        dnf)
-            sudo dnf update
-            sudo dnf -y install dnf-plugins-core
-            sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-
-            sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-            ;;
-        pacman)
-            sudo pacman -Sy
-            sudo pacman -S docker
-
-            ;;
-    esac
-
-    sudo usermod -aG docker $USER
-    maybe_start_docker_service
-}
-
-install_starship_system_agnostically() {
+install_starship() {
     sh -c "$(curl -sS https://starship.rs/install.sh)" -- -y
 }
 
@@ -140,11 +53,11 @@ install_using_system_package_manager() {
     arguments=("${@:2}")
 
     if [[ $INSTALLING_DOCKER_FLAG = true ]]; then
-        install_docker_with $system_package_manager
+        install_docker
     fi
 
     if [[ $INSTALLING_STARSHIP_FLAG = true ]]; then
-        install_starship_system_agnostically
+        install_starship
     fi
 
     if [[ $system_package_manager = "apt-get" ]]; then
@@ -167,5 +80,7 @@ git submodule update --init --recursive
 stow . -t ../../../
 
 if [[ $(basename $SHELL) =~ $DEFAULT_SHELL ]]; then
+    echo "Changing default shell to Fish..."
+
     chsh -s $(which fish)
 fi
