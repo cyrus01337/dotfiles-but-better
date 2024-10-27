@@ -46,12 +46,14 @@ install_using_system_package_manager() {
     system_package_manager=$1
     arguments=("${@:2}")
 
-    if [[ $system_package_manager = "apt-get" ]]; then
-        sudo $system_package_manager install -y ${arguments[@]}
-    elif [[ $system_package_manager = "dnf" ]]; then
-        sudo $system_package_manager install -y ${arguments[@]}
-    elif [[ $system_package_manager = "pacman" ]]; then
-        sudo $system_package_manager -S --noconfirm ${arguments[@]}
+    if [[ "${#arguments[@]}" != 0 ]]; then
+        if [[ $system_package_manager = "apt-get" ]]; then
+            sudo $system_package_manager install -y ${arguments[@]}
+        elif [[ $system_package_manager = "dnf" ]]; then
+            sudo $system_package_manager install -y ${arguments[@]}
+        elif [[ $system_package_manager = "pacman" ]]; then
+            sudo $system_package_manager -S --noconfirm ${arguments[@]}
+        fi
     fi
 
     if ! exists starship; then
