@@ -81,7 +81,7 @@ cd ~/Projects/personal/dotfiles
 git submodule update --init --recursive
 stow . -t ../../../
 
-if [[ $(basename $SHELL) =~ $DEFAULT_SHELL ]]; then
+if [[ $(basename $SHELL) != $DEFAULT_SHELL ]]; then
     echo "Changing default shell to Fish..."
 
     chsh -s $(which fish)
