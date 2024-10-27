@@ -15,7 +15,7 @@ get_system_package_manager() {
         if exists $system_package_manager; then
             echo $system_package_manager
 
-            return 0;
+            return 0
         fi
     done
 
