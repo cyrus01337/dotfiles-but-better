@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+if ! which docker &> /dev/null; then
+    echo "Must have Docker installed"
+
+    exit 1
+fi
+
+docker run \
+    -it \
+    --rm \
+    --name shell \
+    -v $HOME/.gitconfig:/home/developer/.gitconfig \
+    -v $HOME/.git-credentials:/home/developer/.git-credentials \
+    -v $PWD:/workspace \
+    cyrus01337/neovim-devcontainer:latest
+
+exit $?
