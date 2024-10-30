@@ -3,4 +3,4 @@
 	url = https://github.com/cyrus01337/configurations
 [submodule ".config/fish"]
 	path = .config/fish
-	url = https://github.com/cyrus01337/fish-configuration.git
+	url = https://github.com/cyrus01337/shell-configuration.git
