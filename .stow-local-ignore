@@ -1,4 +1,5 @@
 .git
-.gitmodules
 .gitignore
+.gitmodules
 README.md
+install.sh

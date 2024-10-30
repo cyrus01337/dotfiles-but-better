@@ -1,5 +1,3 @@
-local mode = require("custom.lib.mode")
-
 return {
     {
         "christoomey/vim-tmux-navigator",
@@ -10,10 +8,10 @@ return {
             "TmuxNavigateRight",
         },
         keys = {
-            { mode.NORMAL, "<leader><Up>", "<CMD>TmuxNavigateUp<CR>" },
-            { mode.NORMAL, "<leader><Down>", "<CMD>TmuxNavigateDown<CR>" },
-            { mode.NORMAL, "<leader><Left>", "<CMD>TmuxNavigateLeft<CR>" },
-            { mode.NORMAL, "<leader><Right>", "<CMD>TmuxNavigateRight<CR>" },
+            { "<leader><Up>", "<CMD>TmuxNavigateUp<CR>" },
+            { "<leader><Down>", "<CMD>TmuxNavigateDown<CR>" },
+            { "<leader><Left>", "<CMD>TmuxNavigateLeft<CR>" },
+            { "<leader><Right>", "<CMD>TmuxNavigateRight<CR>" },
         },
     },
     {

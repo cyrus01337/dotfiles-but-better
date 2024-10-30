@@ -1,8 +1,0 @@
-{
-    "name": "Neovim",
-    "image": "cyrus01337/neovim-devcontainer",
-    "workspaceFolder": "/workspace",
-    "features": {
-        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
-    }
-}
