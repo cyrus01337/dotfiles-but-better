@@ -1,8 +1,0 @@
-.config
-.git
-.gitignore
-.gitmodules
-bin
-external
-README.md
-install.sh
