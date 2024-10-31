@@ -8,10 +8,11 @@ fi
 docker run \
     -it \
     --rm \
-    --name shell \
+    -v $PWD:/workspace \
     -v $HOME/.gitconfig:/home/developer/.gitconfig \
     -v $HOME/.git-credentials:/home/developer/.git-credentials \
-    -v $PWD:/workspace \
+    -v neovim-data:/home/developer/.local/share/nvim \
+    --name shell \
     cyrus01337/neovim-devcontainer:latest
 
 exit $?
