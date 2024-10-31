@@ -11,6 +11,7 @@ docker run \
     -v $PWD:/workspace \
     -v $HOME/.gitconfig:/home/developer/.gitconfig \
     -v $HOME/.git-credentials:/home/developer/.git-credentials \
+    -v fish-data:/home/developer/.local/share/fish \
     -v neovim-data:/home/developer/.local/share/nvim \
     --name shell \
     cyrus01337/neovim-devcontainer:latest
