@@ -20,3 +20,10 @@ unset rc
 
 alias lsal="ls -al"
 alias r="source ~/.bashrc"
+
+if which shell &> /dev/null; then
+    shell
+
+    exit $?
+fi
+
