@@ -28,7 +28,5 @@ if which shell &> /dev/null; then
 
     if [[ $cached_status != 0 ]]; then
         echo "Shell exited with status code $cached_status"
-    else
-        exit 0
     fi
 fi
