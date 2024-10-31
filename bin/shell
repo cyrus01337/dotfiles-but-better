@@ -14,5 +14,3 @@ docker run \
     -v neovim-data:/home/developer/.local/share/nvim \
     --name shell \
     cyrus01337/neovim-devcontainer:latest
-
-# exit $?
