@@ -15,4 +15,4 @@ docker run \
     --name shell \
     cyrus01337/neovim-devcontainer:latest
 
-exit $?
+# exit $?
