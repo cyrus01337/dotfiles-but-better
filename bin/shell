@@ -5,14 +5,23 @@ if ! which docker &> /dev/null; then
     exit 1
 fi
 
+git_related_volume_binds=""
+
+if [[ -f $HOME/.gitconfig ]]; then
+    git_related_volume_binds+="-v $HOME/.gitconfig:/home/developer/.gitconfig \\"
+fi
+
+if [[ -f $HOME/.git-credentials ]]; then
+    git_related_volume_binds+="-v $HOME/.git-credentials:/home/developer/.git-credentials"
+fi
+
 docker run \
     -it \
     --rm \
     -v $PWD:/workspace \
-    -v $HOME/.gitconfig:/home/developer/.gitconfig \
-    -v $HOME/.git-credentials:/home/developer/.git-credentials \
+    $git_related_volume_binds \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     -v fish-data:/home/developer/.local/share/fish \
     -v neovim-data:/home/developer/.local/share/nvim \
-    -v /var/run/docker.sock:/var/run/docker.sock \
     --name shell \
     cyrus01337/neovim-devcontainer:latest
