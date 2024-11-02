@@ -7,6 +7,21 @@ fi
 
 git_related_volume_binds=()
 
+get_current_docker_image_repo_digest_hash() {
+    echo $(
+        docker inspect cyrus01337/neovim-devcontainer --format "{{json .RepoDigests}}" \
+        | jq -r ".[0]" \
+        | sed -E "s/^.+@(.+)/\1/"
+    )
+}
+
+get_latest_docker_image_repo_digest_hash() {
+    echo $(
+        docker buildx imagetools inspect cyrus01337/neovim-devcontainer --format "{{json .Manifest}}" \
+        | jq -r .digest
+    )
+}
+
 if [[ -f $HOME/.gitconfig ]]; then
     git_related_volume_binds+=("-v $HOME/.gitconfig:/home/developer/.gitconfig")
 fi
@@ -15,11 +30,21 @@ if [[ -f $HOME/.git-credentials ]]; then
     git_related_volume_binds+=("-v $HOME/.git-credentials:/home/developer/.git-credentials")
 fi
 
+current_docker_image_repo_digest_hash=$(get_current_docker_image_repo_digest_hash)
+latest_docker_image_repo_digest_hash=$(get_latest_docker_image_repo_digest_hash)
+
+echo "Current Docker image repo digest hash: $current_docker_image_repo_digest_hash"
+echo " Latest Docker image repo digest hash: $latest_docker_image_repo_digest_hash"
+
+if [[ "$(get_current_docker_image_repo_digest_hash)" != "$(get_latest_docker_image_repo_digest_hash)" ]]; then
+    docker pull cyrus01337/neovim-devcontainer:latest
+fi
+
 docker run \
     -it \
     --rm \
+    ${git_related_volume_binds[@]} \
     -v $PWD:/workspace \
-    $git_related_volume_binds \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v fish-data:/home/developer/.local/share/fish \
     -v neovim-data:/home/developer/.local/share/nvim \
