@@ -5,14 +5,14 @@ if ! which docker &> /dev/null; then
     exit 1
 fi
 
-git_related_volume_binds=""
+git_related_volume_binds=()
 
 if [[ -f $HOME/.gitconfig ]]; then
-    git_related_volume_binds+="-v $HOME/.gitconfig:/home/developer/.gitconfig \\"
+    git_related_volume_binds+=("-v $HOME/.gitconfig:/home/developer/.gitconfig")
 fi
 
 if [[ -f $HOME/.git-credentials ]]; then
-    git_related_volume_binds+="-v $HOME/.git-credentials:/home/developer/.git-credentials"
+    git_related_volume_binds+=("-v $HOME/.git-credentials:/home/developer/.git-credentials")
 fi
 
 docker run \
