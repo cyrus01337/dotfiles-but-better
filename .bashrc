@@ -24,7 +24,7 @@ alias r="source ~/.bashrc"
 
 if [[ $- == *i* ]]; then
     if ! which shell &> /dev/null; then
-        curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/bin/shell | bash
+        eval "$(curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/bin/shell)"
     else
         shell
     fi
