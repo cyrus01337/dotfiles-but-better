@@ -12,5 +12,5 @@ if ! which docker &> /dev/null; then
     install_docker
 fi
 
-cp -f .bashrc $HOME/.bashrc
+curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/.bashrc -o $HOME/.bashrc
 source .bashrc
