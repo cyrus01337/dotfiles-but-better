@@ -8,7 +8,9 @@ install_docker() {
     sudo systemctl start --quiet docker.service
 }
 
-install_docker
+if ! which docker &> /dev/null; then
+    install_docker
+fi
 
 cp -f .bashrc $HOME/.bashrc
 source .bashrc
