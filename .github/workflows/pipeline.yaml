@@ -3,7 +3,6 @@ name: Dispatch build event to cyrus01337/shell-devcontainer
 on:
     push:
         branches: ["main"]
-    workflow_dispatch:
 
 jobs:
     trigger-event:
