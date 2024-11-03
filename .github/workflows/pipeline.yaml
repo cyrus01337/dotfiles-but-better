@@ -3,6 +3,12 @@ name: Dispatch build event to cyrus01337/shell-devcontainer
 on:
     push:
         branches: ["main"]
+        paths:
+            - ".config/**"
+            - ".github/workflows/**"
+            - "bin/**"
+            - ".bashrc"
+            - ".stow-local-ignore"
 
 jobs:
     trigger-event:
