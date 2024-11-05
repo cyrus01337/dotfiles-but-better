@@ -9,6 +9,7 @@ on:
             - "bin/**"
             - ".bashrc"
             - ".stow-local-ignore"
+    workflow_dispatch:
 
 jobs:
     trigger-event:
@@ -20,6 +21,12 @@ jobs:
               with:
                   ref: ${{ github.head_ref }}
                   fetch-depth: 0
+                  submodules: true
+
+            - name: Update submodules to latest
+              run: |
+                git submodule update --init --recursive
+                git submodule update --remote --recursive
 
             - name: Parse short commit hash
               id: commit-hash

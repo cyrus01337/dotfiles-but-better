@@ -58,8 +58,7 @@ else
         ${git_related_volume_binds[@]} \
         -v $PWD:/workspace \
         -v /var/run/docker.sock:/var/run/docker.sock \
-        -v fish-data:/home/developer/.local/share/fish \
-        -v neovim-data:/home/developer/.local/share/nvim \
+        -v shared-data:/home/developer/.local/share \
         --name $CONTAINER_NAME \
         $DOCKER_IMAGE \
         1> /dev/null
