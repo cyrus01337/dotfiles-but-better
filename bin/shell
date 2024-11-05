@@ -43,8 +43,8 @@ echo -e " Latest Docker image repo digest hash: $latest_docker_image_repo_digest
 
 if [[ $latest_docker_image_repo_digest_hash != $current_docker_image_repo_digest_hash ]]; then
     if [[ $(docker ps -q --filter "name=$CONTAINER_NAME") ]]; then
-        docker stop $CONTAINER_NAME
-        docker rm $CONTAINER_NAME
+        docker stop $CONTAINER_NAME 1> /dev/null
+        docker rm $CONTAINER_NAME 1> /dev/null
     fi
 
     docker pull $DOCKER_IMAGE
