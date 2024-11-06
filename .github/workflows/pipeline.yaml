@@ -24,14 +24,14 @@ jobs:
                   submodules: true
 
             - name: Update submodules to latest
-              env:
-                GH_TOKEN: ${{ secrets.REPOSITORY_WORKFLOW_TOKEN }}
               run: |
                 git submodule update --init --recursive
                 git submodule update --remote --recursive
 
             - uses: stefanzweifel/git-auto-commit-action@v5
               name: Commit updated submodules
+              env:
+                GH_TOKEN: ${{ secrets.REPOSITORY_WORKFLOW_TOKEN }}
               with:
                 commit_message: "Update to latest"
 
