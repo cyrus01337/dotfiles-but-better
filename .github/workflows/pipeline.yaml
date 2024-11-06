@@ -12,8 +12,8 @@ on:
     workflow_dispatch:
 
 jobs:
-    trigger-event:
-        name: Dispatch build event
+    update:
+        name: Auto-commit updates to submodules
         runs-on: ubuntu-latest
 
         permissions:
@@ -39,6 +39,19 @@ jobs:
                 commit_author: cyrus01337
                 commit_user_name: cyrus01337
                 commit_user_email: ${{ secrets.COMMIT_USER_EMAIL }}
+
+    dispatch:
+        name: Dispatch build event
+        runs-on: ubuntu-latest
+        needs: update
+
+        steps:
+            - uses: actions/checkout@v4
+              name: Checkout repository
+              with:
+                  ref: ${{ github.head_ref }}
+                  fetch-depth: 0
+                  submodules: true
 
             - name: Parse short commit hash
               run: |
