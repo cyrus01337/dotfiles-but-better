@@ -30,13 +30,12 @@ jobs:
 
             - uses: stefanzweifel/git-auto-commit-action@v5
               name: Commit updated submodules
-              env:
-                GH_TOKEN: ${{ secrets.REPOSITORY_WORKFLOW_TOKEN }}
               with:
-                commit_message: "Update to latest"
+                commit_message: Update to latest
+                commit_user_name: cyrus01337
+                commit_user_email: ${{ secrets.COMMIT_USER_EMAIL }}
 
             - name: Parse short commit hash
-              id: commit-hash
               run: |
                 SHORT_COMMIT_HASH="$(git rev-parse --short HEAD)"
 
