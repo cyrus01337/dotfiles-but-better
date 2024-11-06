@@ -59,7 +59,7 @@ jobs:
 
                 echo "SHORT_COMMIT_HASH=$SHORT_COMMIT_HASH" >> "$GITHUB_ENV"
 
-            - name: Dispatch build event to cyrus01337/shell-devcontainer
+            - name: Dispatch build event to cyrus01337/shell-configuration
               env:
                 REPOSITORY_WORKFLOW_TOKEN: ${{ secrets.REPOSITORY_WORKFLOW_TOKEN }}
               run: |
@@ -69,7 +69,7 @@ jobs:
                         -H "Accept: application/vnd.github+json" \
                         -H "Authorization: Bearer $REPOSITORY_WORKFLOW_TOKEN" \
                         -H "X-GitHub-Api-Version: 2022-11-28" \
-                        https://api.github.com/repos/cyrus01337/shell-devcontainer/dispatches \
+                        https://api.github.com/repos/cyrus01337/shell-configuration/dispatches \
                         -d '{"event_type":"Handle build request (dotfiles-but-better@${{ env.SHORT_COMMIT_HASH }})"}' \
                         | jq ".status" \
                         | sed -E 's/"(.+)"/\1/'
@@ -78,5 +78,5 @@ jobs:
                 if [[ $status_code ]]; then
                     echo "Request status code: $status_code..."
 
-                   exit 1
+                    exit 1
                 fi
