@@ -29,14 +29,11 @@ jobs:
               run: |
                 git submodule update --init --recursive
                 git submodule update --remote --recursive
-                git add .
-                git commit -m "Update to latest"
 
-                if [[ $? == 0 ]]; then
-                    git push
-                fi
-
-                exit 0
+            - uses: stefanzweifel/git-auto-commit-action@v5
+              name: Commit updated submodules
+              with:
+                commit_message: "Update to latest"
 
             - name: Parse short commit hash
               id: commit-hash
