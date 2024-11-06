@@ -15,6 +15,10 @@ jobs:
     trigger-event:
         name: Dispatch build event
         runs-on: ubuntu-latest
+
+        permissions:
+            contents: write
+
         steps:
             - uses: actions/checkout@v4
               name: Checkout repository
@@ -30,10 +34,9 @@ jobs:
 
             - uses: stefanzweifel/git-auto-commit-action@v5
               name: Commit updated submodules
-              env:
-                GITHUB_TOKEN: ${{ secrets.REPOSITORY_WORKFLOW_TOKEN }}
               with:
                 commit_message: Update to latest
+                commit_author: cyrus01337
                 commit_user_name: cyrus01337
                 commit_user_email: ${{ secrets.COMMIT_USER_EMAIL }}
 
