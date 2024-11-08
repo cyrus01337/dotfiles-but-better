@@ -28,11 +28,11 @@ get_latest_docker_image_repo_digest_hash() {
 }
 
 if [[ -f $HOME/.gitconfig ]]; then
-    git_related_volume_binds+=("-v $HOME/.gitconfig:/home/developer/.gitconfig")
+    git_related_volume_binds+=("-v $HOME/.gitconfig:/home/developer/.gitconfig:rw")
 fi
 
 if [[ -f $HOME/.git-credentials ]]; then
-    git_related_volume_binds+=("-v $HOME/.git-credentials:/home/developer/.git-credentials")
+    git_related_volume_binds+=("-v $HOME/.git-credentials:/home/developer/.git-credentials:rw")
 fi
 
 current_docker_image_repo_digest_hash=$(get_current_docker_image_repo_digest_hash)
@@ -58,7 +58,7 @@ else
         ${git_related_volume_binds[@]} \
         -v $PWD:/workspace \
         -v /var/run/docker.sock:/var/run/docker.sock \
-        -v shared-data:/home/developer/.local/share \
+        -v local-data:/home/developer/.local/ \
         --name $CONTAINER_NAME \
         $DOCKER_IMAGE \
         1> /dev/null
