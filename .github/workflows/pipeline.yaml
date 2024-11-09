@@ -9,6 +9,7 @@ on:
             - "bin/**"
             - ".bashrc"
             - ".stow-local-ignore"
+            - ".python-version"
     workflow_dispatch:
 
 jobs:
@@ -29,8 +30,7 @@ jobs:
 
             - name: Update submodules to latest
               run: |
-                git submodule update --init --recursive
-                git submodule update --remote --recursive
+                git submodule update --remote --merge
 
             - uses: stefanzweifel/git-auto-commit-action@v5
               name: Commit updated submodules
