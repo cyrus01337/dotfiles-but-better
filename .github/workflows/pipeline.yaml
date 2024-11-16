@@ -3,13 +3,11 @@ name: Pipeline
 on:
     push:
         branches: ["main"]
-        paths:
-            - ".config/**"
-            - ".github/workflows/**"
-            - "bin/**"
-            - ".bashrc"
-            - ".stow-local-ignore"
-            - ".python-version"
+        paths-ignore:
+            - ".github/**"
+            - "external/**"
+            - ".editorconfig"
+            - "README.md"
     workflow_dispatch:
 
 jobs:
