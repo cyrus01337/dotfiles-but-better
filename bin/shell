@@ -44,8 +44,8 @@ if [[ $latest_docker_image_repo_digest_hash != $current_docker_image_repo_digest
 fi
 
 if which ssh-agent &> /dev/null; then
-    eval "$(ssh-agent)"
-    ssh-add "$HOME/.ssh/github_ed25519"
+    eval "$(ssh-agent -s)" 1> /dev/null
+    ssh-add "$HOME/.ssh/github_ed25519" &> /dev/null
 
     ssh_mount="--mount type=bind,source=$SSH_AUTH_SOCK,target=/ssh-agent --env SSH_AUTH_SOCK=/ssh-agent"
 fi
