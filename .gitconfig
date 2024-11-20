@@ -54,7 +54,12 @@
     updated = green bold
 [user]
 	email = cyrus01337@gmail.com
-	name = cyrus01337
+    name = cyrus01337
+	signingkey = /home/developer/.ssh/github_ed25519.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
 [init]
 	defaultBranch = main
 [credential]
