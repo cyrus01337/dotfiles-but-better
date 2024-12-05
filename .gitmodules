@@ -1,6 +1,6 @@
 [submodule "external/configurations"]
 	path = external/configurations
-	url = https://github.com/cyrus01337/configurations
+	url = git@github.com:cyrus01337/configurations.git
 [submodule ".config/fish"]
 	path = .config/fish
-	url = https://github.com/cyrus01337/shell-configuration.git
+	url = git@github.com:cyrus01337/shell-configuration.git
