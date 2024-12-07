@@ -38,4 +38,5 @@ dynamic_title = false
 bindings = [
     { key = "Home", mods = "Control", mode = "~AppCursor", action = "First" },
     { key = "End", mods = "Control", mode = "~AppCursor", action = "Last" },
+    { key = "Back", mods = "Control", chars = "\\x17" },
 ]
