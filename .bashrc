@@ -22,6 +22,7 @@ alias lsal="ls -al"
 alias q="exit"
 alias r="source ~/.bashrc"
 
+export GNUPGHOME="$HOME/.local/gnupg"
 export LANG="en_GB.UTF-8"
 export LC_ALL="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
