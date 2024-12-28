@@ -14,8 +14,6 @@ CONTAINER_NAME="shell"
 CONTAINER_COMMAND="fish"
 GTK_PASSTHROUGH="-v $HOME/.Xauthority:/home/developer/.Xauthority:rw"
 
-git_credentials_mount=""
-
 get_current_docker_image_repo_digest_hash() {
     echo $(
         docker inspect $DOCKER_IMAGE --format "{{json .RepoDigests}}" \
@@ -58,7 +56,6 @@ else
         -v local-data:/home/developer/.local:rw \
         -v $PWD:/workspace:rw \
         $GTK_PASSTHROUGH \
-        $git_credentials_mount \
         --network=host \
         --name $CONTAINER_NAME \
         $DOCKER_IMAGE \
