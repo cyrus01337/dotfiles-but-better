@@ -48,6 +48,8 @@ if [[ $(docker ps -aq --filter "name=$CONTAINER_NAME") ]]; then
     docker start $CONTAINER_NAME 1> /dev/null
 else
     GTK_PASSTHROUGH="-v $HOME/.Xauthority:/home/developer/.Xauthority:rw"
+    SSH_AGENT_MOUNT="-v $SSH_AUTH_SOCK:/ssh-agent --env SSH_AUTH_SOCK=/ssh-agent"
+
     docker run \
         -d \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -56,6 +58,7 @@ else
         -v local-data:/home/developer/.local:rw \
         -v $PWD:/workspace:rw \
         $GTK_PASSTHROUGH \
+        $SSH_AGENT_MOUNT \
         --network=host \
         --name $CONTAINER_NAME \
         $DOCKER_IMAGE \
