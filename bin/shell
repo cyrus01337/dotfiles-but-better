@@ -43,8 +43,7 @@ if [[ $DOCKER_IMAGE_NAME != "test" ]]; then
     fi
 
     if [[ $(docker ps -q --filter "name=$CONTAINER_NAME") ]]; then
-        docker stop $CONTAINER_NAME 1> /dev/null
-        docker rm $CONTAINER_NAME 1> /dev/null
+        docker rm -f $CONTAINER_NAME 1> /dev/null
     fi
 fi
 
