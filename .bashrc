@@ -33,7 +33,7 @@ if [[ $- == *i* ]]; then
     in_interactive_shell=true
 fi
 
-if [[ $in_interactive_shell == true ]]; then
+if [[ $in_interactive_shell == true ]] && [[ ! -f /.dockerenv ]]; then
     if ! which shell &> /dev/null; then
         eval "$(curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/bin/shell)"
     else
