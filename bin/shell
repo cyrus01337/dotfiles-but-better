@@ -51,7 +51,7 @@ else
     SSH_AGENT_MOUNT="-v $SSH_AUTH_SOCK:/ssh-agent --env SSH_AUTH_SOCK=/ssh-agent"
 
     eval "$(ssh-agent -s)"
-    ssh-add $HOME/.ssh/github_ed25519
+    ssh-add $HOME/.ssh/github_ed25519 1> /dev/null
     docker run \
         -d \
         -v /var/run/docker.sock:/var/run/docker.sock \
