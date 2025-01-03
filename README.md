@@ -16,7 +16,7 @@ of this commit.
 Kept for personal usage:
 
 ```sh
-which curl &> /dev/null \
-    && curl -L https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash \
-    || wget -qO - https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/install.sh | bash
+(which curl &> /dev/null \
+    && curl -L dotfiles.cyrus01337.co.uk \
+    || wget -qLO- dotfiles.cyrus.co.uk) | bash
 ```
