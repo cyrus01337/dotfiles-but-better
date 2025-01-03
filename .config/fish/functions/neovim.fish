@@ -2,12 +2,25 @@
 if command -q nvim
     function n --wraps nvim
         set target $argv[1]
+        set previous_directory $PWD
 
         if not [ $target ]
-            nvim $HOME/.config/nvim
+            cd $HOME/.config/nvim
+            nvim .
         else
-            nvim $target $argv[2..]
+            if test -d $target
+                cd $target
+                nvim .
+            else
+                set directory (dirname $target)
+                set filename (basename $target)
+
+                cd $directory
+                nvim $filename
+            end
         end
+
+        cd $previous_directory
     end
 else if command -q docker
     function n --wraps "zsh"
