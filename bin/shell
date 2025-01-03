@@ -32,10 +32,10 @@ if [[ $DOCKER_IMAGE_NAME != "test" ]]; then
     current_docker_image_repo_digest_hash=$(get_current_docker_image_repo_digest_hash)
     latest_docker_image_repo_digest_hash=$(get_latest_docker_image_repo_digest_hash)
 
-    echo "Current Docker image repo digest hash: $current_docker_image_repo_digest_hash"
-    echo -e " Latest Docker image repo digest hash: $latest_docker_image_repo_digest_hash\n"
-
     if [[ $latest_docker_image_repo_digest_hash != $current_docker_image_repo_digest_hash ]]; then
+        echo "Current Docker image repo digest hash: $current_docker_image_repo_digest_hash"
+        echo -e " Latest Docker image repo digest hash: $latest_docker_image_repo_digest_hash\n"
+
         docker pull $DOCKER_IMAGE
     fi
 
