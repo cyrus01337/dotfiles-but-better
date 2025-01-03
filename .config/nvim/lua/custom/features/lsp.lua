@@ -448,4 +448,14 @@ return {
         },
         config = true,
     },
+    {
+        "brenton-leighton/multiple-cursors.nvim",
+        version = "*",
+        config = true,
+        keys = {
+            { "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = { mode.NORMAL, mode.INSERT } },
+            { "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = { mode.NORMAL, mode.INSERT } },
+            { "<C-d>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = { mode.NORMAL, mode.INSERT, mode.VISUAL } },
+        },
+    },
 }
