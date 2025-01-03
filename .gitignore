@@ -1,4 +1,5 @@
-**/.Trash-*/
+.Trash-*/
 fish_plugins
 fish_variables
+.config/fish/completions/ssh-wp-engine/
 .config/tmux/plugins/*/
