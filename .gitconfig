@@ -2,7 +2,7 @@
 # --------
 # Local/Private config goes in the include
 [include]
-  	path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
 
 # URL ALIASES
 # -----------
@@ -53,17 +53,13 @@
     untracked = red
     updated = green bold
 [user]
-	email = cyrus01337@gmail.com
+    email = cyrus01337@gmail.com
     name = cyrus01337
-	signingkey = /home/developer/.ssh/github_ed25519.pub
-[gpg]
-	format = ssh
-[commit]
-	gpgsign = true
+    signingkey = /home/developer/.ssh/github_ed25519
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [credential]
-	helper = store
+    helper = store
 [core]
     pager = delta
 [interactive]
@@ -76,4 +72,12 @@
 [diff]
     colorMoved = default
 [safe]
-	directory = /home/cyrus/Projects/
+    directory = /home/cyrus/Projects/
+[receive]
+    requireSignedCommits = true
+[gpg]
+    format = ssh
+[commit]
+    gpgsign = true
+[tag]
+    gpgsign = true
