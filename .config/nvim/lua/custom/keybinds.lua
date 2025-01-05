@@ -47,6 +47,7 @@ set({ mode.NORMAL, mode.INSERT }, "<CS-z>", function()
 end)
 
 -- rebind delete/cut line
+set(mode.NORMAL, "dd", "<Nop>")
 set(mode.NORMAL, "dl", "dd")
 
 -- view project files
