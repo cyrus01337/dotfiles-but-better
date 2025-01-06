@@ -24,6 +24,8 @@ if test -d $PROJECTS_DIRECTORY
             return $INTERRUPTED_OR_FATAL_ERROR
         end
 
+        # TODO: Create a modular system allowing for special-casing certain
+        # directories, namely for granular management like below
         if test "$project" != "lamna"
             cd "$PROJECTS_DIRECTORY/$group/$project"
         end
