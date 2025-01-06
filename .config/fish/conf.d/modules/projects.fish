@@ -20,7 +20,7 @@ if test -d $PROJECTS_DIRECTORY
 
         set project (ls -r "$PROJECTS_DIRECTORY/$group" | fzf $FZF_FLAGS)
 
-        if test "$group" = "$EMPTY"
+        if test "$project" = "$EMPTY"
             return $INTERRUPTED_OR_FATAL_ERROR
         end
 
