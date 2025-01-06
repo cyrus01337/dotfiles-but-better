@@ -24,6 +24,16 @@ if test -d $PROJECTS_DIRECTORY
             return $INTERRUPTED_OR_FATAL_ERROR
         end
 
-        cd "$PROJECTS_DIRECTORY/$group/$project"
+        if test "$project" != "lamna"
+            cd "$PROJECTS_DIRECTORY/$group/$project"
+        end
+
+        set subproject (ls -r "$PROJECTS_DIRECTORY/$group/$project" | fzf $FZF_FLAGS)
+
+        if test "$subproject" = "$EMPTY"
+            return 0
+        end
+
+        cd "$PROJECTS_DIRECTORY/$group/$project/$subproject"
     end
 end
