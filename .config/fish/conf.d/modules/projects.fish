@@ -28,6 +28,8 @@ if test -d $PROJECTS_DIRECTORY
         # directories, namely for granular management like below
         if test "$project" != "lamna"
             cd "$PROJECTS_DIRECTORY/$group/$project"
+
+            return 0
         end
 
         set subproject (ls -r "$PROJECTS_DIRECTORY/$group/$project" | fzf $FZF_FLAGS)
