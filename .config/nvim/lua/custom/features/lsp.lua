@@ -70,6 +70,7 @@ return {
                     "vim",
                     "vimdoc",
                     "regex",
+                    "markdown_inline",
 
                     --- project management
                     "gitignore",
