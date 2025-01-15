@@ -7,8 +7,13 @@ return {
         name = constants.THEME.name,
         priority = 1000,
         config = function()
+            local dracula = require("dracula")
+
             local command = string.format("colorscheme %s", constants.THEME.name)
 
+            dracula.setup({
+                transparent_bg = true,
+            })
             vim.cmd(command)
         end,
     },

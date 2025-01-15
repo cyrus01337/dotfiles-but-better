@@ -2,7 +2,7 @@ return {
     EMPTY = "",
     FILE_MANAGER = "Oil",
     THEME = {
-        package = "dracula/vim",
+        package = "Mofiqul/dracula.nvim",
         name = "dracula",
     },
 }
