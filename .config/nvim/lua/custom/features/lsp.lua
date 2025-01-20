@@ -365,8 +365,6 @@ return {
                     "mdx_analyzer",
 
                     --- back-end
-                    "phpstan",
-                    "php-cs-fixer",
                     "sqlls",
 
                     -- dev-ops
