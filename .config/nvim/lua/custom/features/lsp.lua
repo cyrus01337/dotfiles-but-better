@@ -351,6 +351,7 @@ return {
             end)
 
             mason_lsp_configuration.setup({
+                automatic_installation = true,
                 ensure_installed = {
                     -- web dev
 
