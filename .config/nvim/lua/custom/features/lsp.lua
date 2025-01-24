@@ -277,6 +277,7 @@ return {
                 experimental = {
                     ghost_text = true,
                 },
+                -- TODO: Resolve type error regarding missing fields
                 formatting = {
                     format = function(entry, item)
                         lsp.cmp_format({ details = true })
