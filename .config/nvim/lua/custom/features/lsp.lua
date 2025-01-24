@@ -159,7 +159,6 @@ return {
     {
         "yaegassy/nette-neon.vim",
         event = { "BufReadPre", "BufNewFile" },
-        config = true,
     },
     {
         "folke/lazydev.nvim",
