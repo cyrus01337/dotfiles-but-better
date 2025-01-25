@@ -8,8 +8,11 @@ if command -q docker
     alias dcr="dc down && dc up"
     alias di="docker image ls"
     alias dpl="docker pull"
+    alias dprs="docker system prune"
     alias dps="docker ps"
     alias dpsa="docker ps -a"
+    alias drm="docker rm"
+    alias drmf="docker rm -f"
     alias drmi="docker rmi"
     alias dv="docker volume"
 
