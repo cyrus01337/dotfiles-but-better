@@ -184,6 +184,8 @@ return {
                     TelescopePrompt = true,
                 },
                 max_num_results = 1,
+                min_percent = 90,
+                run_on_every_keystroke = false,
                 snippet_placeholder = "...",
                 show_prediction_strength = false,
             })
@@ -292,30 +294,28 @@ return {
                     end,
                 },
                 sources = cmp.config.sources({
-                    { name = "path" },
                     {
                         name = "nvim_lsp",
                         entry_filter = function(entry)
                             return cmp.lsp.CompletionItemKind.Text ~= entry:get_kind()
                         end,
                     },
-
+                    -- { name = "path" },
                     { name = "luasnip" },
-                    {
-                        name = "lazydev",
-                    },
-                    { name = "cmp_tabnine", group_index = 0 },
+                    { name = "lazydev" },
+                    { name = "cmp_tabnine", group_index = 0, keyword_length = 3 },
                 }, {
-                    { name = "buffer" },
+                    { name = "buffer", keyword_length = 1 },
                 }),
             })
             cmp.setup.cmdline(":", {
                 mapping = mapping,
                 sources = cmp.config.sources({
-                    { name = "path" },
+                    { name = "path", keyword_length = 1 },
                 }, {
                     {
                         name = "cmdline",
+                        keyword_length = 1,
                         option = {
                             ignore_cmds = { "Man", "!" },
                         },
