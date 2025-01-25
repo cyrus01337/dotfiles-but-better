@@ -1,11 +1,9 @@
 #!/usr/bin/env fish
 set NEOVIM_CONFIGURATION_PATH "$HOME/.config/nvim/"
 
-alias fd="cd $__fish_config_dir/"
 alias lsa="ls -a"
 alias lsl="ls -l"
 alias lsal="ls -al"
-alias nd="cd $NEOVIM_CONFIGURATION_PATH"
 alias q="exit"
 alias r="clear && . $FISH_CONFIG_PATH"
 alias schmod="sudo chmod"
