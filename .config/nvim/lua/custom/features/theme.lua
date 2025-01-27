@@ -83,7 +83,6 @@ return {
         config = true,
         keys = {
             { "<leader>ft", "<CMD>TodoTelescope<CR>", mode = mode.NORMAL },
-            { "<C-t>", "<CMD>TodoTelescope<CR>", mode = { mode.NORMAL, mode.INSERT } },
         },
     },
     {
