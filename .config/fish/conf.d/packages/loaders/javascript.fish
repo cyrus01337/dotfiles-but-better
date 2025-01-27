@@ -18,6 +18,7 @@ function p_setup
         alias p "npm"
         alias pa "npm install"
         alias pad "npm install --save-dev"
+        alias pb "npm run build"
         alias pci "npm ci"
         alias pd "npm run dev"
         alias pf "npm run format"
@@ -29,6 +30,7 @@ function p_setup
         alias p "bun"
         alias pa "bun add"
         alias pad "bun add --dev"
+        alias pb "bun run build"
         alias pci "bun install --frozen-lockfile"
         alias pd "bun run dev"
         alias pf "bun run format"
@@ -44,7 +46,7 @@ function p_setup
 end
 
 function p_teardown
-    functions --erase p pa pad pci pd pf pi pin pl px
+    functions --erase p pa pad pb pci pd pf pi pin pl px
 
     return 0
 end
