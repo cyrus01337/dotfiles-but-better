@@ -111,7 +111,7 @@ if test -d $PROJECTS_DIRECTORY
     function projects
         set selected_group ""
 
-        argparse "r/root" -- $argv
+        argparse "r/root" "g/groups" -- $argv
 
         if not set -q _flag_root
             set selected_group (get_current_group)
@@ -128,6 +128,12 @@ if test -d $PROJECTS_DIRECTORY
             if test $prompt_status != 0
                 return $prompt_status
             end
+        end
+
+        if set -q _flag_groups
+            cd "$PROJECTS_DIRECTORY/$selected_group"
+
+            return 0
         end
 
         set selected_project (prompt_for_project $selected_group)
