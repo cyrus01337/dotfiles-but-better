@@ -1,4 +1,5 @@
-set -l environments (ls $__fish_config_dir/completions/ssh-wp-engine/)
+#!/usr/bin/env fish
+set -l ENVIRONMENTS_DIRECTORY (ls $__fish_config_dir/completions/environments/)
 
-complete -c ssh-wp-engine -f
-complete -c ssh-wp-engine -ra "$environments"
+complete --command ssh-wp-engine --no-files
+complete --command ssh-wp-engine --require-parameter --arguments "$ENVIRONMENTS_DIRECTORY"
