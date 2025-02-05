@@ -24,13 +24,15 @@ function ssh-wp-engine
     ssh -t "$environment@$environment.ssh.wpengine.net" "cd ~/sites/$environment; bash --login"
 end
 
-# TODO: Refine with Fish builtins
-function scp-plugin-wp-engine
-    set plugin_filepath $argv[1]
-    set plugin_name (basename $plugin_filepath)
-    set environment $argv[2]
-    set environment_filepath "$ENVIRONMENTS_DIRECTORY/$plugin_filepath"
-    set environment (cat $environment_filepath 2> /dev/null)
+function upload-plugin-wp-engine
+    set plugin_path $argv[1]
+    set plugin_name (basename $plugin_path)
+    set environment_filename $argv[2]
+    set environment_filepath "$ENVIRONMENTS_DIRECTORY/$environment_filename"
+
+    if not test -d $plugin_path
+        echo "Path given must be a directory"
+    end
 
     if test $status != 0 || not test -f "$environment_filepath"
         echo "$environment_filename is an invalid environment"
@@ -38,9 +40,11 @@ function scp-plugin-wp-engine
         return 1
     end
 
+    set environment (cat $environment_filepath 2> /dev/null)
+
     if not string length --quiet $environment
         set environment $environment_filename
     end
 
-    scp -Or $plugin "$environment@$environment.ssh.wpengine.net:~/sites/$environment/wp-content/plugins/$plugin_filepath"
+    rsync -aPRz --delete $plugin_path "$environment@$environment.ssh.wpengine.net:~/sites/$environment/wp-content/plugins/$plugin_name"
 end
