@@ -29,9 +29,13 @@ set(mode.NORMAL, "<leader>n", "<CMD>nohl<CR>", { remap = true })
 -- delete previous word
 set(mode.INSERT, "<C-BS>", "db", { remap = true })
 
--- Ctrl+Up/Down jump through paragraphs/functions
+-- ctrl+up/down jump through paragraphs/functions
 set(mode.NORMAL, "<C-Up>", "{", { remap = true })
 set(mode.NORMAL, "<C-Down>", "}", { remap = true })
+
+-- B/E to jump from Beginning/End of line respectively
+set(mode.NORMAL, "E", "$", { remap = true })
+set(mode.NORMAL, "B", "^", { remap = true })
 
 -- newline on enter in normal mode
 set(mode.NORMAL, "<CR>", "o<Esc>", { remap = true })
