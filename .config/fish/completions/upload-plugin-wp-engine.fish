@@ -11,5 +11,5 @@ complete \
 complete \
     --command upload-plugin-wp-engine \
     --require-parameter \
-    --condition "not __fish_is_first_arg; and test (__fish_number_of_cmd_args_wo_opts) = 2" \
+    --condition "__fish_is_nth_token 2" \
     --arguments "$ENVIRONMENTS_DIRECTORIES"
