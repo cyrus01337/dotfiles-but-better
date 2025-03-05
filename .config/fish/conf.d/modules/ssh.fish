@@ -52,4 +52,10 @@ if command -q ssh
         echo "Uploading $plugin_name to $environment at $destination"
         rsync -aPRz --delete --info=progress2 $plugin_path "$environment@$environment.ssh.wpengine.net:$destination"
     end
+
+    function generate-ssh-key
+        set name (string join "" $argv[1] "_ed25519")
+
+        ssh-keygen -a 10 -b 4096 -f "$HOME/.ssh/$name" -t ed25519
+    end
 end
