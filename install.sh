@@ -46,6 +46,22 @@ function install_git() {
     fi
 }
 
+function install_stow() {
+    if exists apt-get; then
+        sudo apt-get update
+        sudo apt-get install -y stow
+    elif exists dnf; then
+        sudo dnf install -y stow
+    elif exists pacman; then
+        sudo pacman -Syu
+        sudo pacman -S stow
+    else
+        echo "Unsupported OS"
+
+        exit 127
+    fi
+}
+
 if ! exists docker; then
     install_docker
 fi
@@ -54,13 +70,18 @@ if ! exists git; then
     install_git
 fi
 
+if ! exists stow; then
+    install_stow
+fi
+
 mkdir -p $(dirname $DOTFILES_DIRECTORY)
 git clone --recurse-submodules git@github.com:cyrus01337/dotfiles-but-better.git $DOTFILES_DIRECTORY
+stow -t $HOME --adopt $DOTFILES_DIRECTORY
 
-if exists curl; then
-    curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/.bashrc -o $HOME/.bashrc
-elif exists wget; then
-    wget -qO $HOME/.bashrc https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/.bashrc
-fi
+# if exists curl; then
+#     curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/.bashrc -o $HOME/.bashrc
+# elif exists wget; then
+#     wget -qO $HOME/.bashrc https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/.bashrc
+# fi
 
 source $HOME/.bashrc
