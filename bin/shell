@@ -7,7 +7,6 @@ if ! which docker &> /dev/null; then
     exit 1
 fi
 
-DOCKER_IMAGE_NAME="cyrus01337/neovim-devcontainer"
 DOCKER_IMAGE_TAG="latest"
 DOCKER_IMAGE="${DOCKER_IMAGE_NAME:-cyrus01337/neovim-devcontainer}:${DOCKER_IMAGE_TAG:-latest}"
 CONTAINER_NAME="shell"
