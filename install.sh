@@ -76,12 +76,7 @@ fi
 
 mkdir -p $(dirname $DOTFILES_DIRECTORY)
 git clone --recurse-submodules git@github.com:cyrus01337/dotfiles-but-better.git $DOTFILES_DIRECTORY
+rm $HOME/.bashrc
 stow -t $HOME -d $DOTFILES_DIRECTORY --adopt .
-
-# if exists curl; then
-#     curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/.bashrc -o $HOME/.bashrc
-# elif exists wget; then
-#     wget -qO $HOME/.bashrc https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/.bashrc
-# fi
 
 source $HOME/.bashrc
