@@ -5,7 +5,7 @@ function p_detect
         # or [ -f "yarn.lock" ]
         # or [ -f "pnpm-lock.yaml" ]
         # or [ -f "deno.lock" ]
-        or [ -f "bun.lockb" ]
+        or [ -f "bun.lockb" ]; or [ -f "bun.lock" ]
     end
         return 0
     end
@@ -27,7 +27,7 @@ function p_setup
         alias pl "npm run lint"
         alias pst "npm run start"
         alias px "npx"
-    else if [ -f "bun.lockb" ]
+    else if [ -f "bun.lockb" ]; or [ -f "bun.lock" ]
         alias p "bun"
         alias pa "bun add"
         alias pad "bun add --dev"
