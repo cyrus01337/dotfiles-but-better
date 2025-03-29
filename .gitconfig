@@ -55,7 +55,7 @@
 [user]
     email = cyrus01337@gmail.com
     name = cyrus01337
-    signingkey = /home/developer/.ssh/github_ed25519
+    signingkey = /home/cyrus/.ssh/github_ed25519
 [init]
     defaultBranch = main
 [credential]
