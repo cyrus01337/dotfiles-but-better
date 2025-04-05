@@ -1,3 +1,12 @@
+local os = require("os")
+
+local home_directory = os.getenv("XDG_CONFIG_HOME")
+local NEOVIM_CONFIGURATION_DIRECTORY = home_directory and (home_directory .. "/nvim") or vim.fn.expand("~/.config/nvim")
+
+local function get_nonglobal_rgignore_filepath(tail_path)
+    return NEOVIM_CONFIGURATION_DIRECTORY .. "/ripgrep/" .. tail_path
+end
+
 return {
     {
         "christoomey/vim-tmux-navigator",
@@ -65,7 +74,16 @@ return {
                 },
                 pickers = {
                     find_files = {
-                        find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+                        find_command = {
+                            "rg",
+                            "--files",
+                            "--hidden",
+                            "--ignore",
+                            "--ignore-file",
+                            get_nonglobal_rgignore_filepath("base.rgignore"),
+                            "--ignore-file",
+                            get_nonglobal_rgignore_filepath("web-development.rgignore"),
+                        },
                     },
                 },
             })
