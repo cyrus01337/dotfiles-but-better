@@ -239,9 +239,8 @@ return {
             "hrsh7th/cmp-cmdline",
         },
         config = function()
-            local lsp = require("lsp-zero")
-
             local cmp = require("cmp")
+            local lsp = require("lsp-zero")
             local luasnip = require("luasnip")
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
             local cmp_context = require("cmp.config.context")
@@ -310,12 +309,13 @@ return {
             })
             cmp.setup.cmdline(":", {
                 mapping = mapping,
+                matching = { disallow_symbol_nonprefix_matching = false },
                 sources = cmp.config.sources({
-                    { name = "path", keyword_length = 1 },
+                    { name = "path", keyword_length = 2 },
                 }, {
                     {
                         name = "cmdline",
-                        keyword_length = 1,
+                        keyword_length = 2,
                         option = {
                             ignore_cmds = { "Man", "!" },
                         },
