@@ -3,11 +3,11 @@ local os = require("os")
 local home_directory = os.getenv("XDG_CONFIG_HOME")
 local NEOVIM_CONFIGURATION_DIRECTORY = home_directory and (home_directory .. "/nvim") or vim.fn.expand("~/.config/nvim")
 
----@param name "web-development"
+---@param name "shell" | "web-development"
 ---
----@return string, string
-local function ignore_from_nonglobal_rgignores(name)
-    return "--ignore-file", NEOVIM_CONFIGURATION_DIRECTORY .. "/ripgrep/" .. name .. ".rgignore"
+---@return string
+local function get_nonglobal_rgignore_filepath(name)
+    return NEOVIM_CONFIGURATION_DIRECTORY .. "/ripgrep/" .. name .. ".rgignore"
 end
 
 return {
@@ -80,9 +80,13 @@ return {
                         find_command = {
                             "rg",
                             "--files",
+                            "--follow",
                             "--hidden",
                             "--ignore",
-                            ignore_from_nonglobal_rgignores("web-development"),
+                            "--ignore-file",
+                            get_nonglobal_rgignore_filepath("shell"),
+                            "--ignore-file",
+                            get_nonglobal_rgignore_filepath("web-development"),
                         },
                     },
                 },
