@@ -86,17 +86,20 @@
   environment.systemPackages = with pkgs; [
     docker
     docker-compose
-    iproute2
-    parallel
-    wget
-    gnumake
-    gcc
-    jq
-    vim
     fastfetch
+    gcc
+    gnumake
+    iproute2
+    jq
+    kdePackages.qtmultimedia
+    parallel
+    unzip
+    vim
     vscode
+    wget
   ];
   programs.nix-ld.libraries = with pkgs; [
+    fnm
     nodejs
   ];
   services.xserver.excludePackages = [
