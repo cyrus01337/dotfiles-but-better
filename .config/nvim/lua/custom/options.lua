@@ -47,3 +47,7 @@ opt.formatoptions = "c"
 opt.fileformat = "unix"
 opt.fileformats = "unix"
 opt.fixendofline = true
+
+-- limelight configuration
+vim.g.limelight_conceal_ctermfg = "gray"
+vim.g.limelight_conceal_guifg = "DarkGray"
