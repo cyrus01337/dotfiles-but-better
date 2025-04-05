@@ -111,7 +111,7 @@ set({ mode.NORMAL, mode.VISUAL }, "<C-a>", function()
     vim.cmd("normal! 0ggVG")
 end)
 
--- eval current buffer
+-- source current buffer
 set(mode.NORMAL, "<leader>x", function()
     -- "%" expands to the local filepath of the currently open buffer relative
     -- to the current working directory of neovim
