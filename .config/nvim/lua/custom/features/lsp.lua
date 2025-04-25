@@ -100,6 +100,7 @@ return {
 
                     -- general
                     "go",
+                    "nix",
 
                     -- configuration formats
                     "json",
