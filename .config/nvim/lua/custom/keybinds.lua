@@ -128,6 +128,7 @@ set(mode.NORMAL, "<leader>x", function()
     print("Sourced " .. current_filename)
 end)
 
+-- rebind leader+o to focus output view
 set(mode.NORMAL, "<leader>o", "<CMD>messages<CR>", { remap = true })
 
 -- rebind (r)edo
