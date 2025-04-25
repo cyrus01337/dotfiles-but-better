@@ -16,7 +16,6 @@
   networking.hostName = "nix";
   networking.networkmanager.enable = true;
 
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -24,6 +23,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  services.pulseaudio.enable = false;
 
   nixpkgs.config.allowUnfree = true;
   system.autoUpgrade.enable = true;
