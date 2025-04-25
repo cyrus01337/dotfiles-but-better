@@ -128,39 +128,6 @@ set(mode.NORMAL, "<leader>x", function()
     print("Sourced " .. current_filename)
 end)
 
--- -- line-shifting
--- set(mode.INSERT, "<M-Up>", function()
---     local current_window = vim.api.nvim_get_current_win()
---     local current_cursor_row, current_cursor_column = unpack(vim.api.nvim_win_get_cursor(current_window))
---     local current_buffer = vim.api.nvim_get_current_buf()
---     local current_line = vim.api.nvim_get_current_line()
---     local previous_line =
---         vim.api.nvim_buf_get_lines(current_buffer, current_cursor_row - 2, current_cursor_row - 1, false)[1]
---
---     print(previous_line)
---
---     vim.api.nvim_buf_set_lines(current_buffer, current_cursor_row - 2, current_cursor_row, false, {
---         current_line,
---         previous_line,
---     })
---     vim.api.nvim_win_set_cursor(current_window, { current_cursor_row - 1, current_cursor_column })
--- end)
---
--- set(mode.INSERT, "<M-Down>", function()
---     local current_window = vim.api.nvim_get_current_win()
---     local current_cursor_row, current_cursor_column = unpack(vim.api.nvim_win_get_cursor(current_window))
---     local current_buffer = vim.api.nvim_get_current_buf()
---     local current_line = vim.api.nvim_get_current_line()
---     local next_line = vim.api.nvim_buf_get_lines(current_buffer, current_cursor_row, current_cursor_row + 1, false)[1]
---
---     vim.api.nvim_buf_set_lines(current_buffer, current_cursor_row - 1, current_cursor_row + 1, false, {
---         next_line,
---         current_line,
---     })
---     vim.api.nvim_win_set_cursor(current_window, { current_cursor_row + 1, current_cursor_column })
--- end)
-
--- rebind leader+o to output view
 set(mode.NORMAL, "<leader>o", "<CMD>messages<CR>", { remap = true })
 
 -- rebind (r)edo
