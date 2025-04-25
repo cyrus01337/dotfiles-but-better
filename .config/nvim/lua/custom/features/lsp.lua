@@ -58,68 +58,16 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
-        build = ":TSUpdate",
         config = function()
             local treesitter_configuration = require("nvim-treesitter.configs")
 
             treesitter_configuration.setup({
-                ensure_installed = {
-                    -- meta
-
-                    --- (neo)vim
-                    "vim",
-                    "vimdoc",
-                    "regex",
-                    "markdown_inline",
-
-                    --- project management
-                    "gitignore",
-                    "gitcommit",
-                    "markdown",
-
-                    -- web dev
-
-                    --- front-end
-                    "html",
-                    "css",
-                    "javascript",
-                    "typescript",
-                    "astro",
-
-                    --- back-end
-                    "php",
-                    "sql",
-
-                    -- dev-ops
-                    "dockerfile",
-
-                    -- software/cli
-                    "bash",
-                    "python",
-                    "lua",
-
-                    -- general
-                    "go",
-                    "nix",
-
-                    -- configuration formats
-                    "json",
-                    "jsonc",
-                    "yaml",
-                    "toml",
-
-                    -- documentation
-                    "markdown",
-                },
-                sync_install = false,
-                auto_install = true,
+                auto_install = false,
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
                 },
                 indent = { enable = true },
-                modules = {},
-                ignore_install = {},
             })
         end,
     },
@@ -141,21 +89,6 @@ return {
             vim.g.lsp_zero_extend_cmp = 0
             vim.g.lsp_zero_extend_lspconfig = 0
         end,
-    },
-    {
-        "williamboman/mason.nvim",
-        build = ":MasonUpdate",
-        lazy = false,
-        config = true,
-        opts = {
-            pip = {
-                upgrade_pip = true,
-            },
-            max_concurrent_installers = 10,
-        },
-        keys = {
-            { "<leader>l", ":Mason<CR>" },
-        },
     },
     {
         "yaegassy/nette-neon.vim",
@@ -228,7 +161,6 @@ return {
     {
         "L3MON4D3/LuaSnip",
         version = "v2.*",
-        build = "make install_jsregexp",
     },
     {
         "hrsh7th/nvim-cmp",
@@ -332,13 +264,10 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            "williamboman/mason-lspconfig.nvim",
         },
         config = function()
             local lsp = require("lsp-zero")
-            local mason_lsp_configuration = require("mason-lspconfig")
             local neovim_completion_lsp = require("cmp_nvim_lsp")
-            local neovim_lsp_configuration = require("lspconfig")
 
             local capabilities = neovim_completion_lsp.default_capabilities()
 
@@ -350,60 +279,6 @@ return {
             lsp.on_attach(function(_, buffer)
                 lsp.default_keymaps({ buffer = buffer })
             end)
-
-            mason_lsp_configuration.setup({
-                automatic_installation = true,
-                ensure_installed = {
-                    -- web dev
-
-                    --- front-end
-                    "html",
-                    "cssls",
-                    "tailwindcss",
-                    "eslint",
-                    "ts_ls",
-                    "astro",
-                    "mdx_analyzer",
-
-                    --- back-end
-                    "sqlls",
-
-                    -- dev-ops
-                    "dockerls",
-                    "docker_compose_language_service",
-
-                    -- software/cli
-                    "bashls",
-                    "pyright",
-                    "sourcery",
-                    "lua_ls",
-
-                    -- general
-                    "gopls",
-
-                    -- configuration formats
-                    "jsonls",
-                    "taplo",
-                    "yamlls",
-
-                    -- documentation
-                    "markdown_oxide",
-                },
-                handlers = { setup_language_server },
-            })
-            mason_lsp_configuration.setup_handlers({
-                function(server)
-                    -- if server == "tsserver" then
-                    --     server = "ts_ls"
-                    -- end
-
-                    local configuration = neovim_lsp_configuration[server]
-
-                    configuration.setup({
-                        capabilities = capabilities,
-                    })
-                end,
-            })
         end,
     },
     {
@@ -415,16 +290,12 @@ return {
     },
     {
         "windwp/nvim-ts-autotag",
-        -- event = { "BufReadPre", "BufNewFile" },
         config = true,
     },
     {
         "stevearc/conform.nvim",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-        },
-        build = {
-            ":TSInstall lua",
         },
         opts = {
             formatters_by_ft = {
