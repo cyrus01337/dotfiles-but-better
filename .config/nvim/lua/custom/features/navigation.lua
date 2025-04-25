@@ -89,6 +89,18 @@ return {
                             get_nonglobal_rgignore_filepath("web-development"),
                         },
                     },
+                    live_grep = {
+                        find_command = {
+                            "rg",
+                            "--follow",
+                            "--hidden",
+                            "--ignore",
+                            "--ignore-file",
+                            get_nonglobal_rgignore_filepath("shell"),
+                            "--ignore-file",
+                            get_nonglobal_rgignore_filepath("web-development"),
+                        },
+                    },
                 },
             })
             telescope.load_extension("fzy_native")
