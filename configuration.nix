@@ -74,34 +74,60 @@
   documentation.nixos.enable = false;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
+    gwenview
     khelpcenter
     kinfocenter
     kmenuedit
-    gwenview
     konsole
     okular
     oxygen
     spectacle
   ];
   environment.systemPackages = with pkgs; [
+    alacritty
+    ast-grep
+    bun
+    cargo
     docker
     docker-compose
     fastfetch
+    fd
+    flatpak
+    fzf
     gcc
     gnumake
+    go
     iproute2
     jq
+    julia
     kdePackages.qtmultimedia
+    lazydocker
+    lua51Packages.lua
+    lua51Packages.luarocks
+    neovim
+    nodePackages.prettier
+    nodejs
     parallel
+    php83
+    php83Packages.composer
+    php83Packages.php-cs-fixer
+    python311
+    python311Packages.black
+    python311Packages.isort
+    ripgrep
+    stylua
+    tailscale
     unzip
     vim
     vscode
     wget
+    zulu
   ];
-  programs.nix-ld.libraries = with pkgs; [
-    fnm
-    nodejs
-  ];
+  # programs.nix-ld = {
+  #   enable = true;
+  #   libraries = with pkgs; [
+  #   ];
+  # };
   services.xserver.excludePackages = [
     pkgs.xterm
   ];
@@ -111,29 +137,14 @@
     extraGroups = [ "docker" "networkmanager" "sudo" "wheel" ];
     isNormalUser = true;
     packages = with pkgs; [
-      alacritty
       bat
-      bun
       dive
       fish
-      flatpak
-      fzf
       git
       gh
-      go
-      lazydocker
       lazygit
-      luarocks
-      neovim
-      php
-      phpPackages.composer
-      python312
-      python312Packages.pip
-      ripgrep
       stow
-      stylua
       tmux
-      vim
     ];
     shell = pkgs.fish;
   };
@@ -148,6 +159,7 @@
   programs.starship.enable = true;
   services.flatpak.enable = true;
   services.openssh.enable = true;
+  services.tailscale.enable = true;
   systemd.services.flatpak-repo = {
     path = [
       pkgs.flatpak
