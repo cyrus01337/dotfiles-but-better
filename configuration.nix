@@ -71,6 +71,10 @@
     };
   };
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.fantasque-sans-mono
+  ];
+
   documentation.nixos.enable = false;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
