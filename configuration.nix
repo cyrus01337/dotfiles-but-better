@@ -243,6 +243,7 @@ p.markdown
   services.flatpak.enable = true;
   services.openssh.enable = true;
   services.tailscale.enable = true;
+  services.xserver.videoDrivers = [ "vmware" ];
   systemd.services.flatpak-repo = {
     path = [
       pkgs.flatpak
