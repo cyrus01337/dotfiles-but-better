@@ -1,8 +1,15 @@
 { config, pkgs, ... }:
 
 {
+{ config, pkgs, lib, ... }:
+
+let
+  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/master.tar.gz;
+in {
   imports = [
     /etc/nixos/hardware-configuration.nix
+
+    (import "${home-manager}/nixos")
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -186,6 +193,9 @@ p.markdown
     pkgs.xterm
   ];
 
+  home-manager.backupFileExtension = "backup";
+  home-manager.useGlobalPkgs = true;
+
   users.users.cyrus = {
     description = "cyrus";
     extraGroups = [ "docker" "networkmanager" "sudo" "wheel" ];
@@ -193,24 +203,38 @@ p.markdown
     packages = with pkgs; [
       bat
       dive
-      fish
+      # fish
       git
       gh
       lazygit
       stow
       tmux
     ];
-    shell = pkgs.fish;
+  };
+  home-manager.users.cyrus = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      fish
+    ];
+    programs.fish.enable = true;
+
+    # This value determines the Home Manager release that your configuration is
+    # compatible with. This helps avoid breakage when a new Home Manager release
+    # introduces backwards incompatible changes.
+    #
+    # You should not change this value, even if you update Home Manager. If you do
+    # want to update the value, then make sure to first check the Home Manager
+    # release notes.
+    home.stateVersion = "24.11"; # Please read the comment before changing.
   };
 
   programs.firefox.enable = true;
-  programs.fish.enable = true;
+  # programs.fish.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
   programs.nix-ld.enable = true;
-  programs.starship.enable = true;
+  # programs.starship.enable = true;
   services.flatpak.enable = true;
   services.openssh.enable = true;
   services.tailscale.enable = true;
