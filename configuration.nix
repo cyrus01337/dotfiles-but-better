@@ -1,20 +1,18 @@
-nix = {
-  package = pkgs.nixFlakes;
-  extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-};
-
 { config, pkgs, lib, ... }:
 
 let
   home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/master.tar.gz;
 in {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    # /etc/nixos/hardware-configuration.nix
 
-    (import "${home-manager}/nixos")
+    # (import "${home-manager}/nixos")
   ];
+
+  fileSystems."/" = {
+      device = "/dev/disk/by-uuid/be9f2b2d-3fad-4181-85f8-afc922f51f3f";
+      fsType = "ext4";
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -26,6 +24,7 @@ in {
   hardware.bluetooth.powerOnBoot = true;
   networking.hostName = "nix";
   networking.networkmanager.enable = true;
+  # networking.useDHCP = lib.mkDefault true;
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -36,6 +35,12 @@ in {
   };
   services.pulseaudio.enable = false;
 
+  nix = {
+    package = pkgs.nixVersions.stable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -202,8 +207,8 @@ p.markdown
     pkgs.xterm
   ];
 
-  home-manager.backupFileExtension = "backup";
-  home-manager.useGlobalPkgs = true;
+  # home-manager.backupFileExtension = "backup";
+  # home-manager.useGlobalPkgs = true;
 
   users.users.cyrus = {
     description = "cyrus";
@@ -220,21 +225,14 @@ p.markdown
       tmux
     ];
   };
-  home-manager.users.cyrus = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      fish
-    ];
-    programs.fish.enable = true;
+  # home-manager.users.cyrus = { pkgs, ... }: {
+  #   home.packages = with pkgs; [
+  #     fish
+  #   ];
+  #   programs.fish.enable = true;
 
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    home.stateVersion = "24.11"; # Please read the comment before changing.
-  };
+  #   home.stateVersion = "24.11";
+  # };
 
   programs.firefox.enable = true;
   # programs.fish.enable = true;
