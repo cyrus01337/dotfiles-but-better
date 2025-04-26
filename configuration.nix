@@ -1,18 +1,9 @@
 { config, pkgs, lib, ... }:
 
-let
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/master.tar.gz;
-in {
+{
   imports = [
-    # /etc/nixos/hardware-configuration.nix
-
-    # (import "${home-manager}/nixos")
+    ./hardware-configuration.nix
   ];
-
-  fileSystems."/" = {
-      device = "/dev/disk/by-uuid/be9f2b2d-3fad-4181-85f8-afc922f51f3f";
-      fsType = "ext4";
-  };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -24,7 +15,6 @@ in {
   hardware.bluetooth.powerOnBoot = true;
   networking.hostName = "nix";
   networking.networkmanager.enable = true;
-  # networking.useDHCP = lib.mkDefault true;
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -207,9 +197,6 @@ p.markdown
     pkgs.xterm
   ];
 
-  # home-manager.backupFileExtension = "backup";
-  # home-manager.useGlobalPkgs = true;
-
   users.users.cyrus = {
     description = "cyrus";
     extraGroups = [ "docker" "networkmanager" "sudo" "wheel" ];
@@ -217,7 +204,7 @@ p.markdown
     packages = with pkgs; [
       bat
       dive
-      # fish
+      fish
       git
       gh
       lazygit
@@ -225,23 +212,24 @@ p.markdown
       tmux
     ];
   };
-  # home-manager.users.cyrus = { pkgs, ... }: {
-  #   home.packages = with pkgs; [
-  #     fish
-  #   ];
-  #   programs.fish.enable = true;
 
-  #   home.stateVersion = "24.11";
-  # };
+  programs.bash = {
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
 
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
+  };
   programs.firefox.enable = true;
-  # programs.fish.enable = true;
+  programs.fish.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
   programs.nix-ld.enable = true;
-  # programs.starship.enable = true;
+  programs.starship.enable = true;
   services.flatpak.enable = true;
   services.openssh.enable = true;
   services.tailscale.enable = true;
