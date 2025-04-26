@@ -1,6 +1,10 @@
-{ config, pkgs, ... }:
+nix = {
+  package = pkgs.nixFlakes;
+  extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+};
 
-{
 { config, pkgs, lib, ... }:
 
 let
