@@ -122,6 +122,7 @@
     php83
     php83Packages.composer
     php83Packages.php-cs-fixer
+    nixfmt-rfc-style
     python311
     python311Packages.black
     python311Packages.isort
