@@ -299,9 +299,17 @@ return {
             "nvim-treesitter/nvim-treesitter",
         },
         opts = {
+            formatters = {
+                nixfmt = {
+                    command = "nixfmt",
+                    inherit = true,
+                    append_args = { "--width=120", "--indent=4" },
+                },
+            },
             formatters_by_ft = {
                 javascript = { "prettierd", "prettier", stop_after_first = true },
                 lua = { "stylua" },
+                nix = { "nixfmt" },
                 php = { "php-cs-fixer" },
                 python = { "isort", "black" },
                 typescript = { "prettierd", "prettier", stop_after_first = true },
