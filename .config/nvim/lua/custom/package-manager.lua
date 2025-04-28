@@ -40,4 +40,3 @@ lazy.setup({
 })
 
 vim.keymap.set(mode.NORMAL, "<leader>p", lazy.home)
-

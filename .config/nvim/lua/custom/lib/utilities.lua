@@ -23,7 +23,9 @@ function Utilities.clamp(minimum, value, maximum)
     return value
 end
 
-function Utilities.normalise(value, maximum) return Utilities.clamp(1, value, maximum) end
+function Utilities.normalise(value, maximum)
+    return Utilities.clamp(1, value, maximum)
+end
 
 return Utilities
 
