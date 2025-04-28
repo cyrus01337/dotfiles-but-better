@@ -300,11 +300,11 @@ return {
         },
         opts = {
             formatters_by_ft = {
-                javascript = { "prettier" },
+                javascript = { "prettierd", "prettier", stop_after_first = true },
                 lua = { "stylua" },
                 php = { "php-cs-fixer" },
                 python = { "isort", "black" },
-                typescript = { "prettier" },
+                typescript = { "prettierd", "prettier", stop_after_first = true },
             },
             format_on_save = {
                 lsp_format = "fallback",
