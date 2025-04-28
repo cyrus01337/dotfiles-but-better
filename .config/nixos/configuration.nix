@@ -125,6 +125,7 @@
         lua51Packages.luarocks
         neovim
         nodePackages.prettier
+        prettierd
         nodejs
         parallel
         php83
