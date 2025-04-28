@@ -294,6 +294,7 @@ return {
     },
     {
         "stevearc/conform.nvim",
+        event = { "BufWritePre" },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
         },
