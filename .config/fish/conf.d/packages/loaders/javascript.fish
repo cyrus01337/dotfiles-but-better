@@ -25,6 +25,7 @@ function p_setup
         alias pi "npm install"
         alias pin "npm init"
         alias pl "npm run lint"
+        alias prm "npm remove"
         alias pst "npm run start"
         alias px "npx"
     else if [ -f "bun.lockb" ]; or [ -f "bun.lock" ]
@@ -38,6 +39,7 @@ function p_setup
         alias pi "bun install"
         alias pin "bun init"
         alias pl "bun run lint"
+        alias prm "bun remove"
         alias pst "bun run start"
         alias px "bunx"
     else
@@ -48,7 +50,7 @@ function p_setup
 end
 
 function p_teardown
-    functions --erase p pa pad pb pci pd pf pi pin pl pst px
+    functions --erase p pa pad pb pci pd pf pi pin pl prm pst px
 
     return 0
 end
