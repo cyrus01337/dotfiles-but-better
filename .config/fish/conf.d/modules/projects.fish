@@ -108,6 +108,32 @@ if test -d $PROJECTS_DIRECTORY
         return 0
     end
 
+    function prompt_for_course
+        set group $argv[1]
+        set project $argv[2]
+        set -l courses (ls -r "$PROJECTS_DIRECTORY/$group/$project/courses")
+
+        if test (count $courses) = 0
+            echo ""
+
+            return 1
+        else if test (count $courses) = 1
+            echo $courses[1]
+
+            return 0
+        end
+
+        set course (ls -r "$PROJECTS_DIRECTORY/$group/$project/courses" | fzf $FZF_FLAGS)
+
+        echo $course
+
+        if test "$course" = ""
+            return $INTERRUPTED_OR_FATAL_ERROR
+        end
+
+        return 0
+    end
+
     function projects
         set selected_group ""
 
@@ -151,10 +177,10 @@ if test -d $PROJECTS_DIRECTORY
         # directories, namely for granular management of special-cases e.g. below
         if test "$selected_project" = "lamna"
             set selected_subproject (prompt_for_subproject $selected_group $selected_project)
-
-            cd "$PROJECTS_DIRECTORY/$selected_group/$selected_project/$selected_subproject"
-
-            return 0
+            set selected_project "$selected_project/$selected_subproject"
+        else if test "$selected_project" = "coursework"
+            set selected_course (prompt_for_course $selected_group $selected_project)
+            set selected_project "$selected_project/courses/$selected_course"
         end
 
         cd "$PROJECTS_DIRECTORY/$selected_group/$selected_project"
