@@ -2,6 +2,7 @@ local Utilities = {}
 
 ---@param text string
 ---@param pattern string
+---
 ---@return function
 function Utilities.gfind(text, pattern)
     local iterations = 0
@@ -28,4 +29,3 @@ function Utilities.normalise(value, maximum)
 end
 
 return Utilities
-

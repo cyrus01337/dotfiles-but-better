@@ -13,7 +13,9 @@ local mode = {
 ---| "v"
 ---| "V"
 ---| "c"
+---
 ---@param ... string
+---
 ---@return Mode | Mode[]
 function mode.UNKNOWN(...)
     ---@type Mode[]
@@ -27,6 +29,7 @@ function mode.UNKNOWN(...)
 end
 
 ---@param ... Mode | Mode[]
+---
 ---@return boolean
 function mode.is(...)
     local current_mode_information = vim.api.nvim_get_mode()
