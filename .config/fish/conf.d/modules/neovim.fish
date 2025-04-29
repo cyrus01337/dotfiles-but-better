@@ -4,21 +4,22 @@ if command -q nvim
         set target $argv[1]
         set previous_directory $PWD
 
-        if not [ $target ]
-            nvim .
+        if not test $target
+            set target .
         else
             if test -d $target
+                set target .
+
                 cd $target
-                nvim .
             else
                 set directory (dirname $target)
-                set filename (basename $target)
+                set target (basename $target)
 
                 cd $directory
-                nvim $filename
             end
         end
 
+        nvim $target
         cd $previous_directory
     end
 else if command -q docker
