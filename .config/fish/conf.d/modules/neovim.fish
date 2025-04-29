@@ -5,7 +5,6 @@ if command -q nvim
         set previous_directory $PWD
 
         if not [ $target ]
-            cd $HOME/.config/nvim
             nvim .
         else
             if test -d $target
