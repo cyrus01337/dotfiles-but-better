@@ -1,26 +1,24 @@
 #!/usr/bin/env fish
 if command -q nvim
     function n --wraps nvim
+        set PREVIOUS_DIRECTORY $PWD
         set target $argv[1]
-        set previous_directory $PWD
 
-        if not test $target
-            set target .
+        if test -z "$target"
+            set target "."
+        else if test -d $target
+            cd $target
+
+            set target "."
         else
-            if test -d $target
-                set target .
+            set directory (dirname $target)
+            set target (basename $target)
 
-                cd $target
-            else
-                set directory (dirname $target)
-                set target (basename $target)
-
-                cd $directory
-            end
+            cd $directory
         end
 
         nvim $target
-        cd $previous_directory
+        cd $PREVIOUS_DIRECTORY
     end
 else if command -q docker
     function n --wraps "zsh"
