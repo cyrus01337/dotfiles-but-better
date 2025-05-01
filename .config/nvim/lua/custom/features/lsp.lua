@@ -42,16 +42,16 @@ end
 local function lsp_attach(_, buffer_number)
     local options = { buffer = buffer_number }
 
-    vim.keymap.set("n", "K", "<CMD>lua vim.lsp.buf.hover()<CR>", options)
-    vim.keymap.set("n", "gtd", "<CMD>lua vim.lsp.buf.definition()<CR>", options)
-    vim.keymap.set("n", "gtD", "<CMD>lua vim.lsp.buf.declaration()<CR>", options)
-    vim.keymap.set("n", "gti", "<CMD>lua vim.lsp.buf.implementation()<CR>", options)
-    vim.keymap.set("n", "gto", "<CMD>lua vim.lsp.buf.type_definition()<CR>", options)
-    vim.keymap.set("n", "gtr", "<CMD>lua vim.lsp.buf.references()<CR>", options)
-    vim.keymap.set("n", "gts", "<CMD>lua vim.lsp.buf.signature_help()<CR>", options)
-    vim.keymap.set("n", "<F2>", "<CMD>lua vim.lsp.buf.rename()<CR>", options)
-    vim.keymap.set({ mode.NORMAL, "x" }, "<F3>", "<CMD>lua vim.lsp.buf.format({async = true})<CR>", options)
-    vim.keymap.set("n", "<F4>", "<CMD>lua vim.lsp.buf.code_action()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "K", "<CMD>lua vim.lsp.buf.hover()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "gtd", "<CMD>lua vim.lsp.buf.definition()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "gtD", "<CMD>lua vim.lsp.buf.declaration()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "gti", "<CMD>lua vim.lsp.buf.implementation()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "gto", "<CMD>lua vim.lsp.buf.type_definition()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "gtr", "<CMD>lua vim.lsp.buf.references()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "gts", "<CMD>lua vim.lsp.buf.signature_help()<CR>", options)
+    vim.keymap.set(mode.NORMAL, "<F2>", "<CMD>lua vim.lsp.buf.rename()<CR>", options)
+    vim.keymap.set({ mode.NORMAL, mode.VISUAL }, "<F3>", "<CMD>lua vim.lsp.buf.format({async = true})<CR>", options)
+    vim.keymap.set(mode.NORMAL, "<F4>", "<CMD>lua vim.lsp.buf.code_action()<CR>", options)
 end
 
 return {
@@ -170,7 +170,7 @@ return {
         },
         init = function()
             vim.keymap.set({ mode.NORMAL, mode.INSERT }, "<C-_>", "<Plug>(comment_toggle_linewise_current)")
-            vim.keymap.set(mode.VISUAL, "<C-_>", "<Plug>(comment_toggle_linewise_visual)")
+            vim.keymap.set(mode.VISUAL_SELECT, "<C-_>", "<Plug>(comment_toggle_linewise_visual)")
         end,
     },
     {
@@ -299,52 +299,10 @@ return {
             end)
 
             mason_lsp_configuration.setup({
-                automatic_installation = true,
-                ensure_installed = {
-                    -- web dev
-
-                    --- front-end
-                    "html",
-                    "cssls",
-                    "tailwindcss",
-                    "eslint",
-                    "ts_ls",
-                    "astro",
-                    "mdx_analyzer",
-                    "prettierd",
-
-                    --- back-end
-                    "sqlls",
-
-                    -- dev-ops
-                    "dockerls",
-                    "docker_compose_language_service",
-
-                    -- software/cli
-                    "bashls",
-                    "pyright",
-                    "sourcery",
-                    "lua_ls",
-
-                    -- general
-                    "gopls",
-
-                    -- configuration formats
-                    "jsonls",
-                    "taplo",
-                    "yamlls",
-
-                    -- documentation
-                    "markdown_oxide",
-                },
                 handlers = { setup_language_server },
             })
             mason_lsp_configuration.setup_handlers({
                 function(server)
-                    -- if server == "tsserver" then
-                    --     server = "ts_ls"
-                    -- end
-
                     local configuration = neovim_lsp_configuration[server]
 
                     configuration.setup({
@@ -400,7 +358,11 @@ return {
         keys = {
             { "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = { mode.NORMAL, mode.INSERT } },
             { "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = { mode.NORMAL, mode.INSERT } },
-            { "<C-d>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = { mode.NORMAL, mode.INSERT, mode.VISUAL } },
+            {
+                "<C-d>",
+                "<Cmd>MultipleCursorsAddJumpNextMatch<CR>",
+                mode = { mode.NORMAL, mode.INSERT, mode.VISUAL_SELECT },
+            },
         },
     },
 }

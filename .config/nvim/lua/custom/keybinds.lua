@@ -71,17 +71,17 @@ set(mode.NORMAL, "<leader>0", "<CMD>BufferGoto 10<CR>")
 
 -- save buffer via keybind
 set(mode.NORMAL, "<C-s>", "<CMD>update<CR>", { remap = true })
-set({ mode.INSERT, mode.VISUAL }, "<C-s>", "<CMD>update<CR>", { remap = true })
+set({ mode.INSERT, mode.VISUAL_SELECT }, "<C-s>", "<CMD>update<CR>", { remap = true })
 
 -- close buffer
 set(mode.ALL, "<C-w>", "<CMD>bdelete<CR>")
-set({ mode.NORMAL, mode.VISUAL }, "<leader>w", "<CMD>bdelete<CR>")
+set({ mode.NORMAL, mode.VISUAL_SELECT }, "<leader>w", "<CMD>bdelete<CR>")
 set(mode.ALL, "<CS-w>", "<CMD>bdelete!<CR>")
-set({ mode.NORMAL, mode.VISUAL }, "<leader><S-w>", "<CMD>bdelete!<CR>")
+set({ mode.NORMAL, mode.VISUAL_SELECT }, "<leader><S-w>", "<CMD>bdelete!<CR>")
 
 -- easy case conversion
-set(mode.VISUAL, "l", "gu", { remap = true })
-set(mode.VISUAL, "u", "gU", { remap = true })
+set(mode.VISUAL_SELECT, "l", "gu", { remap = true })
+set(mode.VISUAL_SELECT, "u", "gU", { remap = true })
 
 -- window-splitting/pane creation
 set(mode.NORMAL, "<leader>h", string.format("<CMD>split +%s<CR>", constants.FILE_MANAGER))
@@ -103,7 +103,7 @@ set(mode.NORMAL, "yP", function()
 end)
 
 -- select all
-set({ mode.NORMAL, mode.VISUAL }, "<C-a>", function()
+set({ mode.NORMAL, mode.VISUAL_SELECT }, "<C-a>", function()
     -- vim motion to go to the start of a file, enter visual mode, then go to
     -- the end of the file
     --
@@ -138,8 +138,8 @@ set(mode.NORMAL, "r", "<C-r>", { remap = true })
 -- rebind mass indent/dedent
 set(mode.NORMAL, "<Tab>", ">>", { remap = true })
 set(mode.NORMAL, "<S-Tab>", "<<", { remap = true })
-set(mode.VISUAL, "<Tab>", ">gv", { remap = true })
-set(mode.VISUAL, "<S-Tab>", "<gv", { remap = true })
+set(mode.VISUAL_SELECT, "<Tab>", ">gv", { remap = true })
+set(mode.VISUAL_SELECT, "<S-Tab>", "<gv", { remap = true })
 
 -- quit
 set(mode.NORMAL, "<leader>q", "<CMD>q<CR>")

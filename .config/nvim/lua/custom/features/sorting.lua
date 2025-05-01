@@ -6,7 +6,7 @@ return {
         "Sort",
     },
     keys = {
-        { "s", "<CMD>Sort<CR>", mode = mode.VISUAL },
+        { "s", "<CMD>Sort<CR>", mode = mode.VISUAL_SELECT },
     },
     config = true,
 }

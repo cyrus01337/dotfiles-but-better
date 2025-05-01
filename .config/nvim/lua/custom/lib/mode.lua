@@ -1,18 +1,23 @@
+---@enum Mode
 local mode = {
-    NORMAL = "n",
-    INSERT = "i",
-    VISUAL = "v",
-    VISUAL_LINE = "V",
     COMMAND_LINE = "c",
+    INSERT = "i",
+    NORMAL = "n",
+    SELECT = "s",
+    VISUAL = "x",
+    VISUAL_LINE = "V",
+    VISUAL_SELECT = "v",
     ALL = { "n", "i", "v" },
 }
 
 ---@alias Mode
----| "n"
+---| "c"
 ---| "i"
+---| "n"
+---| "s"
+---| "x"
 ---| "v"
 ---| "V"
----| "c"
 ---
 ---@param ... string
 ---
