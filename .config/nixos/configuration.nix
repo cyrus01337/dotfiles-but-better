@@ -44,6 +44,7 @@
     system.autoUpgrade.allowReboot = true;
     system.stateVersion = "24.05";
 
+    console.keyMap = "uk";
     i18n.defaultLocale = "en_GB.UTF-8";
     i18n.extraLocaleSettings = {
         LC_ADDRESS = "en_GB.UTF-8";
@@ -56,9 +57,12 @@
         LC_TELEPHONE = "en_GB.UTF-8";
         LC_TIME = "en_GB.UTF-8";
     };
+    services.xserver.xkb = {
+        layout = "gb";
+        variant = "";
+    };
     time.timeZone = "Europe/London";
 
-    console.keyMap = "uk";
     services = {
         displayManager = {
             autoLogin = {
@@ -78,16 +82,8 @@
         xserver = {
             desktopManager.xterm.enable = false;
             enable = true;
-            xkb = {
-                layout = "gb";
-                variant = "";
-            };
         };
     };
-
-    fonts.packages = with pkgs; [
-        nerd-fonts.fantasque-sans-mono
-    ];
 
     documentation.nixos.enable = false;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -193,11 +189,9 @@
             p.markdown
         ]))
     ];
-    # programs.nix-ld = {
-    #   enable = true;
-    #   libraries = with pkgs; [
-    #   ];
-    # };
+    fonts.packages = with pkgs; [
+        nerd-fonts.fantasque-sans-mono
+    ];
     services.xserver.excludePackages = [
         pkgs.xterm
     ];
@@ -226,9 +220,9 @@
     programs.bash = {
         interactiveShellInit = ''
             if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
-              shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+                shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
 
-              exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+                exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
             fi
         '';
     };
