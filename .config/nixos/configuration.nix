@@ -30,6 +30,12 @@
     };
     services.pulseaudio.enable = false;
 
+    environment.sessionVariables = rec {
+        XDG_CACHE_HOME = "$HOME/.cache";
+        XDG_CONFIG_HOME = "$HOME/.config";
+        XDG_DATA_HOME = "$HOME/.local/share";
+        XDG_STATE_HOME = "$HOME/.local/state";
+    };
     nix.gc = {
         automatic = true;
         dates = "weekly";
@@ -104,6 +110,7 @@
         cargo
         docker
         docker-compose
+        eslint
         fastfetch
         fd
         flatpak
@@ -134,9 +141,11 @@
         ripgrep
         stylua
         tailscale
+        typescript-language-server
         unzip
         vim
         vscode
+        vscode-langservers-extracted
         wget
         zulu
 
@@ -160,6 +169,7 @@
             p.html
             p.css
             p.javascript
+            p.vim-jsx-typescript
             p.typescript
             p.astro
 
@@ -196,6 +206,14 @@
         pkgs.xterm
     ];
 
+    security.sudo.extraRules = [{
+        users = [ "user" ];
+        runAs = "ALL:ALL";
+        commands = [{
+            command = "ALL";
+            options = [ "NOPASSWD" ];
+        }];
+    }];
     users.users.cyrus = {
         description = "cyrus";
         extraGroups = [
