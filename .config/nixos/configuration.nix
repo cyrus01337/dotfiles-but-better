@@ -41,10 +41,15 @@
         dates = "weekly";
         options = "--delete-older-than 7d";
     };
-    nix.settings.experimental-features = [
-        "nix-command"
-        "flakes"
-    ];
+    nix.settings = {
+        auto-optimise-store = true;
+        experimental-features = [
+            "nix-command"
+            "flakes"
+        ];
+        use-xdg-base-directories = true;
+        warn-dirty = false;
+    };
     nixpkgs.config.allowUnfree = true;
     system.autoUpgrade.enable = true;
     system.autoUpgrade.allowReboot = true;
