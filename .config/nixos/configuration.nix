@@ -211,14 +211,7 @@
         pkgs.xterm
     ];
 
-    security.sudo.extraRules = [{
-        users = [ "user" ];
-        runAs = "ALL:ALL";
-        commands = [{
-            command = "ALL";
-            options = [ "NOPASSWD" ];
-        }];
-    }];
+    security.sudo.wheelNeedsPassword = false;
     users.users.cyrus = {
         description = "cyrus";
         extraGroups = [
