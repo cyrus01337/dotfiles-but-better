@@ -5,7 +5,6 @@
     ...
 }:
 
-        url = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
 {
     imports = [
         ./hardware-configuration.nix
