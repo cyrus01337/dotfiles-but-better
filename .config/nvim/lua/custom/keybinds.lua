@@ -72,6 +72,8 @@ set(mode.NORMAL, "<leader>0", "<CMD>BufferGoto 10<CR>")
 -- save buffer via keybind
 set(mode.NORMAL, "<C-s>", "<CMD>w<CR>", { remap = true })
 set({ mode.INSERT, mode.VISUAL_SELECT }, "<C-s>", "<CMD>w<CR>", { remap = true })
+set(mode.NORMAL, "<CS-s>", "<CMD>wa<CR>", { remap = true })
+set({ mode.INSERT, mode.VISUAL_SELECT }, "<CS-s>", "<CMD>wa<CR>", { remap = true })
 
 -- close buffer
 set(mode.ALL, "<C-w>", "<CMD>bdelete<CR>")
