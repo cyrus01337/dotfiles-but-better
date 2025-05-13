@@ -7,7 +7,7 @@ if test -d /etc/nixos
             set NIXOS_CONFIGURATION_DIRECTORY $HOME/.config/nixos
         end
 
-        set FLAKE_URL "$NIXOS_CONFIGURATION_DIRECTORY#nix"
+        set FLAKE_URL "$NIXOS_CONFIGURATION_DIRECTORY#nixos"
 
         sudo nixos-rebuild --flake $FLAKE_URL switch
     end

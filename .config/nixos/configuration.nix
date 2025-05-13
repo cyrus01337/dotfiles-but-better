@@ -16,7 +16,7 @@
 
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
-    networking.hostName = "nix";
+    networking.hostName = "nixos";
     networking.networkmanager.enable = true;
 
     security.rtkit.enable = true;
