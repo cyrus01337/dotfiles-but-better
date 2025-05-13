@@ -29,6 +29,7 @@ export LANGUAGE="en_GB:en"
 export PATH="$PATH:/home/cyrus/.spicetify"
 
 AUTOSTART_SHELL=${AUTOSTART_SHELL:-true}
+HOME_MANAGER_SCRIPT="$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 in_interactive_shell=false
 
 function _can_autostart_shell() {
@@ -37,6 +38,10 @@ function _can_autostart_shell() {
 
 if [[ $- == *i* ]]; then
     in_interactive_shell=true
+fi
+
+if [[ -d $HOME_MANAGER_SCRIPT ]]; then
+    source $HOME_MANAGER_SCRIPT
 fi
 
 if _can_autostart_shell && [[ $in_interactive_shell == true ]] && [[ ! -f /.dockerenv ]]; then
