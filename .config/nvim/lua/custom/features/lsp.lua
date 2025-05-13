@@ -91,21 +91,6 @@ return {
         end,
     },
     {
-        "williamboman/mason.nvim",
-        build = ":MasonUpdate",
-        lazy = false,
-        config = true,
-        opts = {
-            pip = {
-                upgrade_pip = true,
-            },
-            max_concurrent_installers = 10,
-        },
-        keys = {
-            { "<leader>l", ":Mason<CR>" },
-        },
-    },
-    {
         "yaegassy/nette-neon.vim",
         event = { "BufReadPre", "BufNewFile" },
     },
@@ -244,10 +229,9 @@ return {
                     {
                         name = "nvim_lsp",
                         entry_filter = function(entry)
-                            return cmp.lsp.CompletionItemKind.Text ~= entry:get_kind()
+                            return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Text
                         end,
                     },
-                    -- { name = "path" },
                     { name = "luasnip" },
                     { name = "lazydev" },
                     { name = "cmp_tabnine", group_index = 0, keyword_length = 3 },
@@ -279,11 +263,9 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            "williamboman/mason-lspconfig.nvim",
         },
         config = function()
             local lsp = require("lsp-zero")
-            local mason_lsp_configuration = require("mason-lspconfig")
             local neovim_completion_lsp = require("cmp_nvim_lsp")
             local neovim_lsp_configuration = require("lspconfig")
 
@@ -297,19 +279,6 @@ return {
             lsp.on_attach(function(_, buffer)
                 lsp.default_keymaps({ buffer = buffer })
             end)
-
-            mason_lsp_configuration.setup({
-                handlers = { setup_language_server },
-            })
-            mason_lsp_configuration.setup_handlers({
-                function(server)
-                    local configuration = neovim_lsp_configuration[server]
-
-                    configuration.setup({
-                        capabilities = capabilities,
-                    })
-                end,
-            })
         end,
     },
     {
