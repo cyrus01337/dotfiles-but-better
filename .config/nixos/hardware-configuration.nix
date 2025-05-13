@@ -26,7 +26,9 @@
     boot.extraModulePackages = [ ];
 
     fileSystems."/" = {
-        device = "/dev/disk/by-uuid/be9f2b2d-3fad-4181-85f8-afc922f51f3f";
+        # This will fail if the partition changes but the fix is marginally
+        # easier than grabbing UUIDs - human readable date FTW
+        device = "/dev/sda1";
         fsType = "ext4";
     };
 
