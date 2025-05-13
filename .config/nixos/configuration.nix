@@ -8,11 +8,17 @@
         ./hardware-configuration.nix
     ];
 
-    boot.kernelPackages = pkgs.linuxPackages_zen;
+    boot = {
+        kernelPackages = pkgs.linuxPackages_zen;
 
-    boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/sda";
-    boot.loader.grub.useOSProber = true;
+        loader.grub = {
+            enable = true;
+
+            device = "/dev/sda";
+
+            useOSProber = true;
+        };
+    };
 
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
@@ -49,6 +55,7 @@
         warn-dirty = false;
     };
     nixpkgs.config.allowUnfree = true;
+    # TODO: https://nixos.org/manual/nixos/unstable/#sec-upgrading-automatic
     system.autoUpgrade.enable = true;
     system.autoUpgrade.allowReboot = true;
     system.stateVersion = "24.05";
