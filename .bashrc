@@ -32,14 +32,14 @@ AUTOSTART_SHELL=${AUTOSTART_SHELL:-true}
 in_interactive_shell=false
 
 function _can_autostart_shell() {
-    [[ $AUTOSTART_SHELL = true ]] || [[ $AUTOSTART_SHELL = 1 ]]
+    [[ $AUTOSTART_SHELL = true || $AUTOSTART_SHELL = 1 ]]
 }
 
 if [[ $- == *i* ]]; then
     in_interactive_shell=true
 fi
 
-if _can_autostart_shell && [[ $in_interactive_shell == true ]] && [[ ! -f /.dockerenv ]]; then
+if _can_autostart_shell && [[ $in_interactive_shell == true && ! -f /.dockerenv ]]; then
     if ! which shell &> /dev/null; then
         eval "$(curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/bin/shell)"
     else
