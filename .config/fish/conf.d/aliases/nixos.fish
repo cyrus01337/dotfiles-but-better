@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if test (cat /etc/os-release | grep "NixOS")
+if test -d /etc/nixos
     function nixos-rebuild-extended --wraps "nixos-rebuild"
         set NIXOS_CONFIGURATION_DIRECTORY $HOME/Projects/personal/dotfiles-but-better/.config/nixos
 
