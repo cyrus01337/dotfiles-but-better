@@ -90,10 +90,8 @@
             enable = true;
             enableQt5Integration = true;
         };
-        xserver = {
-            desktopManager.xterm.enable = false;
-            enable = true;
-        };
+        xserver.desktopManager.xterm.enable = false;
+        xserver.enable = true;
     };
 
     documentation.nixos.enable = false;
