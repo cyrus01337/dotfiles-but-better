@@ -143,6 +143,9 @@ set(mode.NORMAL, "<S-Tab>", "<<", { remap = true })
 set(mode.VISUAL_SELECT, "<Tab>", ">gv", { remap = true })
 set(mode.VISUAL_SELECT, "<S-Tab>", "<gv", { remap = true })
 
+-- sort selection
+set({ mode.VISUAL_SELECT }, "<leader>s", "<CMD>'<,'>Sort<CR>", { remap = true })
+
 -- quit
 set(mode.NORMAL, "<leader>q", "<CMD>q<CR>")
 set(mode.NORMAL, "<C-q>", "<CMD>qa<CR>")
