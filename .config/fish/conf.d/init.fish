@@ -1,24 +1,16 @@
 #!/usr/bin/env fish
-if [ $PRE_INITIALISED_FUNCTIONS ]
-    for function_ in (find $__fish_config_dir/functions/ -type f -not \( -path '*/__*' \))
-        . $function_
-    end
+for function_ in (find $__fish_config_dir/functions/ -type f -not \( -path '*/__*' \))
+    . $function_
 end
 
-set PRE_INITIALISED_FUNCTIONS true
+for script in $__fish_config_dir/conf.d/before/*.fish
+    source $script
 
-if not [ $RAN_BEFORE_SCRIPTS ]
-    for script in $__fish_config_dir/conf.d/before/*.fish
-        source $script
+    set cached_status $status
 
-        set cached_status $status
-
-        if [ $cached_status != 0 ]
-            echo "Before script $script failed with exit code $cached_status"
-        end
+    if [ $cached_status != 0 ]
+        echo "Before script $script failed with exit code $cached_status"
     end
-
-    set RAN_BEFORE_SCRIPTS true
 end
 
 for module in $__fish_config_dir/conf.d/modules/*.fish
