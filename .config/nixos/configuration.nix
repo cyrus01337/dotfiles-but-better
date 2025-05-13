@@ -111,6 +111,7 @@
     ];
     environment.systemPackages = with pkgs; [
         alacritty
+        alejandra
         ast-grep
         bun
         cargo
