@@ -19,5 +19,6 @@
     programs = {
         fzf.enable = true;
         home-manager.enable = true;
+        man.enable = true;
     };
 }
