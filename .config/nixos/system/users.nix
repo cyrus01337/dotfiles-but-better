@@ -21,10 +21,7 @@
         packages = with pkgs; [
             bat
             dive
-            fish
-            gh
             git
-            lazygit
             stow
             tmux
         ];

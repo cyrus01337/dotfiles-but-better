@@ -1,21 +1,18 @@
 {pkgs, ...}: {
     imports = [
-        ./editor.nix
+        ./editors.nix
     ];
 
     home = {
         packages = with pkgs; [
-            bun
             docker
             docker-compose
+            gh
             iproute2
             jq
             lazydocker
-            nodejs
+            lazygit
             parallel
-            php83
-            python311
-            vscode
         ];
     };
 
