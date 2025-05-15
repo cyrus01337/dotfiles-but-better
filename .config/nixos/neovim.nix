@@ -27,55 +27,55 @@
         vscode-langservers-extracted
         zulu
 
-        # TODO: Simplify?
-        (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
-            # meta
+        (vimPlugins.nvim-treesitter.withPlugins (p:
+            with p; [
+                # meta
 
-            ## (neo)vim
-            p.vim
-            p.vimdoc
-            p.regex
-            p.markdown_inline
+                ## (neo)vim
+                vim
+                vimdoc
+                regex
+                markdown_inline
 
-            ## project management
-            p.gitignore
-            p.gitcommit
-            p.markdown
+                ## project management
+                gitignore
+                gitcommit
+                markdown
 
-            # web dev
+                # web dev
 
-            ## front-end
-            p.html
-            p.css
-            p.javascript
-            p.vim-jsx-typescript
-            p.typescript
-            p.astro
+                ## front-end
+                html
+                css
+                javascript
+                vim-jsx-typescript
+                typescript
+                astro
 
-            ## back-end
-            p.php
-            p.sql
+                ## back-end
+                php
+                sql
 
-            # dev-ops
-            p.dockerfile
+                # dev-ops
+                dockerfile
 
-            # software/cli
-            p.bash
-            p.python
-            p.lua
+                # software/cli
+                bash
+                python
+                lua
 
-            # general
-            p.go
-            p.nix
+                # general
+                go
+                nix
 
-            # configuration formats
-            p.json
-            p.jsonc
-            p.yaml
-            p.toml
+                # configuration formats
+                json
+                jsonc
+                yaml
+                toml
 
-            # documentation
-            p.markdown
-        ]))
+                # documentation
+                markdown
+            ]))
     ];
 }
