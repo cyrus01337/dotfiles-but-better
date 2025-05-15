@@ -3,14 +3,14 @@
     pkgs,
     ...
 }: let
-    dotfiles = ./../..;
+    dotfiles = ./../../..;
     dotfiles-xdg = dotfiles + "/.config";
 in
     with lib; {
         programs = {
             bash = {
                 enable = true;
-                initExtra = builtins.readFile ./../../.bashrc;
+                initExtra = builtins.readFile ./../../../.bashrc;
             };
             fish = {
                 enable = true;
@@ -22,8 +22,8 @@ in
 
         home = {
             file = {
-                ".inputrc".text = builtins.readFile ./../../.inputrc;
-                ".profile".text = builtins.readFile ./../../.profile;
+                ".inputrc".text = builtins.readFile ./../../../.inputrc;
+                ".profile".text = builtins.readFile ./../../../.profile;
             };
         };
         xdg.configFile = {

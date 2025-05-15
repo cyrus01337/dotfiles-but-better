@@ -13,8 +13,8 @@
             parallel
         ];
 
-        file.".gitconfig".source = ./../../.gitconfig;
-        file.".ssh/config".source = ./../../.ssh/config;
+        file.".gitconfig".source = ./../../../.gitconfig;
+        file.".ssh/config".source = ./../../../.ssh/config;
     };
     programs = {
         gh.enable = true;
@@ -32,7 +32,7 @@
         enableSshSupport = true;
     };
     xdg.configFile = {
-        "lazygit".source = ./../lazygit;
-        "tmux".source = ./../tmux;
+        "lazygit".source = ./../../lazygit;
+        "tmux".source = ./../../tmux;
     };
 }

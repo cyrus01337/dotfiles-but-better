@@ -80,5 +80,5 @@ with pkgs; {
         withNodeJs = true;
         withPython3 = true;
     };
-    xdg.configFile."nvim".source = let dotfiles = ./..; in dotfiles + "/nvim";
+    xdg.configFile."nvim".source = let dotfiles = ./../..; in dotfiles + "/nvim";
 }
