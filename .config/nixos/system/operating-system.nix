@@ -17,12 +17,11 @@
     };
     # TODO: https://nixos.org/manual/nixos/unstable/#sec-upgrading-automatic
     system = {
-        stateVersion = "24.05";
-
         autoUpgrade = {
             allowReboot = true;
             enable = true;
         };
+        stateVersion = "24.05";
     };
 
     environment.sessionVariables = rec {
