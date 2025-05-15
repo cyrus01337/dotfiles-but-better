@@ -27,27 +27,33 @@ export LANG="en_GB.UTF-8"
 export LC_ALL="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
 
-AUTOSTART_SHELL=${AUTOSTART_SHELL:-true}
-in_interactive_shell=false
+if [[ -d /etc/nixos && $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
+    shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
 
-function _can_autostart_shell() {
-    [[ $AUTOSTART_SHELL = true || $AUTOSTART_SHELL = 1 ]]
-}
+    exec fish $LOGIN_OPTION
+else
+    AUTOSTART_SHELL=${AUTOSTART_SHELL:-true}
+    in_interactive_shell=false
 
-if [[ $- == *i* ]]; then
-    in_interactive_shell=true
-fi
+    function _can_autostart_shell() {
+        [[ $AUTOSTART_SHELL = true || $AUTOSTART_SHELL = 1 ]]
+    }
 
-if _can_autostart_shell && [[ $in_interactive_shell == true && ! -f /.dockerenv ]]; then
-    if ! which shell &> /dev/null; then
-        eval "$(curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/bin/shell)"
-    else
-        shell
+    if [[ $- == *i* ]]; then
+        in_interactive_shell=true
     fi
 
-    cached_status=$?
+    if _can_autostart_shell && [[ $in_interactive_shell == true && ! -f /.dockerenv ]]; then
+        if ! which shell &> /dev/null; then
+            eval "$(curl -fsSL https://github.com/cyrus01337/dotfiles-but-better/raw/refs/heads/main/bin/shell)"
+        else
+            shell
+        fi
 
-    if [[ $cached_status != 0 ]]; then
-        echo "Shell exited with status code $cached_status"
+        cached_status=$?
+
+        if [[ $cached_status != 0 ]]; then
+            echo "Shell exited with status code $cached_status"
+        fi
     fi
 fi
