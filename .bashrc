@@ -18,7 +18,7 @@ fi
 
 unset rc
 
-alias lsal="ls -al"
+alias l="ls -al"
 alias q="exit"
 alias r="source ~/.bashrc"
 
