@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-set -x EDITOR "vi"
+set -x EDITOR "nvim"
 set -x GOPATH "$HOME/.local/go"
 set -x GNUPGHOME "$HOME/.local/gnupg"
 set -x INPUTRC "$HOME/.inputrc"
