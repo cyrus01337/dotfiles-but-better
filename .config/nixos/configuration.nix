@@ -31,8 +31,6 @@
             fi
         '';
         firefox.enable = true;
-        fish.enable = true;
-        starship.enable = true;
     };
     services = {
         openssh.enable = true;

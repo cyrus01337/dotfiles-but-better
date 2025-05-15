@@ -1,9 +1,7 @@
-{
-    pkgs,
-    ...
-}: {
+{pkgs, ...}: {
     imports = [
         ./developer-environment.nix
+        ./shell.nix
     ];
 
     home = {
