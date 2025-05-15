@@ -8,9 +8,6 @@
         homeDirectory = "/home/cyrus";
         packages = with pkgs; [
             dive
-            fd
-            fzf
-            ripgrep
             stow
         ];
         preferXdgDirectories = true;
@@ -24,8 +21,10 @@
         };
 
         bat.enable = true;
+        fd.enable = true;
         firefox.enable = true;
         home-manager.enable = true;
         man.enable = true;
+        ripgrep.enable = true;
     };
 }

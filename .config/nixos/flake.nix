@@ -7,6 +7,13 @@
 
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        plasma-manager = {
+            inputs = {
+                home-manager.follows = "home-manager";
+                nixpkgs.follows = "nixpkgs";
+            };
+            url = "github:nix-community/plasma-manager";
+        };
 
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     };
@@ -14,6 +21,7 @@
     outputs = {
         home-manager,
         nixpkgs,
+        plasma-manager,
         ...
     } @ inputs: {
         nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -22,6 +30,7 @@
                 home-manager.nixosModules.home-manager
                 {
                     home-manager = {
+                        sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
                         useGlobalPkgs = true;
 
                         users.cyrus = ./home.nix;
