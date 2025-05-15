@@ -17,6 +17,7 @@
     };
 
     programs = {
+        firefox.enable = true;
         fzf.enable = true;
         home-manager.enable = true;
         man.enable = true;
