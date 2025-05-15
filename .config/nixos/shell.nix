@@ -15,9 +15,6 @@ in
             fish = {
                 enable = true;
                 generateCompletions = true;
-                # plugins = with pkgs.fishPlugins; [
-                #     fzf
-                # ];
             };
 
             starship.enable = true;
@@ -30,6 +27,8 @@ in
             };
         };
         xdg.configFile = {
+            # TODO: Migrate Fish configuration to Nix because this doesn't work
+            # as expected
             "fish".source = dotfiles-xdg + "/fish";
             "starship".source = dotfiles-xdg + "/starship";
         };
