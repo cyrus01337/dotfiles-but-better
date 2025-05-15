@@ -4,7 +4,6 @@
     ...
 }: {
     imports = [
-        ./developer-environment.nix
         ./system/audio.nix
         ./system/bootloader.nix
         ./system/desktop-environment.nix
