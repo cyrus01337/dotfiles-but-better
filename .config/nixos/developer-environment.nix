@@ -1,6 +1,6 @@
 {pkgs, ...}: {
     imports = [
-        ./neovim.nix
+        ./editor.nix
     ];
 
     home = {
