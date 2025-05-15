@@ -16,4 +16,10 @@
         python311
         vscode
     ];
+
+    services.gpg-agent = {
+        defaultCacheTtl = 1800;
+        enable = true;
+        enableSshSupport = true;
+    };
 }

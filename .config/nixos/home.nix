@@ -6,9 +6,4 @@
     };
 
     programs.home-manager.enable = true;
-    services.gpg-agent = {
-        defaultCacheTtl = 1800;
-        enable = true;
-        enableSshSupport = true;
-    };
 }
