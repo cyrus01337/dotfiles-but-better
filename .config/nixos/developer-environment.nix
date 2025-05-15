@@ -14,6 +14,10 @@
             lazygit
             parallel
         ];
+        file.".gitconfig".source = ./../../.gitconfig;
+    };
+    programs = {
+        git.enable = true;
     };
 
     services.gpg-agent = {
