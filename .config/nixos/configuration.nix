@@ -40,7 +40,6 @@
         starship.enable = true;
     };
     services = {
-        flatpak.enable = true;
         openssh.enable = true;
         tailscale.enable = true;
     };
