@@ -18,6 +18,7 @@
     };
     programs = {
         git.enable = true;
+        ssh.enable = true;
     };
 
     services.gpg-agent = {
