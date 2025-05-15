@@ -16,5 +16,8 @@
         username = "cyrus";
     };
 
-    programs.home-manager.enable = true;
+    programs = {
+        fzf.enable = true;
+        home-manager.enable = true;
+    };
 }
