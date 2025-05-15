@@ -17,7 +17,6 @@
         stateVersion = "24.05";
         username = "cyrus";
     };
-
     programs = {
         fzf = {
             enable = true;

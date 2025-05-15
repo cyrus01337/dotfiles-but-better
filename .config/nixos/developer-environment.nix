@@ -9,6 +9,7 @@
             docker-compose
             iproute2
             jq
+            nerd-fonts.fantasque-sans-mono
             parallel
         ];
 
@@ -24,6 +25,7 @@
         tmux.enable = true;
     };
 
+    fonts.fontconfig.enable = true;
     services.gpg-agent = {
         defaultCacheTtl = 1800;
         enable = true;
