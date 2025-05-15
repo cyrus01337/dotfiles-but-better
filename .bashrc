@@ -26,7 +26,6 @@ export GNUPGHOME="$HOME/.local/gnupg"
 export LANG="en_GB.UTF-8"
 export LC_ALL="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
-export PATH="$PATH:/home/cyrus/.spicetify"
 
 AUTOSTART_SHELL=${AUTOSTART_SHELL:-true}
 in_interactive_shell=false

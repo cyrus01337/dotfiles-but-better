@@ -16,5 +16,5 @@ set -x XDG_DATA_HOME "$HOME/.local/share"
 
 set fish_greeting
 
-fish_add_path "$HOME/bin" "$HOME/bin/custom" "/usr/local/go/bin" "/snap/bin" "$HOME/.local/bin" "/opt"
+fish_add_path "$HOME/bin" "$HOME/bin/custom" "/usr/local/go/bin" "/snap/bin" "$HOME/.local/bin" "/opt" "$HOME/.spicetify"
 fish_config theme choose "Dracula Official"
