@@ -3,7 +3,7 @@
 
     inputs = {
         home-manager = {
-            url = "github:nix-community/home-manager";
+            url = "github:nix-community/home-manager/master";
 
             inputs.nixpkgs.follows = "nixpkgs";
         };
@@ -18,11 +18,11 @@
     } @ inputs: {
         nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
             modules = [
+                # TODO: Convert into flake and simplify import
                 home-manager.nixosModules.home-manager
                 {
                     home-manager = {
                         useGlobalPkgs = true;
-                        useUserPackages = true;
 
                         users.cyrus = ./home.nix;
                     };
