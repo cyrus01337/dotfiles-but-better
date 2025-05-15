@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-    # Allow passwordless prompts due to my user being in the wheel group
+    # Allows passwordless prompts due to my user being in the wheel group
     #
     # Word of warning - never do this on any system ever. I work exclusively in
     # VMs at the time of writing this, so long as it has a connection to the
