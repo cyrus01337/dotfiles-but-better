@@ -11,7 +11,9 @@
             jq
             parallel
         ];
+
         file.".gitconfig".source = ./../../.gitconfig;
+        file.".ssh/config".source = ./../../.ssh/config;
     };
     programs = {
         gh.enable = true;
