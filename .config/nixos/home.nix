@@ -7,9 +7,11 @@
     home = {
         homeDirectory = "/home/cyrus";
         packages = with pkgs; [
+            dive
             fd
             fzf
             ripgrep
+            stow
         ];
         preferXdgDirectories = true;
         stateVersion = "24.05";
@@ -17,8 +19,13 @@
     };
 
     programs = {
+        fzf = {
+            enable = true;
+            enableFishIntegration = true;
+        };
+
+        bat.enable = true;
         firefox.enable = true;
-        fzf.enable = true;
         home-manager.enable = true;
         man.enable = true;
     };

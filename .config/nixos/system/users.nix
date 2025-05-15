@@ -18,12 +18,5 @@
             "wheel"
         ];
         isNormalUser = true;
-        packages = with pkgs; [
-            bat
-            dive
-            git
-            stow
-            tmux
-        ];
     };
 }

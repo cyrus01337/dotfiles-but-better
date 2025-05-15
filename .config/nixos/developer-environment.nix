@@ -7,23 +7,28 @@
         packages = with pkgs; [
             docker
             docker-compose
-            gh
             iproute2
             jq
-            lazydocker
-            lazygit
             parallel
         ];
         file.".gitconfig".source = ./../../.gitconfig;
     };
     programs = {
+        gh.enable = true;
         git.enable = true;
+        lazydocker.enable = true;
+        lazygit.enable = true;
         ssh.enable = true;
+        tmux.enable = true;
     };
 
     services.gpg-agent = {
         defaultCacheTtl = 1800;
         enable = true;
         enableSshSupport = true;
+    };
+    xdg.configFile = {
+        "lazygit".source = ./../lazygit;
+        "tmux".source = ./../tmux;
     };
 }
