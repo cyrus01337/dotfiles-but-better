@@ -15,6 +15,9 @@ in
             fish = {
                 enable = true;
                 generateCompletions = true;
+                # plugins = with pkgs.fishPlugins; [
+                #     fzf
+                # ];
             };
 
             starship.enable = true;
