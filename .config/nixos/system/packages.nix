@@ -3,7 +3,6 @@
     environment.systemPackages = with pkgs; [
         alacritty
         fastfetch
-        flatpak
         tailscale
         unzip
         vim
