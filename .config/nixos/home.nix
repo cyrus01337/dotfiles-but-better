@@ -1,5 +1,6 @@
 {pkgs, ...}: {
     imports = [
+        ./user/desktop-configuration.nix
         ./user/developer-environment.nix
         ./user/shell.nix
     ];
