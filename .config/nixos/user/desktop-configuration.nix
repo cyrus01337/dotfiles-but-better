@@ -64,14 +64,6 @@
         ];
         window-rules = [
             {
-                apply = {
-                    maximizehoriz = true;
-                    maximizevert = true;
-                    noborder = {
-                        apply = "force";
-                        value = true;
-                    };
-                };
                 description = "Remove window decorations";
                 match = {
                     window-class = {
@@ -79,6 +71,11 @@
                         value = ".+";
                     };
                     window-types = ["normal"];
+                };
+
+                apply.noborder = {
+                    apply = "force";
+                    value = true;
                 };
             }
         ];
