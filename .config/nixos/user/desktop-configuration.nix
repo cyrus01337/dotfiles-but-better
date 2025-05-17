@@ -88,11 +88,9 @@
             theme = "breeze-dark";
         };
 
-        configFile = {
-            kwinrc.Desktops.Number = {
-                immutable = true;
-                value = 4;
-            };
+        configFile.kwinrc.Desktops.Number = {
+            immutable = true;
+            value = 4;
         };
         hotkeys.commands = {
             "launch-terminal" = {
