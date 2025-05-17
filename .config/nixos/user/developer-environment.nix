@@ -1,20 +1,28 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+    dotfiles = ./../../..;
+    dotfiles-xdg = dotfiles + "/.config";
+in {
     imports = [
         ./editors.nix
     ];
 
     home = {
         packages = with pkgs; [
+            bun
             docker
             docker-compose
             iproute2
             jq
+            lazydocker
             nerd-fonts.fantasque-sans-mono
+            nodejs
             parallel
+            php83
+            python311
         ];
 
-        file.".gitconfig".source = ./../../../.gitconfig;
-        file.".ssh/config".source = ./../../../.ssh/config;
+        file.".gitconfig".source = dotfiles + "/.gitconfig";
+        file.".ssh/config".source = dotfiles + "/.ssh/config";
     };
     programs = {
         gh.enable = true;
@@ -22,7 +30,6 @@
         lazydocker.enable = true;
         lazygit.enable = true;
         ssh.enable = true;
-        tmux.enable = true;
     };
 
     fonts.fontconfig.enable = true;
@@ -31,8 +38,5 @@
         enable = true;
         enableSshSupport = true;
     };
-    xdg.configFile = {
-        "lazygit".source = ./../../lazygit;
-        "tmux".source = ./../../tmux;
-    };
+    xdg.configFile."lazygit".source = dotfiles-xdg + "/lazygit";
 }

@@ -3,12 +3,12 @@
         ./user/desktop-configuration.nix
         ./user/developer-environment.nix
         ./user/shell.nix
-        ./user/terminal.nix
     ];
 
     home = {
         homeDirectory = "/home/cyrus";
         packages = with pkgs; [
+            alacritty
             dive
             firefox
             stow
@@ -23,6 +23,7 @@
             enableFishIntegration = true;
         };
 
+        alacritty.enable = true;
         bat.enable = true;
         fd.enable = true;
         firefox.enable = false;
