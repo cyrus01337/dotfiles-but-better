@@ -97,12 +97,12 @@
         hotkeys.commands = {
             "launch-terminal" = {
                 command = "alacritty";
-                key = "Meta+T";
+                key = "Ctrl+Alt+T";
                 name = "Launch terminal";
             };
             "launch-browser" = {
                 command = "firefox";
-                key = "Meta+B";
+                key = "Ctrl+Alt+B";
                 name = "Launch web browser";
             };
         };
