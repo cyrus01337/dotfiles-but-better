@@ -27,7 +27,7 @@ with pkgs; {
                 stylua
             ];
             treesitter-packages = [
-                vimPlugins.nvim-treesitter.withPlugins
+                (vimPlugins.nvim-treesitter.withPlugins
                 (epkgs:
                     with epkgs; [
                         astro
@@ -56,7 +56,7 @@ with pkgs; {
                         vim-jsx-typescript
                         vimdoc
                         yaml
-                    ])
+                    ]))
             ];
             lsp-packages = [
                 typescript-language-server
@@ -69,7 +69,7 @@ with pkgs; {
             runtime-packages
             ++ lua-packages
             ++ developer-tool-packages
-            # ++ treesitter-packages
+            ++ treesitter-packages
             ++ lsp-packages
             ++ packages-to-be-organised;
         extraPython3Packages = pypkgs:
