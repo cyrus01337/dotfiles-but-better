@@ -138,5 +138,6 @@
             "Polonium: Use Monocle Engine" = "Meta+F";
             "Polonium: Cycle Engine" = "Meta+S";
         };
+        startup.startupScript."alacritty".text = "${pkgs.alacritty}/bin/alacritty";
     };
 }
