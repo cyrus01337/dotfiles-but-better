@@ -20,9 +20,10 @@
     swapDevices = [];
 
     fileSystems."/" = {
+        # TODO: Move to partitions.nix
         # This will fail if the partition changes but the fix is marginally
         # easier than grabbing UUIDs - human readable date FTW
-        device = "/dev/sda1";
+        device = "/dev/sda3";
         fsType = "ext4";
     };
     hardware.bluetooth = {
