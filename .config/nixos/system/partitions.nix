@@ -10,7 +10,7 @@
                             mountOptions = ["umask=0077"];
                             type = "filesystem";
                         };
-                        size = "1G";
+                        size = "512M";
                         type = "EF00";
                     };
                     plainSwap = {
