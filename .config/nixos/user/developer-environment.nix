@@ -22,14 +22,12 @@ in {
         ];
 
         file.".gitconfig".source = dotfiles + "/.gitconfig";
-        file.".ssh/config".source = dotfiles + "/.ssh/config";
     };
     programs = {
         gh.enable = true;
         git.enable = true;
         lazydocker.enable = true;
         lazygit.enable = true;
-        ssh.enable = true;
     };
 
     fonts.fontconfig.enable = true;

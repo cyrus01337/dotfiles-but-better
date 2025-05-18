@@ -3,3 +3,4 @@ fish_plugins
 fish_variables
 .config/fish/completions/environments/
 .config/tmux/plugins/*/
+!.ssh/config
