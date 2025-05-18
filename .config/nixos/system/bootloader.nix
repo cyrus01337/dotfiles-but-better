@@ -1,11 +1,9 @@
 {pkgs, ...}: {
     boot = {
         kernelPackages = pkgs.linuxPackages_zen;
-
-        loader.grub = {
-            enable = true;
-            device = "/dev/sda";
-            useOSProber = true;
+        loader = {
+            efi.canTouchEfiVariables = true;
+            systemd-boot.enable = true;
         };
     };
 }
