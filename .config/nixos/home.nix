@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+    desktop-xdg = ./..;
+in {
     imports = [
         ./user/desktop-configuration.nix
         ./user/developer-environment.nix
@@ -31,4 +33,6 @@
         man.enable = true;
         ripgrep.enable = true;
     };
+
+    xdg.configFile."alacritty".source = desktop-xdg + "/alacritty";
 }
