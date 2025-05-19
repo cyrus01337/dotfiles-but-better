@@ -57,6 +57,7 @@ in
                         ]))
                 ];
                 lsp-packages = [
+                    nil
                     typescript-language-server
                     vscode-langservers-extracted
                 ];
