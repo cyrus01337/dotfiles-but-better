@@ -33,5 +33,6 @@ in {
         starship.enable = true;
     };
 
+    xdg.configFile."fish".source = dotfiles-xdg + "/fish";
     xdg.configFile."starship".source = dotfiles-xdg + "/starship";
 }
