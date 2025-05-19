@@ -1,8 +1,37 @@
 {pkgs, ...}: {
+    home.packages = with pkgs; [
+        dracula-icon-theme
+        dracula-theme
+    ];
+
     programs.plasma = {
         enable = true;
+        fonts = let
+            noto-sans = {
+                family = "Noto Sans";
+                pointSize = 10;
+            };
+        in {
+            fixedWidth = {
+                family = "FantasqueSansM Nerd Font";
+                pointSize = 12;
+            };
+            # For completion's sake
+            general = noto-sans;
+            menu = noto-sans;
+            small = noto-sans;
+            toolbar = noto-sans;
+            windowTitle = noto-sans;
+        };
         immutableByDefault = true;
         kwin = {
+            effects = {
+                desktopSwitching.animation = "slide";
+                dimInactive.enable = true;
+                minimization.animation = "magiclamp";
+                windowOpenClose.animation = "glide";
+                wobblyWindows.enable = true;
+            };
             virtualDesktops = {
                 names = [
                     "Main"
@@ -23,11 +52,9 @@
                     };
                 };
             };
-            tiling.padding = 8;
+            tiling.padding = 32;
         };
-        kscreenlocker = {
-            timeout = 0;
-        };
+        overrideConfig = true;
         panels = [
             {
                 hiding = "autohide";
@@ -39,20 +66,33 @@
                             sortAlphabetically = true;
                         };
                     }
+                    {
+                        pager.general = {
+                            displayedText = "desktopNumber";
+                            showWindowOutlines = false;
+                        };
+                    }
+                    {
+                        iconTasks = {
+                            launchers = [];
+                        };
+                    }
 
-                    "org.kde.plasma.pager"
-                    "org.kde.plasma.icontasks"
                     "org.kde.plasma.marginsseparator"
 
                     {
-                        systemTray.items.shown = [
-                            "org.kde.plasma.clipboard"
-                            "org.kde.plasma.volume"
-                            "org.kde.plasma.battery"
-                            "org.kde.networkmanagement"
-                        ];
+                        systemTray.items = {
+                            hidden = [
+                                "org.kde.plasma.mostrecentdrives"
+                            ];
+                            shown = [
+                                "org.kde.plasma.clipboard"
+                                "org.kde.plasma.volume"
+                                "org.kde.plasma.battery"
+                                "org.kde.networkmanagement"
+                            ];
+                        };
                     }
-
                     {
                         digitalClock = {
                             calendar.firstDayOfWeek = "sunday";
@@ -62,6 +102,13 @@
                 ];
             }
         ];
+        powerdevil.AC = {
+            powerProfile = "performance";
+
+            autoSuspend.action = "nothing";
+            dimDisplay.enable = false;
+            turnOffDisplay.idleTimeout = null;
+        };
         window-rules = [
             {
                 description = "Remove window decorations";
@@ -81,8 +128,11 @@
         ];
         workspace = {
             clickItemTo = "open";
-            lookAndFeel = "org.kde.breezedark.desktop";
-            theme = "breeze-dark";
+            colorScheme = "DraculaPurple";
+            iconTheme = "Dracula";
+            lookAndFeel = "Dracula";
+            theme = "Dracula-Solid";
+            wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Milky Way/contents/images/1080x1920.png";
         };
 
         configFile.kwinrc.Desktops.Number = {
@@ -91,12 +141,12 @@
         };
         hotkeys.commands = {
             "launch-terminal" = {
-                command = "alacritty";
+                command = "${pkgs.alacritty}/bin/alacritty";
                 key = "Ctrl+Alt+T";
                 name = "Launch terminal";
             };
             "launch-browser" = {
-                command = "firefox";
+                command = "${pkgs.firefox}/bin/firefox";
                 key = "Ctrl+Alt+B";
                 name = "Launch web browser";
             };
@@ -105,6 +155,7 @@
             repeatDelay = 150;
             repeatRate = 30;
         };
+        kscreenlocker.timeout = 0;
         shortcuts.kwin = let
             NO_HOTKEY = "";
         in {
