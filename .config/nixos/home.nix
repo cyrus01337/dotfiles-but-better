@@ -13,6 +13,7 @@ in {
             alacritty
             dive
             firefox
+            fsearch
             stow
         ];
         preferXdgDirectories = true;
