@@ -13,6 +13,10 @@
                 "sr_mod"
             ];
         };
+        loader = {
+            efi.canTouchEfiVariables = true;
+            systemd-boot.enable = true;
+        };
         kernelModules = [];
         kernelPackages = pkgs.linuxPackages_zen;
     };
