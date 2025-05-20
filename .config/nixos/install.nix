@@ -18,7 +18,6 @@
             systemd-boot.enable = true;
         };
         kernelModules = [];
-        kernelPackages = pkgs.linuxPackages_zen;
     };
     swapDevices = [];
 
