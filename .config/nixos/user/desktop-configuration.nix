@@ -3,7 +3,6 @@
         dracula-icon-theme
         dracula-theme
     ];
-
     programs.plasma = {
         enable = true;
         fonts = let
@@ -40,6 +39,7 @@
                     "Extra"
                 ];
                 number = 4;
+                rows = 1;
             };
 
             scripts.polonium = {
@@ -52,7 +52,6 @@
                     };
                 };
             };
-            tiling.padding = 32;
         };
         overrideConfig = true;
         panels = [
@@ -68,7 +67,7 @@
                     }
                     {
                         pager.general = {
-                            displayedText = "desktopNumber";
+                            displayedText = "desktopName";
                             showWindowOutlines = false;
                         };
                     }
@@ -102,13 +101,6 @@
                 ];
             }
         ];
-        powerdevil.AC = {
-            powerProfile = "performance";
-
-            autoSuspend.action = "nothing";
-            dimDisplay.enable = false;
-            turnOffDisplay.idleTimeout = null;
-        };
         window-rules = [
             {
                 description = "Remove window decorations";
@@ -128,11 +120,15 @@
         ];
         workspace = {
             clickItemTo = "open";
-            colorScheme = "DraculaPurple";
+            colorScheme = "Dracula";
             iconTheme = "Dracula";
             lookAndFeel = "Dracula";
             theme = "Dracula-Solid";
-            wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Milky Way/contents/images/1080x1920.png";
+            wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/MilkyWay/contents/images/1080x1920.png";
+            windowDecorations = {
+                library = "org.kde.kwin.aurorae";
+                theme = "__aurorae__svg__Dracula";
+            };
         };
 
         configFile.kwinrc.Desktops.Number = {
@@ -156,6 +152,13 @@
             repeatRate = 30;
         };
         kscreenlocker.timeout = 0;
+        powerdevil.AC = {
+            powerProfile = "performance";
+
+            autoSuspend.action = "nothing";
+            dimDisplay.enable = false;
+            turnOffDisplay.idleTimeout = null;
+        };
         shortcuts.kwin = let
             NO_HOTKEY = "";
         in {
