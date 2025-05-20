@@ -25,6 +25,7 @@
     networking.hostName = "nixos";
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     security.sudo.wheelNeedsPassword = false;
+    system.stateVersion = "24.05";
     users.users.cyrus = {
         extraGroups = [
             "wheel"
