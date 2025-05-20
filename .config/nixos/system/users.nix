@@ -9,15 +9,20 @@
     # carrying this over to bare metal, this option will be removed in it's
     # entirety.
     security.sudo.wheelNeedsPassword = false;
-    users.users.cyrus = {
-        description = "cyrus";
-        extraGroups = [
-            "docker"
-            "networkmanager"
-            "sudo"
-            "wheel"
-        ];
-        hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
-        isNormalUser = true;
+    users.users = {
+        cyrus = {
+            description = "cyrus";
+            extraGroups = [
+                "docker"
+                "networkmanager"
+                "sudo"
+                "wheel"
+            ];
+            hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
+            isNormalUser = true;
+        };
+        mutableUsers = false;
+
+        root.hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
     };
 }
