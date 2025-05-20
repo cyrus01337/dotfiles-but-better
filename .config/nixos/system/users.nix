@@ -17,6 +17,7 @@
             "sudo"
             "wheel"
         ];
+        hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
         isNormalUser = true;
     };
 }
