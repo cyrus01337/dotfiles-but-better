@@ -31,4 +31,6 @@
         XDG_STATE_HOME = "$HOME/.local/state";
     };
     nixpkgs.config.allowUnfree = true;
+    # TODO: Elaborate
+    services.logrotate.checkConfig = false;
 }
