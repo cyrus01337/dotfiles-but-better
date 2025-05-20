@@ -9,20 +9,22 @@
     # carrying this over to bare metal, this option (and those of similar
     # concern) will be removed in it's (their) entirety.
     security.sudo.wheelNeedsPassword = false;
-    users.users = {
-        cyrus = {
-            description = "cyrus";
-            extraGroups = [
-                "docker"
-                "networkmanager"
-                "sudo"
-                "wheel"
-            ];
-            hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
-            isNormalUser = true;
-        };
+    users = {
         mutableUsers = false;
-
-        root.hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
+        users = {
+            cyrus = {
+                description = "cyrus";
+                extraGroups = [
+                    "docker"
+                    "networkmanager"
+                    "sudo"
+                    "wheel"
+                ];
+                hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
+                isNormalUser = true;
+            };
+    
+            root.hashedPassword = "$y$j9T$Fh/L5Io1pZP6BOYDP0x501$BBfMPoC/uB9RO2t.jO5zdNlKEaKC3JSQrChfIczkAM/";
+        };
     };
 }
