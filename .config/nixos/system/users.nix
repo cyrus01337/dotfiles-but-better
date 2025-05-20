@@ -6,8 +6,8 @@
     # internet or access to potentially sensitive data you must always set
     # passwords for elevated privileges as a general rule of thumb. I simply
     # don't care for this VM, however, if there is ever the intention of
-    # carrying this over to bare metal, this option will be removed in it's
-    # entirety.
+    # carrying this over to bare metal, this option (and those of similar
+    # concern) will be removed in it's (their) entirety.
     security.sudo.wheelNeedsPassword = false;
     users.users = {
         cyrus = {
