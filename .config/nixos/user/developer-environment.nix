@@ -1,6 +1,5 @@
 {pkgs, ...}: let
-    dotfiles = ./../../..;
-    dotfiles-xdg = dotfiles + "/.config";
+    shared = import ./../shared.nix;
 in {
     imports = [
         ./editors.nix
@@ -21,7 +20,7 @@ in {
             python311
         ];
 
-        file.".gitconfig".source = dotfiles + "/.gitconfig";
+        file.".gitconfig".source = shared.dotfiles + "/.gitconfig";
     };
     programs = {
         gh.enable = true;
@@ -36,5 +35,5 @@ in {
         enable = true;
         enableSshSupport = true;
     };
-    xdg.configFile."lazygit".source = dotfiles-xdg + "/lazygit";
+    xdg.configFile."lazygit".source = shared.dotfiles-xdg + "/lazygit";
 }

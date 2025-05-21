@@ -1,5 +1,10 @@
-{pkgs, ...}: let
-    desktop-xdg = ./..;
+{
+    lib,
+    pkgs,
+    self,
+    ...
+}: let
+    shared = import ./shared.nix;
 in {
     imports = [
         ./user/desktop-configuration.nix
@@ -35,5 +40,5 @@ in {
         ripgrep.enable = true;
     };
 
-    xdg.configFile."alacritty".source = desktop-xdg + "/alacritty";
+    xdg.configFile."alacritty".source = shared.dotfiles-xdg + "/alacritty";
 }

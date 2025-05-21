@@ -24,7 +24,7 @@
         plasma-manager,
         ...
     } @ inputs: {
-        nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
             modules = [
                 # TODO: Convert into flake and simplify import
                 home-manager.nixosModules.home-manager
@@ -36,7 +36,6 @@
                         users.cyrus = ./home.nix;
                     };
                 }
-
                 ./configuration.nix
             ];
             system = "x86_64-linux";
