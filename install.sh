@@ -62,21 +62,32 @@ function install_stow() {
     fi
 }
 
-if ! exists docker; then
-    install_docker
+if [[ ! -d /etc/nixos ]]; then
+    if ! exists docker; then
+        install_docker
+    fi
+
+    if ! exists git; then
+        install_git
+    fi
+
+    if ! exists stow; then
+        install_stow
+    fi
+
+    mkdir -p $(dirname $DOTFILES_DIRECTORY)
+    git clone --recurse-submodules git@github.com:cyrus01337/dotfiles-but-better.git $DOTFILES_DIRECTORY
+    rm $HOME/.bashrc
+else
+    if [[ -f "$HOME/.bashrc" ]]; then
+        rm "$HOME/.bashrc"
+    fi
+
+    if [[ -d "$HOME/.config/fish" ]]; then
+        rm -r "$HOME/.config/fish"
+    fi
 fi
 
-if ! exists git; then
-    install_git
-fi
-
-if ! exists stow; then
-    install_stow
-fi
-
-mkdir -p $(dirname $DOTFILES_DIRECTORY)
-git clone --recurse-submodules git@github.com:cyrus01337/dotfiles-but-better.git $DOTFILES_DIRECTORY
-rm $HOME/.bashrc
 stow -t $HOME -d $DOTFILES_DIRECTORY --adopt .
-
 source $HOME/.bashrc
+
