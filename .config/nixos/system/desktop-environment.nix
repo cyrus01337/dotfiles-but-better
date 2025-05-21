@@ -1,7 +1,7 @@
 {pkgs, ...}: {
     environment = {
-        systemPackages = with pkgs; [
-            kdePackages.qtmultimedia
+        systemPackages = [
+            pkgs.kdePackages.qtmultimedia
         ];
 
         plasma6.excludePackages = with pkgs.kdePackages; [

@@ -1,10 +1,7 @@
 {lib, ...}: {
-    imports = [];
-
     boot = {
         extraModulePackages = [];
         initrd = {
-            kernelModules = [];
             availableKernelModules = [
                 "ata_piix"
                 "mptspi"
@@ -14,17 +11,25 @@
                 "sd_mod"
                 "sr_mod"
             ];
+            kernelModules = [];
         };
         kernelModules = [];
     };
     swapDevices = [];
 
-    fileSystems."/" = {
-        # TODO: Move to partitions.nix
-        # This will fail if the partition changes but the fix is marginally
-        # easier than grabbing UUIDs - human readable date FTW
-        device = "/dev/sda3";
-        fsType = "ext4";
+    fileSystems = {
+        "/" = {
+            # TODO: Move to partitions.nix
+            # This will fail if the partition changes but the fix is marginally
+            # easier than grabbing UUIDs when trying to copy a UUID in a TTY -
+            # human readability and DX FTW
+            device = "/dev/sda3";
+            fsType = "ext4";
+        };
+        "/boot" = {
+            device = "/dev/sda1";
+            fsType = "vfat";
+        };
     };
     hardware.bluetooth = {
         enable = true;
