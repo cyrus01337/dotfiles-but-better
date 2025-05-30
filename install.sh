@@ -27,7 +27,7 @@ function install_docker() {
     fi
 
     sudo usermod -aG docker $USER
-    sudo systemctl start --quiet docker.service
+    sudo systemctl enable --now --quiet docker.service
 }
 
 function install_git() {
