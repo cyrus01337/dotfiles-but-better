@@ -138,6 +138,17 @@ install_lazydocker() {
     curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 }
 
+install_lazygit() {
+    if which lazygit &> /dev/null; then
+        return
+    fi
+
+    if is_operating_system "Fedora"; then
+        sudo dnf copr enable -y atim/lazygit && \
+            sudo dnf install -y lazygit
+    fi
+}
+
 install_python_build_dependencies() {
     if is_operating_system "Fedora"; then
         sudo dnf install -y bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
@@ -236,6 +247,7 @@ else
         install_fnm && \
         install_go && \
         install_lazydocker && \
+        install_lazygit && \
         install_pyenv && \
         install_rust
     install_starship && \
