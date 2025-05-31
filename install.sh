@@ -105,15 +105,13 @@ install_docker() {
 install_fnm() {
     directory="$HOME/.local/share/fnm"
     default_major_node_version="3.13"
+    export PATH="$PATH:$directory"
 
     if test -d $directory; then
         return
     fi
 
-    export PATH="$PATH:$directory"
-
     curl -fsSL https://fnm.vercel.app/install | bash
-
     eval "$(fnm env --shell bash)"
     fnm install $default_major_node_version
 }
