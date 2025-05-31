@@ -130,6 +130,12 @@ install_go() {
         tar -C /usr/local -xzf $archive_path
 }
 
+install_lazydocker() {
+    if which lazydocker &> /dev/null; then
+        return
+    fi
+
+    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 }
 
 install_python_build_dependencies() {
@@ -229,6 +235,7 @@ else
         install_docker && \
         install_fnm && \
         install_go && \
+        install_lazydocker && \
         install_pyenv && \
         install_rust
     install_starship && \
