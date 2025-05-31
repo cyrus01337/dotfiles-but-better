@@ -191,7 +191,7 @@ install_font() {
 
     mkdir -p $directory && \
         curl -OL $archive_path https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FantasqueSansMono.tar.xz && \
-        tar -xfC $directory $archive_path
+        tar -C $directory -xf $archive_path
 }
 
 install_neovim() {
