@@ -118,7 +118,16 @@ install_fnm() {
 
 install_go() {
     archive_path="$TEMPORARY_DIRECTORY/lazydocker.tar.gz"
+    export GOPATH="$HOME/.local/share/go"
 
+    if test -d /usr/local/go; then
+        return
+    fi
+
+    export PATH="$PATH:/usr/local/go/bin"
+
+    curl -Lo $archive_path https://go.dev/dl/ && \
+        tar -C /usr/local -xzf $archive_path
 }
 
 }
