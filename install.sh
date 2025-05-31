@@ -119,7 +119,7 @@ install_fnm() {
 
 install_python_build_dependencies() {
     if is_operating_system "Fedora"; then
-        sudo dnf install -y bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel
+        sudo dnf install -y bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
     fi
 }
 
