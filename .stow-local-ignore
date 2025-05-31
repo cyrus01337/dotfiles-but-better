@@ -1,8 +1,5 @@
-.bashrc
-.config
 .editorconfig
 .git
-.gitconfig
 .github
 .gitignore
 .gitmodules
