@@ -92,6 +92,12 @@ if command -q gh
     alias ghrc="gh-repo-clone"
 
     function gh-clone-all-repositories
+        if not command -q parallel
+            echo "GNU Parallel is needed to run this"
+
+            return 127
+        end
+
         # https://stackoverflow.com/a/64915484
         parallel -j 10 gh repo clone "git@github.com:cyrus01337/{}" -- --recurse-submodules ::: (gh repo list --json "name" --jq ".[].name" --limit 1000)
     end
