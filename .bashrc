@@ -27,7 +27,7 @@ export LANG="en_GB.UTF-8"
 export LC_ALL="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
 
-if which fish &> /dev/null && [[ ! $(ps | grep /usr/bin/fish) && -z ''${BASH_EXECUTION_STRING} ]]; then
+if which fish &> /dev/null && ! ps | grep "fish" &> /dev/null && test -z ''${BASH_EXECUTION_STRING}; then
     shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
 
     exec fish $LOGIN_OPTION
