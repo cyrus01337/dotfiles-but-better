@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+TEMPORARY_DIRECTORY="$(mktemp -d)"
 OPERATING_SYSTEM="$(hostnamectl | grep 'Operating System')"
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
@@ -117,6 +118,13 @@ install_fnm() {
     fnm install $default_major_node_version
 }
 
+install_go() {
+    archive_path="$TEMPORARY_DIRECTORY/lazydocker.tar.gz"
+
+}
+
+}
+
 install_python_build_dependencies() {
     if is_operating_system "Fedora"; then
         sudo dnf install -y bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
@@ -134,7 +142,6 @@ install_pyenv() {
     export PATH="$PYENV_ROOT/bin:$PATH"
 
     install_python_build_dependencies
-
     curl -fsSL https://pyenv.run | bash
 
     eval "$(pyenv init - bash)" && \
@@ -186,8 +193,7 @@ install_font() {
         return
     fi
 
-    temporary_directory="$(mktemp -d)"
-    archive_path="$temporary_directory/font.zip"
+    archive_path="$TEMPORARY_DIRECTORY/font.zip"
 
     mkdir -p $directory && \
         curl -OL $archive_path https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FantasqueSansMono.tar.xz && \
@@ -215,6 +221,7 @@ else
     install_bun && \
         install_docker && \
         install_fnm && \
+        install_go && \
         install_pyenv && \
         install_rust
     install_starship && \
