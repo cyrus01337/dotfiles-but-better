@@ -156,7 +156,7 @@ install_python_build_dependencies() {
 }
 
 install_pyenv() {
-    export PYENV_ROOT="$HOME/local/share/pyenv"
+    export PYENV_ROOT="$HOME/.local/share/pyenv"
     default_major_python_version="3.13"
 
     if test -d $PYENV_ROOT; then
