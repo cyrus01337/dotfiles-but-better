@@ -210,20 +210,6 @@ install_dotfiles() {
         stow -t $HOME -d $directory --adopt .
 }
 
-install_font() {
-    directory="$HOME/.local/share/fonts/FantasqueSansMono-NerdFont"
-
-    if test -d $directory; then
-        return
-    fi
-
-    archive_path="$TEMPORARY_DIRECTORY/font.zip"
-
-    mkdir -p $directory && \
-        curl -OL $archive_path https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FantasqueSansMono.tar.xz && \
-        tar -C $directory -xf $archive_path
-}
-
 install_neovim() {
     if which nvim &> /dev/null; then
         return
@@ -252,7 +238,6 @@ else
         install_rust
     install_starship && \
         install_dotfiles && \
-        install_font && \
         install_neovim
 fi
 
