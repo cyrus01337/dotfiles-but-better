@@ -4,5 +4,6 @@
 .github
 .gitignore
 .gitmodules
+.python-version
 README.md
 install.sh
