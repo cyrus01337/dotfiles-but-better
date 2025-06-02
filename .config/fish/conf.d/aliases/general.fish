@@ -1,4 +1,6 @@
 #!/usr/bin/env fish
+alias re="sudo reboot now"
+
 function switch-and-link
     set target $argv[1]
     set destination $argv[2]
