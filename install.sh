@@ -205,9 +205,19 @@ install_dotfiles() {
         return
     fi
 
+    stow_ignore_file_kind="default"
+    stow_ignore_file_location="$directory/.stow-local-ignore"
+
     mkdir -p $root && \
-        git clone --recurse-submodules git@github.com:cyrus01337/dotfiles-but-better.git $directory && \
-        stow -t $HOME -d $directory --adopt .
+        git clone --recurse-submodules git@github.com:cyrus01337/dotfiles-but-better.git $directory
+
+    if is_operating_system $NIXOS; then
+        stow_ignore_file_kind="nixos"
+    fi
+
+    cp "$directory/lib/$stow_ignore_file_kind.stow-local-ignore" $stow_ignore_file_location && \
+        stow -t $HOME -d $directory --adopt . && \
+        rm -f $stow_ignore_file_location
 }
 
 install_neovim() {
@@ -223,7 +233,6 @@ install_neovim() {
 prepare_operating_system
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-rm -rf "$HOME/.bashrc"
 
 if test -d /etc/nixos; then
     rm -rf "$HOME/.config/fish"
