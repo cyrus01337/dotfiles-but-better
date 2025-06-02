@@ -10,6 +10,16 @@
         zulu
     ];
     programs.plasma = {
+        configFile = {
+            kdeglobals.General = {
+                TerminalApplication = "alacritty";
+                TerminalService = "alacritty.desktop";
+            };
+            kwinrc.Desktops.Number = {
+                immutable = true;
+                value = 4;
+            };
+        };
         enable = true;
         fonts = let
             noto-sans = {
@@ -137,10 +147,6 @@
             };
         };
 
-        configFile.kwinrc.Desktops.Number = {
-            immutable = true;
-            value = 4;
-        };
         hotkeys.commands = {
             "launch-terminal" = {
                 command = "${pkgs.alacritty}/bin/alacritty";
