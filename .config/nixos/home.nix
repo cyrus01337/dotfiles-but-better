@@ -3,9 +3,7 @@
     pkgs,
     self,
     ...
-}: let
-    shared = import ./shared.nix;
-in {
+}: {
     imports = [
         ./user/desktop-configuration.nix
         ./user/developer-environment.nix
@@ -39,6 +37,4 @@ in {
         man.enable = true;
         ripgrep.enable = true;
     };
-
-    xdg.configFile."alacritty".source = shared.dotfiles-xdg + "/alacritty";
 }

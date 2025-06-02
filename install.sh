@@ -236,10 +236,7 @@ install_neovim() {
 prepare_operating_system
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-
-if test -d /etc/nixos; then
-    rm -rf "$HOME/.config/fish"
-else
+if ! is_operating_system $NIXOS; then
     install_bun && \
         install_docker && \
         install_fnm && \

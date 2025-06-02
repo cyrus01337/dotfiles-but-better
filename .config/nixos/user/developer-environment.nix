@@ -1,26 +1,26 @@
-{pkgs, ...}: let
-    shared = import ./../shared.nix;
-in {
+{pkgs, ...}: {
     imports = [
         ./editors.nix
     ];
 
     home = {
         packages = with pkgs; [
-            bun
+            alejandra
             docker
             docker-compose
             iproute2
             jq
             lazydocker
+            lazygit
+            lua
             nerd-fonts.fantasque-sans-mono
-            nodejs
+            nodePackages.prettier
             parallel
-            php83
-            python311
+            php83Packages.composer
+            php83Packages.php-cs-fixer
+            prettierd
+            stylua
         ];
-
-        file.".gitconfig".source = shared.dotfiles + "/.gitconfig";
     };
     programs = {
         gh.enable = true;
@@ -35,5 +35,4 @@ in {
         enable = true;
         enableSshSupport = true;
     };
-    xdg.configFile."lazygit".source = shared.dotfiles-xdg + "/lazygit";
 }
