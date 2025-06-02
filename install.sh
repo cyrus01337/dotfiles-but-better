@@ -3,6 +3,8 @@ set -e
 
 TEMPORARY_DIRECTORY="$(mktemp -d)"
 OPERATING_SYSTEM="$(hostnamectl | grep 'Operating System')"
+FEDORA=$FEDORA
+NIXOS=$NIXOS
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 UNIVERSAL_PACKAGES=("alacritty curl fish flatpak git jq parallel stow tmux")
@@ -14,19 +16,19 @@ is_operating_system() {
 }
 
 upgrade_system() {
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         sudo dnf upgrade -y $@
     fi
 }
 
 install_package() {
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         sudo dnf install -y $@
     fi
 }
 
 remove_package() {
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         sudo dnf remove -y $@ 2> /dev/null
     fi
 }
@@ -34,7 +36,7 @@ remove_package() {
 cross_system_package() {
     for_fedora="$1"
 
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         echo $for_fedora
     fi
 }
@@ -42,7 +44,7 @@ cross_system_package() {
 warn_if_system_unsupported() {
     addendum="$1"
 
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         return
     elif ! test $addendum; then
         echo "Unsupported OS"
@@ -52,11 +54,11 @@ warn_if_system_unsupported() {
 }
 
 setup_automatic_updates() {
-    if is_operating_system "NixOS"; then
+    if is_operating_system $NIXOS; then
         return
     fi
 
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         configuration_file="/etc/dnf/automatic.conf"
 
         echo "[commands]" | sudo tee $configuration_file > /dev/null && \
@@ -143,14 +145,14 @@ install_lazygit() {
         return
     fi
 
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/lazygit && \
             sudo dnf install -y lazygit
     fi
 }
 
 install_python_build_dependencies() {
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         sudo dnf install -y bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
     fi
 }
@@ -191,7 +193,7 @@ install_rust() {
 install_starship() {
     if which starship &> /dev/null; then
         return
-    elif is_operating_system "Fedora"; then
+    elif is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/starship && \
             sudo dnf install -y starship
     fi
@@ -225,7 +227,7 @@ install_neovim() {
         return
     fi
 
-    if is_operating_system "Fedora"; then
+    if is_operating_system $FEDORA; then
         install_package luarocks neovim
     fi
 }
