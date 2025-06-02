@@ -6,6 +6,7 @@
     home = {
         packages = with pkgs; [
             alejandra
+            delta
             docker
             docker-compose
             iproute2
