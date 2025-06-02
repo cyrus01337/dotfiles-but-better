@@ -101,7 +101,8 @@ install_docker() {
         return
     fi
 
-    sudo sh -c "$(curl -fsSL https://get.docker.com)"
+    sudo sh -c "$(curl -fsSL https://get.docker.com)" && \
+        sudo systemctl enable --now --quiet docker
 }
 
 install_fnm() {
