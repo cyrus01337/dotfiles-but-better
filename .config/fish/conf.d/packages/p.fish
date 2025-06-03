@@ -4,7 +4,7 @@ set P_LOGS
 set P_LOADED
 set P_FILE (status --current-filename)
 set P_DIRECTORY (dirname $P_FILE)
-set P_SUPPORTED_LANGUAGES "javascript"
+set P_SUPPORTED_LANGUAGES "web-development"
 set P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS "dnf"
 
 if not set -q P_DISABLE_LOGGING
