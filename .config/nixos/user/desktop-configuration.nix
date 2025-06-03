@@ -1,13 +1,7 @@
 {pkgs, ...}: {
     home.packages = with pkgs; [
-        bun
         dracula-icon-theme
         dracula-theme
-        go
-        nodejs
-        php83
-        pyenv
-        zulu
     ];
     programs.plasma = {
         configFile = {

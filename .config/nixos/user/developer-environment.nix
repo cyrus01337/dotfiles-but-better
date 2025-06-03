@@ -3,25 +3,20 @@
         ./editors.nix
     ];
 
-    home = {
-        packages = with pkgs; [
-            alejandra
-            docker
-            docker-compose
-            iproute2
-            jq
-            lazydocker
-            lazygit
-            lua
-            nerd-fonts.fantasque-sans-mono
-            nodePackages.prettier
-            parallel
-            php83Packages.composer
-            php83Packages.php-cs-fixer
-            prettierd
-            stylua
-        ];
-    };
+    home.packages = with pkgs; [
+        bun
+        delta
+        docker
+        docker-compose
+        ffmpeg
+        go
+        iproute2
+        jq
+        lazydocker
+        lazygit
+        nerd-fonts.fantasque-sans-mono
+        parallel
+    ];
     programs = {
         gh.enable = true;
         git.enable = true;

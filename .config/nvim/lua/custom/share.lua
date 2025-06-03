@@ -35,4 +35,3 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "FileWritePost" }, {
     pattern = "*",
     callback = set_shared_permissions,
 })
-
