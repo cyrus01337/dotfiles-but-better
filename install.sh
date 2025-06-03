@@ -92,9 +92,6 @@ install_bun() {
     fi
 
     curl -fsSL https://bun.sh/install | bash
-
-    sudo usermod -aG docker $USER && \
-        sudo systemctl enable --now --quiet docker.service
 }
 
 install_docker() {
@@ -103,6 +100,7 @@ install_docker() {
     fi
 
     sudo sh -c "$(curl -fsSL https://get.docker.com)" && \
+        sudo usermod -aG docker cyrus && \
         sudo systemctl enable --now --quiet docker
 }
 
