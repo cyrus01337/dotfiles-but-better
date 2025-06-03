@@ -17,6 +17,7 @@
             dive
             firefox
             fsearch
+            ranger
             stow
         ];
         preferXdgDirectories = true;

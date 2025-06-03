@@ -76,8 +76,9 @@ prepare_operating_system() {
         $(cross_system_package "fastfetch") \
         $(cross_system_package "gh") \
         $(cross_system_package "git-delta") \
+        $(cross_system_package "lua") \
         $(cross_system_package "obs-studio") \
-        $(cross_system_package "lua")
+        $(cross_system_package "ranger")
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
