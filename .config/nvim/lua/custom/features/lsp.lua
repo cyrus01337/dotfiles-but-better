@@ -1,42 +1,28 @@
+local complex = require("custom.features.complex.lsp")
+local constants = require("custom.lib.constants")
 local mode = require("custom.lib.mode")
+local utilities = require("custom.lib.utilities")
 
-local function setup_language_server(serverName)
+local function setup_language_server(server_name)
     local lsp_configuration = require("lspconfig")
-    local cmp_lsp = require("cmp_nvim_lsp")
 
-    local server_found = lsp_configuration[serverName]
+    local server_found = lsp_configuration[server_name]
 
     if not server_found then
-        print("Cannot find LSP named", serverName)
+        print("Cannot find LSP named", server_name)
 
         return
     end
 
-    local options = {}
-    local capabilities = cmp_lsp.default_capabilities()
+    local options_found = constants.LSP_OPTIONS[server_name]
 
-    if serverName == "sourcery" then
-        options = {
-            capabilities = capabilities,
-            filetypes = { "python" },
-            init_options = {
-                token = "user_y_c5BVAcYOzPnfPwlzXA3KddRLTISzYRpDOE38YLLztYBefizqkRjrEqNRI",
-            },
-        }
-    elseif serverName == "lua_ls" then
-        options = {
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" },
-                    },
-                },
-            },
-        }
+    if options_found then
+        options_found = utilities.with_capabilities(options_found)
+    else
+        options_found = {}
     end
 
-    server_found.setup(options)
+    server_found.setup(options_found)
 end
 
 local function lsp_attach(_, buffer_number)
@@ -54,20 +40,78 @@ local function lsp_attach(_, buffer_number)
     vim.keymap.set(mode.NORMAL, "<F4>", "<CMD>lua vim.lsp.buf.code_action()<CR>", options)
 end
 
-return {
+local features = {
+    complex.lspconfig,
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             local treesitter_configuration = require("nvim-treesitter.configs")
 
+            local ensure_installed = {}
+
+            if not utilities.exists("/etc/nixos") then
+                ensure_installed = {
+                    -- meta
+
+                    --- (neo)vim
+                    "vim",
+                    "vimdoc",
+                    "regex",
+                    "markdown_inline",
+
+                    --- project management
+                    "gitignore",
+                    "gitcommit",
+                    "markdown",
+
+                    -- web dev
+
+                    --- front-end
+                    "html",
+                    "css",
+                    "javascript",
+                    "typescript",
+                    "astro",
+
+                    --- back-end
+                    "php",
+                    "sql",
+
+                    -- dev-ops
+                    "dockerfile",
+
+                    -- software/cli
+                    "bash",
+                    "python",
+                    "lua",
+
+                    -- general
+                    "go",
+                    "nix",
+
+                    -- configuration formats
+                    "json",
+                    "jsonc",
+                    "yaml",
+                    "toml",
+
+                    -- documentation
+                    "markdown",
+                }
+            end
+
             treesitter_configuration.setup({
-                auto_install = false,
+                ensure_installed = ensure_installed,
+                sync_install = false,
+                auto_install = true,
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
                 },
                 indent = { enable = true },
+                modules = {},
+                ignore_install = {},
             })
         end,
     },
@@ -141,26 +185,14 @@ return {
     {
         "numToStr/Comment.nvim",
         opts = {
+            ignore = "^$",
             mappings = {
                 extra = false,
             },
-            opleader = {
-                line = "cl",
-                block = "cb",
-            },
             toggler = {
-                line = "ctl",
-                block = "ctb",
+                line = "cl",
             },
         },
-        init = function()
-            vim.keymap.set({ mode.NORMAL, mode.INSERT }, "<C-_>", "<Plug>(comment_toggle_linewise_current)")
-            vim.keymap.set(mode.VISUAL_SELECT, "<C-_>", "<Plug>(comment_toggle_linewise_visual)")
-        end,
-    },
-    {
-        "L3MON4D3/LuaSnip",
-        version = "v2.*",
     },
     {
         "hrsh7th/nvim-cmp",
@@ -174,22 +206,23 @@ return {
         config = function()
             local cmp = require("cmp")
             local lsp = require("lsp-zero")
-            local luasnip = require("luasnip")
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
             local cmp_context = require("cmp.config.context")
 
-            local confirm = cmp.mapping({
-                s = cmp.mapping.confirm({ select = true }),
-                c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+            local function handle_insert(fallback)
+                if cmp.visible() then
+                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+                else
+                    fallback()
+                end
+            end
 
-                i = function(fallback)
-                    if cmp.visible() then
-                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
-                    else
-                        fallback()
-                    end
-                end,
+            local confirm = cmp.mapping({
+                c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+                s = cmp.mapping.confirm({ select = true }),
+                i = handle_insert,
             })
+
             local mapping = cmp.mapping.preset.insert({
                 ["<C-Space>"] = cmp.mapping.complete(),
                 ["<Tab>"] = confirm,
@@ -198,6 +231,10 @@ return {
                 ["<Up>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
                 ["<Down>"] = cmp.mapping.select_next_item({ behavior = "select" }),
             })
+
+            local function entry_filter(entry)
+                return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Text
+            end
 
             cmp.setup({
                 enabled = function()
@@ -220,19 +257,16 @@ return {
                     end,
                 },
                 mapping = mapping,
-                snippets = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
+                snippet = {
+                    expand = function(arg)
+                        vim.snippet.expand(arg.body)
                     end,
                 },
                 sources = cmp.config.sources({
                     {
                         name = "nvim_lsp",
-                        entry_filter = function(entry)
-                            return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Text
-                        end,
+                        entry_filter = entry_filter,
                     },
-                    { name = "luasnip" },
                     { name = "lazydev" },
                     { name = "cmp_tabnine", group_index = 0, keyword_length = 3 },
                 }, {
@@ -243,42 +277,18 @@ return {
                 mapping = mapping,
                 matching = { disallow_symbol_nonprefix_matching = false },
                 sources = cmp.config.sources({
-                    { name = "path", keyword_length = 2 },
+                    { name = "path", keyword_length = 3 },
                 }, {
                     {
                         name = "cmdline",
-                        keyword_length = 2,
+                        keyword_length = 3,
                         option = {
-                            ignore_cmds = { "Man", "!" },
+                            ignore_cmds = { "Man", "!", "%s", "$" },
                         },
                     },
                 }),
             })
             cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
-    },
-    {
-        "neovim/nvim-lspconfig",
-        cmd = { "LspInfo", "LspInstall", "LspStart" },
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-        },
-        config = function()
-            local lsp = require("lsp-zero")
-            local neovim_completion_lsp = require("cmp_nvim_lsp")
-            local neovim_lsp_configuration = require("lspconfig")
-
-            local capabilities = neovim_completion_lsp.default_capabilities()
-
-            lsp.extend_lspconfig({
-                capabilities = capabilities,
-                lsp_attach = lsp_attach,
-                sign_text = true,
-            })
-            lsp.on_attach(function(_, buffer)
-                lsp.default_keymaps({ buffer = buffer })
-            end)
         end,
     },
     {
@@ -299,12 +309,20 @@ return {
         },
         opts = {
             formatters_by_ft = {
-                javascript = { "prettier" },
+                javascript = {
+                    "prettierd",
+                    "prettier",
+                    stop_after_first = true,
+                },
                 lua = { "stylua" },
                 nix = { "alejandra" },
                 php = { "php-cs-fixer" },
                 python = { "isort", "black" },
-                typescript = { "prettier" },
+                typescript = {
+                    "prettierd",
+                    "prettier",
+                    stop_after_first = true,
+                },
             },
             format_on_save = {
                 lsp_format = "fallback",
@@ -326,8 +344,16 @@ return {
         version = "*",
         config = true,
         keys = {
-            { "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = { mode.NORMAL, mode.INSERT } },
-            { "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = { mode.NORMAL, mode.INSERT } },
+            {
+                "<C-Up>",
+                "<Cmd>MultipleCursorsAddUp<CR>",
+                mode = { mode.NORMAL, mode.INSERT },
+            },
+            {
+                "<C-Down>",
+                "<Cmd>MultipleCursorsAddDown<CR>",
+                mode = { mode.NORMAL, mode.INSERT },
+            },
             {
                 "<C-d>",
                 "<Cmd>MultipleCursorsAddJumpNextMatch<CR>",
@@ -343,3 +369,5 @@ return {
         config = true,
     },
 }
+
+return features
