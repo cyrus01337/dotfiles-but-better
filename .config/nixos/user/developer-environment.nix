@@ -4,10 +4,12 @@
     ];
 
     home.packages = with pkgs; [
+        bun
         delta
         docker
         docker-compose
         ffmpeg
+        go
         iproute2
         jq
         lazydocker
