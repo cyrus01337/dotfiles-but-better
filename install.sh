@@ -147,13 +147,13 @@ install_lazygit() {
 
     if is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/lazygit && \
-            sudo dnf install -y lazygit
+            install_package lazygit
     fi
 }
 
 install_python_build_dependencies() {
     if is_operating_system $FEDORA; then
-        sudo dnf install -y bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
+        install_package bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
     fi
 }
 
@@ -195,7 +195,7 @@ install_starship() {
         return
     elif is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/starship && \
-            sudo dnf install -y starship
+            install_package starship
     fi
 }
 
