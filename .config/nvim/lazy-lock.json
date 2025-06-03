@@ -43,7 +43,6 @@
   "telescope-software-licenses.nvim": { "branch": "master", "commit": "fb5fc33b6afc994756e2f372423c365bf66f2256" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
-  "toggleterm.nvim": { "branch": "main", "commit": "50ea089fc548917cc3cc16b46a8211833b9e3c7c" },
   "trim.nvim": { "branch": "master", "commit": "d0760a840ca2fe4958353dee567a90c2994e70a7" },
   "undotree": { "branch": "master", "commit": "b951b87b46c34356d44aa71886aecf9dd7f5788a" },
   "vim-tmux-navigator": { "branch": "master", "commit": "97e58f2b3b4f8fd30ce149302f10202f363cc361" },
