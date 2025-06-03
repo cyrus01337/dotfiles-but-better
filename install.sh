@@ -3,8 +3,8 @@ set -e
 
 TEMPORARY_DIRECTORY="$(mktemp -d)"
 OPERATING_SYSTEM="$(hostnamectl | grep 'Operating System')"
-FEDORA=$FEDORA
-NIXOS=$NIXOS
+FEDORA="Fedora"
+NIXOS="NixOS"
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 UNIVERSAL_PACKAGES=("alacritty curl fish flatpak fzf git jq parallel stow tmux")
