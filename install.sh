@@ -260,6 +260,7 @@ install_dotfiles() {
     fi
 
     cp "$directory/lib/$stow_ignore_file_kind.stow-local-ignore" $stow_ignore_file_location && \
+        curl -Lo .ssh/config "$DOTFILES_URL/.ssh/config" && \
         stow -t $HOME -d $directory --adopt . && \
         rm -f $stow_ignore_file_location
 }
