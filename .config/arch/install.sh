@@ -38,7 +38,7 @@ echo -n "en_GB.UTF-8 UTF-8" > /mnt/etc/locale.gen && \
 arch-chroot /mnt useradd -m cyrus
 # this script is to automate guest installations where snapshots fail,
 # never do this for public-facing/online systems where security matters
-echo "balls" | passwd cyrus --stdin && \
+arch-chroot /mnt echo "ok" | passwd cyrus --stdin && \
     echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
 
 arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
