@@ -7,7 +7,7 @@ DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/r
 timedatectl set-timezone Europe/London
 
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
-    pacman -Sy --noconfirm archlinux-keyring
+    pacman -Sy --needed --noconfirm archlinux-keyring
 
 umount -R /mnt 2> /dev/null && \
     curl -LO "$DOTFILES_URL/.config/arch/partitions.layout" && \
