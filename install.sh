@@ -6,7 +6,7 @@ OPERATING_SYSTEM="$(hostnamectl | grep 'Operating System')"
 FEDORA="Fedora"
 ARCH="Arch"
 NIXOS="NixOS"
-FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC")
+FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC com.github.tchx84.Flatseal")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 
 is_operating_system() {
@@ -275,7 +275,8 @@ install_neovim() {
 }
 
 prepare_operating_system
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
+    flatpak install -y $FLATPAK_SOFTWARE
 
 if ! is_operating_system $NIXOS; then
     install_bun && \
