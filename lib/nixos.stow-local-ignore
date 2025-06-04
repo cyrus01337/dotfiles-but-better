@@ -1,3 +1,4 @@
+.config/arch
 .editorconfig
 .fonts
 .git
@@ -7,3 +8,4 @@
 .python-version
 README.md
 install.sh
+lib

@@ -1,3 +1,4 @@
+.config/nixos
 .editorconfig
 .git
 .github
@@ -5,3 +6,4 @@
 .gitmodules
 README.md
 install.sh
+lib
