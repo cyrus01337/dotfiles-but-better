@@ -47,7 +47,7 @@ arch-chroot /mnt useradd -m cyrus
 # this script is to automate guest installations where snapshots fail,
 # never do this for public-facing/online systems where security matters
 if test ! $MANUALLY_ASSIGN_PASSWORD; then
-    arch-chroot /mnt echo "$PASSWORD" | passwd cyrus --stdin
+    echo "$PASSWORD" | arch-chroot /mnt passwd cyrus --stdin
 fi
 
 echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
