@@ -116,7 +116,7 @@ prepare_operating_system() {
 install_bun() {
     export BUN_INSTALL="$HOME/.local/share/bun"
 
-    if test -d "$HOME/.bun"; then
+    if test -d $BUN_INSTALL || test -d "$HOME/.bun"; then
         return
     fi
 
