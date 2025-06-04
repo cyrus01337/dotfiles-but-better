@@ -1,5 +1,5 @@
-local complex = require("custom.features.complex.lsp")
 local constants = require("custom.lib.constants")
+local lsp = require("custom.features.complex.lsp")
 local mode = require("custom.lib.mode")
 local utilities = require("custom.lib.utilities")
 
@@ -25,23 +25,7 @@ local function setup_language_server(server_name)
     server_found.setup(options_found)
 end
 
-local function lsp_attach(_, buffer_number)
-    local options = { buffer = buffer_number }
-
-    vim.keymap.set(mode.NORMAL, "K", "<CMD>lua vim.lsp.buf.hover()<CR>", options)
-    vim.keymap.set(mode.NORMAL, "gtd", "<CMD>lua vim.lsp.buf.definition()<CR>", options)
-    vim.keymap.set(mode.NORMAL, "gtD", "<CMD>lua vim.lsp.buf.declaration()<CR>", options)
-    vim.keymap.set(mode.NORMAL, "gti", "<CMD>lua vim.lsp.buf.implementation()<CR>", options)
-    vim.keymap.set(mode.NORMAL, "gto", "<CMD>lua vim.lsp.buf.type_definition()<CR>", options)
-    vim.keymap.set(mode.NORMAL, "gtr", "<CMD>lua vim.lsp.buf.references()<CR>", options)
-    vim.keymap.set(mode.NORMAL, "gts", "<CMD>lua vim.lsp.buf.signature_help()<CR>", options)
-    vim.keymap.set(mode.NORMAL, "<F2>", "<CMD>lua vim.lsp.buf.rename()<CR>", options)
-    vim.keymap.set({ mode.NORMAL, mode.VISUAL }, "<F3>", "<CMD>lua vim.lsp.buf.format({async = true})<CR>", options)
-    vim.keymap.set(mode.NORMAL, "<F4>", "<CMD>lua vim.lsp.buf.code_action()<CR>", options)
-end
-
-local features = {
-    complex.lspconfig,
+return utilities.concatenate_tables(lsp, {
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
@@ -117,6 +101,10 @@ local features = {
     },
     {
         "VonHeikemen/lsp-zero.nvim",
+        dependencies = {
+
+                "hrsh7th/cmp-nvim-lsp",
+        },
         branch = "v3.x",
         event = { "BufReadPre", "BufNewFile" },
         lazy = true,
@@ -205,7 +193,7 @@ local features = {
         },
         config = function()
             local cmp = require("cmp")
-            local lsp = require("lsp-zero")
+            local lsp_zero = require("lsp-zero")
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
             local cmp_context = require("cmp.config.context")
 
@@ -251,7 +239,7 @@ local features = {
                 -- TODO: Resolve type error regarding missing fields
                 formatting = {
                     format = function(entry, item)
-                        lsp.cmp_format({ details = true })
+                        lsp_zero.cmp_format({ details = true })
 
                         return require("nvim-highlight-colors").format(entry, item)
                     end,
@@ -368,6 +356,4 @@ local features = {
         },
         config = true,
     },
-}
-
-return features
+})

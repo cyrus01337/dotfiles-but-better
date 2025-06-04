@@ -42,7 +42,7 @@ function Utilities.exists(file)
     return success, error
 end
 
-function Utilities.cloneTable(container)
+function Utilities.clone_table(container)
     local copy = {}
 
     for key, value in pairs(container) do
@@ -50,7 +50,7 @@ function Utilities.cloneTable(container)
             -- must convert to table to label value as an iterable
             local value = value
 
-            value = Utilities.cloneTable(value)
+            value = Utilities.clone_table(value)
         end
 
         copy[key] = value
@@ -66,8 +66,58 @@ function Utilities.with_capabilities(object)
         cached_default_capabilities = cmp_lsp.default_capabilities()
     end
 
-    local cloned = Utilities.cloneTable(object)
+    local cloned = Utilities.clone_table(object)
     cloned.capabilities = cached_default_capabilities
+
+    return cloned
+end
+
+-- https://stackoverflow.com/a/41943392
+local function pretty_format(object, indentation)
+    if not indentation then indentation = 0 end
+    local toprint = string.rep(" ", indentation) .. "{\r\n"
+    indentation = indentation + 2
+    for k, v in pairs(object) do
+        toprint = toprint .. string.rep(" ", indentation)
+        if (type(k) == "number") then
+            toprint = toprint .. "[" .. k .. "] = "
+        elseif (type(k) == "string") then
+            toprint = toprint .. k .. "= "
+        end
+        if (type(v) == "number") then
+            toprint = toprint .. v .. ",\r\n"
+        elseif (type(v) == "string") then
+            toprint = toprint .. "\"" .. v .. "\",\r\n"
+        elseif (type(v) == "table") then
+            toprint = toprint .. pretty_format(v, indentation + 2) .. ",\r\n"
+        else
+            toprint = toprint .. "\"" .. tostring(v) .. "\",\r\n"
+        end
+    end
+    toprint = toprint .. string.rep(" ", indentation - 2) .. "}"
+    return toprint
+end
+
+function Utilities.pretty_print(...)
+    for _, object in ipairs({ ... }) do
+        print(pretty_format(object, 4))
+    end
+end
+
+function Utilities.multi_insert(origin, ...)
+    for _, value in ipairs({ ... }) do
+        table.insert(origin, value)
+    end
+end
+
+function Utilities.concatenate_tables(origin, ...)
+    local cloned = Utilities.clone_table(origin)
+
+    for _, container in ipairs({ ... }) do
+        for _, value in ipairs(container) do
+            table.insert(cloned, value)
+        end
+    end
 
     return cloned
 end
