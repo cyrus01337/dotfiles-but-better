@@ -17,7 +17,7 @@ is_operating_system() {
 
 upgrade_system() {
     if is_operating_system $FEDORA; then
-        sudo dnf system-upgrade
+        sudo dnf upgrade -y
     elif is_operating_system $ARCH; then
         sudo pacman -Syu --needed --noconfirm
     fi
