@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+LABEL="${LABEL-Arch}"
 DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main"
 
 timedatectl set-timezone Europe/London
@@ -43,7 +44,7 @@ mkdir -p /mnt/boot/EFI/limine && \
     arch-chroot /mnt efibootmgr --create --disk /dev/sda --part 1 --label $LABEL --loader "\EFI\limine\BOOTX64.EFI" --unicode && \
     curl -Lo /mnt/boot/limine.conf "$DOTFILES_URL/.config/arch/limine.conf"
 
-if test $LABEL; then
+if test $LABEL != "Arch"; then
     sed -i "s/^\/Arch$/\/$LABEL/" /mnt/boot/limine.conf
 fi
 
