@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
-LABEL="${LABEL-Arch}"
 DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main"
+LABEL="${LABEL-Arch}"
+
+if test ! $PASSWORD && test ! $MANUALLY_ASSIGN_PASSWORD; then
+    echo "Set and export the variable PASSWORD so that user account creation can be automated"
+    echo ""
+    echo "If you'd rather do this yourself, set and export the variable MANUALLY_ASSIGN_PASSWORD"
+
+    return 1
+fi
 
 timedatectl set-timezone Europe/London
 
@@ -38,8 +46,11 @@ echo -n "en_GB.UTF-8 UTF-8" > /mnt/etc/locale.gen && \
 arch-chroot /mnt useradd -m cyrus
 # this script is to automate guest installations where snapshots fail,
 # never do this for public-facing/online systems where security matters
-arch-chroot /mnt echo "ok" | passwd cyrus --stdin && \
-    echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
+if test ! $MANUALLY_ASSIGN_PASSWORD; then
+    arch-chroot /mnt echo "$PASSWORD" | passwd cyrus --stdin
+fi
+
+echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
 
 arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
 
