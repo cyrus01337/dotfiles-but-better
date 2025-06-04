@@ -19,29 +19,29 @@ pacstrap -K /mnt amd-ucode base dolphin efibootmgr fastfetch gtkmm3 limine linux
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # the following must be done in an arch-chroot environment
-ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
-hwclock --systohc
+arch-chroot /mnt ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
+arch-chroot /mnt hwclock --systohc
 
-echo -n "en_GB.UTF-8 UTF-8" > /etc/locale.gen
-echo -n "LANG=en_GB.UTF-8" > /etc/locale.conf
-locale-gen
+echo -n "en_GB.UTF-8 UTF-8" > /mnt/etc/locale.gen
+echo -n "LANG=en_GB.UTF-8" > /mnt/etc/locale.conf
+arch-chroot /mnt locale-gen
 
-echo -n "KEYMAP=uk" > /etc/vconsole.conf
+echo -n "KEYMAP=uk" > /mnt/etc/vconsole.conf
 
-echo -n "arch" > /etc/hostname
+echo -n "arch" > /mnt/etc/hostname
 
-useradd -mG wheel cyrus
-passwd cyrus
+arch-chroot /mnt useradd -m cyrus
+arch-chroot /mnt passwd cyrus
 
-echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
 
-systemctl enable NetworkManager sddm vmtoolsd
+arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
 
-mkdir -p /boot/EFI/limine
-cp /usr/share/limine/BOOTX64.EFI /boot/EFI/limine
-efibootmgr --create --disk /dev/sda --part 1 --label "Arch" --loader "\EFI\limine\BOOTX64.EFI" --unicode
+mkdir -p /mnt/boot/EFI/limine
+cp /mnt/usr/share/limine/BOOTX64.EFI /mnt/boot/EFI/limine
+arch-chroot /mnt efibootmgr --create --disk /dev/sda --part 1 --label "Arch" --loader "\EFI\limine\BOOTX64.EFI" --unicode
 
-curl -o /boot/limine.conf https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.config/arch/limine.conf
+curl -o /mnt/boot/limine.conf https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.config/arch/limine.conf
 
 umount -R /mnt
 reboot
