@@ -66,6 +66,7 @@
         overrideConfig = true;
         panels = [
             {
+                height = 50;
                 hiding = "autohide";
                 location = "bottom";
                 widgets = [
@@ -171,8 +172,8 @@
             "Toggle Tiles Editor" = NO_HOTKEY;
             "Switch Power Profile" = NO_HOTKEY;
 
-            "Minimise Window" = "Meta+M";
-            "Close Window" = "Meta+Q";
+            "Minimise Window" = "Ctrl+Alt+M";
+            "Close Window" = "Ctrl+Alt+Q";
 
             "Switch to Desktop 1" = "Meta+1";
             "Switch to Desktop 2" = "Meta+2";
