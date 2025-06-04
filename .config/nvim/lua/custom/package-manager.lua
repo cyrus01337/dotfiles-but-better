@@ -24,18 +24,27 @@ vim.opt.rtp:prepend(lazypath)
 local lazy = require("lazy")
 
 lazy.setup({
-    spec = {
-        { import = "custom.features" },
-    },
-    install = {
-        colorscheme = { constants.THEME.name },
+    change_detection = {
+        enabled = false,
     },
     checker = {
         enabled = true,
         notify = false,
     },
-    change_detection = {
-        enabled = false,
+    git = {
+        cooldown = 60,
+        log = { "-3" },
+        throttle = {
+            duration = 1000,
+            enabled = true,
+            rate = 4,
+        },
+    },
+    install = {
+        colorscheme = { constants.THEME.name },
+    },
+    spec = {
+        { import = "custom.features" },
     },
 })
 
