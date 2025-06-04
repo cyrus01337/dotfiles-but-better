@@ -4,10 +4,10 @@ set -e
 TEMPORARY_DIRECTORY="$(mktemp -d)"
 OPERATING_SYSTEM="$(hostnamectl | grep 'Operating System')"
 FEDORA="Fedora"
+ARCH="Arch"
 NIXOS="NixOS"
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
-UNIVERSAL_PACKAGES=("alacritty curl fish flatpak fzf git jq parallel stow tmux")
 
 is_operating_system() {
     # Without double brackets the same line using "test" reports the wrong exit
@@ -17,34 +17,43 @@ is_operating_system() {
 
 upgrade_system() {
     if is_operating_system $FEDORA; then
-        sudo dnf upgrade -y $@
+        sudo dnf system-upgrade
+    elif is_operating_system $ARCH; then
+        sudo pacman -Syu --noconfirm
     fi
 }
 
 install_package() {
     if is_operating_system $FEDORA; then
         sudo dnf install -y $@
+    elif is_operating_system $ARCH; then
+        sudo pacman -S --noconfirm $@
     fi
 }
 
 remove_package() {
     if is_operating_system $FEDORA; then
         sudo dnf remove -y $@ 2> /dev/null
+    elif is_operating_system $ARCH; then    
+        sudo pacman -Rns --noconfirm $@ 2> /dev/null
     fi
 }
 
 cross_system_package() {
     for_fedora="$1"
+    for_arch="${2-$for_fedora}"
 
     if is_operating_system $FEDORA; then
         echo $for_fedora
+    elif is_operating_system $ARCH; then
+        echo $for_arch
     fi
 }
 
 warn_if_system_unsupported() {
     addendum="$1"
 
-    if is_operating_system $FEDORA; then
+    if is_operating_system $FEDORA || is_operating_system $ARCH; then
         return
     elif ! test $addendum; then
         echo "Unsupported OS"
@@ -61,27 +70,47 @@ setup_automatic_updates() {
     if is_operating_system $FEDORA; then
         configuration_file="/etc/dnf/automatic.conf"
 
-        echo "[commands]" | sudo tee $configuration_file > /dev/null && \
+        install_package "dnf-automatic" && \
+            echo "[commands]" | sudo tee $configuration_file > /dev/null && \
             echo "apply_updates=True" | sudo tee $configuration_file > /dev/null && \
             sudo systemctl enable --now dnf-automatic.timer
+    elif is_operating_system $ARCH; then
+        curl -fsSLo /tmp/automatic-updates.service https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.config/arch/automatic-updates.service && \
+            sudo systemctl enable /tmp/automatic-updates.service
     fi
+}
+
+setup_ssh() {
+    sudo systemctl enable --now --quiet sshd
 }
 
 prepare_operating_system() {
     upgrade_system
     install_package \
-        $UNIVERSAL_PACKAGES \
-        $(cross_system_package "bat") \
-        $(cross_system_package "dnf-automatic") \
-        $(cross_system_package "fastfetch") \
-        $(cross_system_package "gh") \
-        $(cross_system_package "git-delta") \
-        $(cross_system_package "lua") \
-        $(cross_system_package "obs-studio") \
-        $(cross_system_package "ranger")
+        alacritty \
+        bat \
+        curl \
+        fastfetch \
+        fish \
+        flatpak \
+        fzf \
+        git \
+        git-delta \
+        jq \
+        lua \
+        obs-studio \
+        parallel \
+        ranger \
+        stow \
+        tmux \
+        unzip \
+        $(cross_system_package "gh" "github-cli") \ 
+        $(cross_system_package "" "openssh")
+
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
+    setup_ssh
 }
 
 install_bun() {
@@ -99,14 +128,19 @@ install_docker() {
         return
     fi
 
-    sudo sh -c "$(curl -fsSL https://get.docker.com)" && \
-        sudo usermod -aG docker cyrus && \
-        sudo systemctl enable --now --quiet docker
+    if is_operating_system $ARCH; then
+        install_package docker docker-compose
+    else
+        sudo sh -c "$(curl -fsSL https://get.docker.com)"
+    fi
+
+    sudo usermod -aG docker $USER && \
+        sudo systemctl enable --now --quiet docker.socket
 }
 
 install_fnm() {
     directory="$HOME/.local/share/fnm"
-    default_major_node_version="3.13"
+    default_major_node_version="22"
     export PATH="$PATH:$directory"
 
     if test -d $directory; then
@@ -128,8 +162,8 @@ install_go() {
 
     export PATH="$PATH:/usr/local/go/bin"
 
-    curl -Lo $archive_path https://go.dev/dl/ && \
-        tar -C /usr/local -xzf $archive_path
+    curl -Lo $archive_path https://go.dev/dl/go1.24.3.linux-amd64.tar.gz && \
+        sudo tar -C /usr/local -xzf $archive_path
 }
 
 install_lazydocker() {
@@ -148,12 +182,16 @@ install_lazygit() {
     if is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/lazygit && \
             install_package lazygit
+    elif is_operating_system $ARCH; then
+        install_package lazygit
     fi
 }
 
 install_python_build_dependencies() {
     if is_operating_system $FEDORA; then
         install_package bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
+    elif is_operating_system $ARCH; then
+        install_package --needed base-devel openssl tk xz zlib
     fi
 }
 
@@ -193,9 +231,13 @@ install_rust() {
 install_starship() {
     if which starship &> /dev/null; then
         return
-    elif is_operating_system $FEDORA; then
+    fi
+
+    if is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/starship && \
             install_package starship
+    elif is_operating_system $ARCH; then
+        install_package starship
     fi
 }
 
@@ -227,7 +269,7 @@ install_neovim() {
         return
     fi
 
-    if is_operating_system $FEDORA; then
+    if is_operating_system $FEDORA || is_operating_system $ARCH; then
         install_package luarocks neovim
     fi
 }
