@@ -29,7 +29,7 @@ mount /dev/sda3 /mnt && \
     swapon /dev/sda2 && \
     mount --mkdir /dev/sda1 /mnt/boot
 
-pacstrap -K /mnt amd-ucode base dolphin efibootmgr fastfetch gtkmm3 limine linux-firmware linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
+pacstrap -K /mnt alacritty amd-ucode base dolphin efibootmgr fastfetch gtkmm3 limine linux-firmware linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
     sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /mnt/etc/pacman.conf
 
 genfstab -U /mnt >> /mnt/etc/fstab
