@@ -104,7 +104,7 @@ prepare_operating_system() {
         stow \
         tmux \
         unzip \
-        $(cross_system_package "gh" "github-cli") \ 
+        $(cross_system_package "gh" "github-cli") \
         $(cross_system_package "" "openssh")
 
     remove_package $EXCLUDE_KDE_SOFTWARE
