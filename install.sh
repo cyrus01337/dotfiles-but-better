@@ -19,7 +19,7 @@ upgrade_system() {
     if is_operating_system $FEDORA; then
         sudo dnf system-upgrade
     elif is_operating_system $ARCH; then
-        sudo pacman -Syu --noconfirm
+        sudo pacman -Syu --needed --noconfirm
     fi
 }
 
@@ -27,7 +27,7 @@ install_package() {
     if is_operating_system $FEDORA; then
         sudo dnf install -y $@
     elif is_operating_system $ARCH; then
-        sudo pacman -S --noconfirm $@
+        sudo pacman -S --needed --noconfirm $@
     fi
 }
 
