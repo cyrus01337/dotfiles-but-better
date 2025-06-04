@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 timedatectl set-timezone Europe/London
 
-pacman -Sy archlinux-keyring
+pacman -Sy --noconfirm archlinux-keyring
 
 curl -O https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.config/arch/partitions.layout
 sfdisk --wipe-partitions always /dev/sda < partitions.layout
