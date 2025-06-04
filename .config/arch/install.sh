@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+LABEL="${LABEL-Arch}"
+
 timedatectl set-timezone Europe/London
 
 pacman -Sy --noconfirm archlinux-keyring
@@ -41,9 +43,13 @@ arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
 
 mkdir -p /mnt/boot/EFI/limine
 cp /mnt/usr/share/limine/BOOTX64.EFI /mnt/boot/EFI/limine
-arch-chroot /mnt efibootmgr --create --disk /dev/sda --part 1 --label "Arch" --loader "\EFI\limine\BOOTX64.EFI" --unicode
+arch-chroot /mnt efibootmgr --create --disk /dev/sda --part 1 --label $LABEL --loader "\EFI\limine\BOOTX64.EFI" --unicode
 
 curl -Lo /mnt/boot/limine.conf https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.config/arch/limine.conf
+
+if test $LABEL != "Arch"; then
+    sed -i "s/^\/Arch$/\/$LABEL/" /mnt/boot/limine.conf
+fi
 
 umount -R /mnt
 reboot
