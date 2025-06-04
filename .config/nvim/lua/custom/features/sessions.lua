@@ -5,12 +5,7 @@ return {
         vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
     end,
     opts = {
-        allowed_dirs = {
-            "{/workspace,~}/",
-            "{/workspace,~}/.config/{fish,nvim}/",
-            "{/workspace,~}/{bin,Playground}/",
-            "{/workspace,~}/Projects/*/*/",
-        },
+        auto_restore_last_session = true,
         cwd_change_handling = true,
     },
 }
