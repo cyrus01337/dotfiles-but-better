@@ -14,7 +14,7 @@ umount -R /mnt 2> /dev/null && \
     sfdisk --wipe always --wipe-partitions always /dev/sda < partitions.layout
 
 mkfs.fat -F 32 /dev/sda1 && \
-    mkswap -F /dev/sda2 && \
+    mkswap /dev/sda2 && \
     mkfs.ext4 -F /dev/sda3
 
 mount /dev/sda3 /mnt && \
