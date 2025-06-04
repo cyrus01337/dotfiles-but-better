@@ -9,7 +9,7 @@ timedatectl set-timezone Europe/London
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     pacman -Sy --noconfirm archlinux-keyring
 
-umount -R && \
+umount -R /mnt 2> /dev/null && \
     curl -LO "$DOTFILES_URL/.config/arch/partitions.layout" && \
     sfdisk --wipe always --wipe-partitions always /dev/sda < partitions.layout
 
