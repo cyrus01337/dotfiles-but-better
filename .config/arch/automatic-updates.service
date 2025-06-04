@@ -1,0 +1,10 @@
+[Unit]
+After=network-online.target
+Description="Automated updates for Arch"
+
+[Service]
+ExecStart=/usr/bin/pacman -Syu --noconfirm
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
