@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+
 timedatectl set-timezone Europe/London
 
 pacman -Sy --noconfirm archlinux-keyring
