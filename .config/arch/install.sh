@@ -9,12 +9,13 @@ timedatectl set-timezone Europe/London
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     pacman -Sy --noconfirm archlinux-keyring
 
-curl -LO "$DOTFILES_URL/.config/arch/partitions.layout" && \
-    sfdisk --wipe-partitions always /dev/sda < partitions.layout
+umount -R && \
+    curl -LO "$DOTFILES_URL/.config/arch/partitions.layout" && \
+    sfdisk --wipe always --wipe-partitions always /dev/sda < partitions.layout
 
 mkfs.fat -F 32 /dev/sda1 && \
-    mkswap /dev/sda2 && \
-    mkfs.ext4 /dev/sda3
+    mkswap -F /dev/sda2 && \
+    mkfs.ext4 -F /dev/sda3
 
 mount /dev/sda3 /mnt && \
     swapon /dev/sda2 && \
