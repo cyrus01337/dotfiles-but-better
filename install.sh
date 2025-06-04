@@ -35,7 +35,7 @@ remove_package() {
     if is_operating_system $FEDORA; then
         sudo dnf remove -y $@ 2> /dev/null
     elif is_operating_system $ARCH; then    
-        sudo pacman -Rns --noconfirm $@ 2> /dev/null
+        sudo pacman -Rns --noconfirm $@ 2> /dev/null || true
     fi
 }
 
