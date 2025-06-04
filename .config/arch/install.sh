@@ -4,6 +4,7 @@ set -e
 timedatectl set-timezone Europe/London
 
 pacman -Sy --noconfirm archlinux-keyring
+sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf
 
 curl -LO https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.config/arch/partitions.layout
 sfdisk --wipe-partitions always /dev/sda < partitions.layout
