@@ -256,6 +256,10 @@ install_dotfiles() {
     mkdir -p $root && \
         git clone --recurse-submodules git@github.com:cyrus01337/dotfiles-but-better.git $directory
 
+    if test ! -d $directory; then
+        return
+    fi
+
     if is_operating_system $NIXOS; then
         stow_ignore_file_kind="nixos"
     fi
