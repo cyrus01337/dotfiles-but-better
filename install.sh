@@ -105,7 +105,8 @@ prepare_operating_system() {
         tmux \
         unzip \
         $(cross_system_package "gh" "github-cli") \
-        $(cross_system_package "" "openssh")
+        $(cross_system_package "" "openssh") \
+        $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
 
     remove_package $EXCLUDE_KDE_SOFTWARE
 
