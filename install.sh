@@ -268,6 +268,7 @@ install_dotfiles() {
     fi
 
     cp "$directory/lib/$stow_ignore_file_kind.stow-local-ignore" $stow_ignore_file_location && \
+        rm "$HOME/.bashrc" && \
         stow -t $HOME -d $directory --adopt . && \
         rm -f $stow_ignore_file_location
 }
