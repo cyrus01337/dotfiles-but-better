@@ -82,8 +82,8 @@ setup_automatic_updates() {
 }
 
 setup_ssh() {
-    mkdir "$HOME/.ssh" && \
-        curl -Lo .ssh/config https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config && \
+    mkdir "$HOME/.ssh" || true
+    curl -Lo .ssh/config https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config && \
         sudo systemctl enable --now --quiet sshd
 }
 
