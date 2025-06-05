@@ -284,7 +284,7 @@ install_neovim() {
 
 prepare_operating_system
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
-    flatpak install -y --user $FLATPAK_SOFTWARE || true
+    flatpak install --noninteractive --user --yes $FLATPAK_SOFTWARE || true
 
 if ! is_operating_system $NIXOS; then
     install_bun && \
