@@ -70,7 +70,8 @@ setup_automatic_updates() {
     if is_operating_system $FEDORA; then
         configuration_file="/etc/dnf/automatic.conf"
 
-        install_package "dnf-automatic" && \
+        # TODO: Move to .config/fedora
+        install_package dnf-automatic && \
             echo "[commands]" | sudo tee $configuration_file > /dev/null && \
             echo "apply_updates=True" | sudo tee $configuration_file > /dev/null && \
             sudo systemctl enable --now dnf-automatic.timer
@@ -81,7 +82,9 @@ setup_automatic_updates() {
 }
 
 setup_ssh() {
-    sudo systemctl enable --now --quiet sshd
+    mkdir "$HOME/.ssh" && \
+        curl -Lo .ssh/config https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config && \
+        sudo systemctl enable --now --quiet sshd
 }
 
 prepare_operating_system() {
@@ -265,7 +268,6 @@ install_dotfiles() {
     fi
 
     cp "$directory/lib/$stow_ignore_file_kind.stow-local-ignore" $stow_ignore_file_location && \
-        curl -Lo .ssh/config https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config && \
         stow -t $HOME -d $directory --adopt . && \
         rm -f $stow_ignore_file_location
 }
