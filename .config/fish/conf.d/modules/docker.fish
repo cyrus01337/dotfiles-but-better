@@ -1,5 +1,4 @@
 #!/usr/bin/env fish
-
 if command -q docker
     set USER_IN_DOCKER_GROUP (id -nG "$USER" | grep docker)
 

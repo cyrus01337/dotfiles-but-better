@@ -41,3 +41,5 @@ if command -q docker
         docker build -t test $flags $context
     end
 end
+
+return 0
