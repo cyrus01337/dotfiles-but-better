@@ -3,3 +3,4 @@
 .config/fish/completions/environments/
 .config/tmux/plugins/*/
 .ssh/
+.stow-local-ignore
