@@ -188,3 +188,5 @@ if test -d $PROJECTS_DIRECTORY
         return 0
     end
 end
+
+return 0

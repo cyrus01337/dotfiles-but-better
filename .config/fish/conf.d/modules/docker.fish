@@ -1,12 +1,13 @@
 #!/usr/bin/env fish
-function silence
-    command $argv &> /dev/null
-
-    return $status
-end
 
 if command -q docker
     set USER_IN_DOCKER_GROUP (id -nG "$USER" | grep docker)
+
+    function silence
+        command $argv &> /dev/null
+
+        return $status
+    end
 
     function ollama
         echo "Preparing Ollama..."
@@ -49,7 +50,7 @@ if command -q docker
 
     silence docker image ls
 
-    if [ $status != 0 ]; and [ -f /.dockerenv ]; and [ "$USER_IN_DOCKER_GROUP" != "" ]
+    if test $status != 0 ; and test -f /.dockerenv ; and test "$USER_IN_DOCKER_GROUP" != ""
         # There is a bug within devcontainers where if it uses
         # docker-outside-of-docker, running any Docker command fails despite
         # being assigned to the Docker group, so we modify the permissions of
@@ -57,3 +58,5 @@ if command -q docker
         silence sudo chmod 666 /run/docker.sock
     end
 end
+
+return 0

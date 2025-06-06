@@ -21,3 +21,5 @@ if command -q nvim
         cd $PREVIOUS_DIRECTORY
     end
 end
+
+return 0

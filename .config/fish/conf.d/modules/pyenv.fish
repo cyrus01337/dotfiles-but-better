@@ -13,3 +13,5 @@ if test -d $PYENV_ROOT
 else if test -f $VENV_ACTIVATION_SCRIPT
     source $VENV_ACTIVATION_SCRIPT
 end
+
+return 0

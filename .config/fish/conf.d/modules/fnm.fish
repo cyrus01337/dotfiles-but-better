@@ -6,3 +6,5 @@ if command -q fnm; or test -d $FNM_DIRECTORY
 
     fnm env --use-on-cd --shell fish | source
 end
+
+return 0

@@ -12,7 +12,7 @@ if command -q ssh
         set environment_filepath "$ENVIRONMENTS_DIRECTORY/$environment_filename"
         set environment (cat $environment_filepath 2> /dev/null)
 
-        if test $status != 0 || not test -f "$environment_filepath"
+        if test $status != 0 || not test -f $environment_filepath
             echo "$environment_filename is an invalid environment"
 
             return 1
@@ -35,7 +35,7 @@ if command -q ssh
             echo "Path given must be a directory"
         end
 
-        if test $status != 0 || not test -f "$environment_filepath"
+        if test $status != 0 || not test -f $environment_filepath
             echo "$environment_filename is an invalid environment"
 
             return 1
@@ -59,3 +59,5 @@ if command -q ssh
         ssh-keygen -a 10 -b 4096 -f "$HOME/.ssh/$name" -t ed25519
     end
 end
+
+return 0
