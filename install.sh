@@ -307,5 +307,4 @@ if ! is_operating_system $NIXOS; then
         install_neovim
 fi
 
-flatpak install -y $FLATPAK_SOFTWARE
 source $HOME/.bashrc
