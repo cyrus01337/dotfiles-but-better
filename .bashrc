@@ -27,14 +27,14 @@ export LANG="en_GB.UTF-8"
 export LC_ALL="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
 
-# TODO: Refine
-# TODO: Only run Fish if logged in
-# if test -d /etc/nixos && which fish &> /dev/null && ! ps | grep "fish" &> /dev/null && test -z ''${BASH_EXECUTION_STRING}; then
-#     shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+if [[
+    $- == *"i"* &&
+    $(which fish &> /dev/null) &&
+    ! $(ps | grep "fish" &> /dev/null) &&
+    -z ${BASH_EXECUTION_STRING} &&
+    ${SHLVL} == 1
+]]; then
+    shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
 
-#     exec fish $LOGIN_OPTION
-# elif [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ${BASH_EXECUTION_STRING} && ${SHLVL} == 1 ]]; then
-#     shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-
-#     exec fish $LOGIN_OPTION
-# fi
+    exec fish $LOGIN_OPTION
+fi
