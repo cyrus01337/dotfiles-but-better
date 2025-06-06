@@ -30,12 +30,10 @@ export LANGUAGE="en_GB:en"
 
 if [[
     $- == *"i"* &&
-    $(which fish) &&
-    ! $(ps | grep "fish" &> /dev/null) &&
+    $(which tmux) &&
+    ! $TMUX &&
     -z ${BASH_EXECUTION_STRING} &&
     ${SHLVL} == 1
 ]]; then
-    shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-
-    exec fish $LOGIN_OPTION
+    exec tmux new-session -As main
 fi

@@ -3,16 +3,6 @@ for function_ in (find $__fish_config_dir/functions/ -type f -not \( -path '*/__
     . $function_
 end
 
-for script in $__fish_config_dir/conf.d/before/*.fish
-    source $script
-
-    set cached_status $status
-
-    if test $cached_status != 0
-        echo "Before script $script failed with exit code $cached_status"
-    end
-end
-
 for module in $__fish_config_dir/conf.d/modules/*.fish
     source $module
 
