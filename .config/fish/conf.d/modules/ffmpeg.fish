@@ -22,3 +22,5 @@ if command -q ffmpeg
         end
     end
 end
+
+return 0

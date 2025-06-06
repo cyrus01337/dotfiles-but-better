@@ -9,3 +9,5 @@ if command -q devpod
         devpod up --recreate .
     end
 end
+
+return 0

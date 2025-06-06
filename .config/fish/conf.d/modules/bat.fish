@@ -3,3 +3,4 @@ if command -q batcat
     alias bat="batcat"
 end
 
+return 0

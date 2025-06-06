@@ -14,3 +14,5 @@ if test -d /etc/nixos
 
     alias nr="nixos-rebuild-extended"
 end
+
+return 0

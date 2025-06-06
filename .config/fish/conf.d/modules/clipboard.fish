@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
-if [ "$XDG_SESSION_TYPE" = "x11" ]; and command -q xclip
+if test $XDG_SESSION_TYPE = "x11"; and command -q xclip
     alias clip="xclip -selection clipboard"
-else if [ "$XDG_SESSION_TYPE" = "wayland" ]; and command -q wl-copy
+else if test $XDG_SESSION_TYPE = "wayland"; and command -q wl-copy
     alias clip="wl-copy"
 end
 
@@ -12,3 +12,5 @@ if command -q clip
         cat $target | clip
     end
 end
+
+return 0

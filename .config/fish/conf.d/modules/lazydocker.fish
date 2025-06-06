@@ -2,3 +2,5 @@
 if command -q lazydocker
     alias ld="lazydocker"
 end
+
+return 0

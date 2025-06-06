@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
-alias re="reboot now"
-alias shu="shutdown now"
+alias re="sudo reboot now"
+alias shu="sudo shutdown now"
 
 function switch-and-link
     set target $argv[1]
@@ -21,3 +21,5 @@ function switch-and-link
     mv $target "$destination/$filename"
     ln -s "$destination/$filename" $target
 end
+
+return 0
