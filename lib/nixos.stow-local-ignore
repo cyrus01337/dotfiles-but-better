@@ -1,11 +1,4 @@
 .config/arch
-.editorconfig
+.config/fedora
 .fonts
-.git
-.github
-.gitignore
-.gitmodules
 .python-version
-README.md
-install.sh
-lib

@@ -34,7 +34,7 @@ install_package() {
 remove_package() {
     if is_operating_system $FEDORA; then
         sudo dnf remove -y $@ 2> /dev/null
-    elif is_operating_system $ARCH; then    
+    elif is_operating_system $ARCH; then
         sudo pacman -Rns --noconfirm $@ 2> /dev/null || true
     fi
 }
@@ -253,7 +253,7 @@ install_dotfiles() {
         return
     fi
 
-    stow_ignore_file_kind="default"
+    shared_stow_ignore_file_kind="default"
     stow_ignore_file_location="$directory/.stow-local-ignore"
 
     mkdir -p $root && \
@@ -264,10 +264,15 @@ install_dotfiles() {
     fi
 
     if is_operating_system $NIXOS; then
-        stow_ignore_file_kind="nixos"
+        shared_stow_ignore_file_kind="nixos"
+    elif is_operating_system $FEDORA; then
+        shared_stow_ignore_file_kind="fedora"
+    elif is_operating_system $ARCH; then
+        shared_stow_ignore_file_kind="arch"
     fi
 
-    cp "$directory/lib/$stow_ignore_file_kind.stow-local-ignore" $stow_ignore_file_location && \
+    cp "$directory/lib/default.stow-local-ignore" $stow_ignore_file_location && \
+        cat "$directory/lib/${shared_stow_ignore_file_kind}.stow-local-ignore" >> $stow_ignore_file_location && \
         rm "$HOME/.bashrc" && \
         stow -t $HOME -d $directory --adopt . && \
         rm -f $stow_ignore_file_location
