@@ -29,7 +29,7 @@ export LANGUAGE="en_GB:en"
 
 if [[
     $- == *"i"* &&
-    $(which fish &> /dev/null) &&
+    $(which fish) &&
     ! $(ps | grep "fish" &> /dev/null) &&
     -z ${BASH_EXECUTION_STRING} &&
     ${SHLVL} == 1
