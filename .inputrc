@@ -7,3 +7,4 @@
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 "\C-h": backward-kill-word
+"\e[7;5~": backward-kill-word
