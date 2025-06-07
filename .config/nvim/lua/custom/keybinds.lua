@@ -29,6 +29,14 @@ set(mode.NORMAL, "<leader>n", "<CMD>nohl<CR>", { remap = true })
 -- delete previous word
 set(mode.INSERT, "<C-BS>", "db", { remap = true })
 
+-- delete up to common symbols
+set(mode.NORMAL, 'd"', 'd/"<CR>')
+set(mode.NORMAL, "d'", "d/'<CR>")
+set(mode.NORMAL, "d)", "d/)<CR>")
+set(mode.NORMAL, "d}'", "d/}<CR>")
+set(mode.NORMAL, "d['", "d/[<CR>")
+set(mode.NORMAL, "d<'", "d/<<CR>")
+
 -- ctrl+up/down jump through paragraphs/functions
 set(mode.NORMAL, "<C-Up>", "{", { remap = true })
 set(mode.NORMAL, "<C-Down>", "}", { remap = true })
