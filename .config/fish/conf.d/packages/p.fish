@@ -178,7 +178,7 @@ function on_pwd_change --on-variable PWD
 
     auto_detect_package_manager
 
-    if test $previously_loaded != $P_LOADED
+    if test $previously_loaded; and test "$previously_loaded" != "$P_LOADED"
         set name $P_LOADED
 
         if not set -q P_LOADED[1]
