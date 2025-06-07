@@ -33,6 +33,10 @@ set(mode.INSERT, "<C-BS>", "db", { remap = true })
 set(mode.NORMAL, "<C-Up>", "{", { remap = true })
 set(mode.NORMAL, "<C-Down>", "}", { remap = true })
 
+-- move to start and end of file
+set({ mode.NORMAL, mode.INSERT }, "gtb", "gg", { remap = true })
+set({ mode.NORMAL, mode.INSERT }, "gte", "G", { remap = true })
+
 -- B/E to jump from Beginning/End of line respectively
 set(mode.NORMAL, "E", "$", { remap = true })
 set(mode.NORMAL, "B", "^", { remap = true })
