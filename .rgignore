@@ -1,3 +1,4 @@
-**/.git/*
 *.rgignore
+.git/
 external/
+node_modules/
