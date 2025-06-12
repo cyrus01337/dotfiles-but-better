@@ -4,8 +4,8 @@ set P_LOADED
 set P_FILE (status --current-filename)
 set P_DIRECTORY (dirname $P_FILE)
 set P_LOG_FILE "/tmp/p.log"
-set P_SUPPORTED_LANGUAGES "web-development"
-set P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS "dnf"
+set P_SUPPORTED_DEVELOPMENT "web-development"
+set P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS "dnf pacman"
 
 if not set -q P_DEBUG
     set P_DEBUG false
@@ -154,7 +154,7 @@ function auto_detect_package_manager
         set P_LOADED
     end
 
-    set payload (process_loaders_from_list $P_SUPPORTED_LANGUAGES)
+    set payload (process_loaders_from_list $P_SUPPORTED_DEVELOPMENT)
 
     if test $status != 0
         set payload (process_loaders_from_list $P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS)
