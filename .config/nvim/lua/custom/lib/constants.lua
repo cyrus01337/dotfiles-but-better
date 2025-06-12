@@ -8,6 +8,9 @@ return {
                     diagnostics = {
                         globals = { "vim" },
                     },
+                    hint = {
+                        enable = true,
+                    },
                 },
             },
         },
