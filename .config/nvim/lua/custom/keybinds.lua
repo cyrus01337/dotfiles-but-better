@@ -23,11 +23,8 @@ local function save_cursor_column()
     end
 end
 
--- disable highlight
-set(mode.NORMAL, "<leader>n", "<CMD>nohl<CR>", { remap = true })
-
 -- delete previous word
-set(mode.INSERT, "<C-BS>", "db", { remap = true })
+set(mode.INSERT, "<C-BS>", "<Esc>db", { remap = true })
 
 -- delete up to common symbols
 set(mode.NORMAL, 'd"', 'd/"<CR>')
@@ -41,26 +38,16 @@ set(mode.NORMAL, "d<'", "d/<<CR>")
 set(mode.NORMAL, "<C-Up>", "{", { remap = true })
 set(mode.NORMAL, "<C-Down>", "}", { remap = true })
 
--- move to start and end of file
-set({ mode.NORMAL, mode.INSERT }, "jtb", "gg^", { remap = true })
-set({ mode.NORMAL, mode.INSERT }, "jte", "G$", { remap = true })
-
 -- B/E to jump from Beginning/End of line respectively
 set(mode.NORMAL, "E", "$", { remap = true })
 set(mode.NORMAL, "B", "^", { remap = true })
 
+-- move to start and end of file
+set({ mode.NORMAL, mode.INSERT }, "jtb", "gg^", { remap = true })
+set({ mode.NORMAL, mode.INSERT }, "jte", "G$", { remap = true })
+
 -- newline on enter in normal mode
 set(mode.NORMAL, "<CR>", "o<Esc>", { remap = true })
-
--- undo
-set({ mode.NORMAL, mode.INSERT }, "<C-z>", function()
-    vim.cmd("normal! u")
-end)
-
--- redo
-set({ mode.NORMAL, mode.INSERT }, "<CS-z>", function()
-    vim.cmd("normal! r")
-end)
 
 -- rebind delete/cut line
 set(mode.NORMAL, "dd", "<Nop>")
@@ -122,7 +109,7 @@ set({ mode.NORMAL, mode.VISUAL_SELECT }, "<C-a>", function()
     -- the end of the file
     --
     -- moonicus runicus
-    vim.cmd("normal! 0ggVG")
+    vim.cmd("normal! ggVG")
 end)
 
 -- source current buffer
@@ -156,10 +143,23 @@ set(mode.VISUAL_SELECT, "<Tab>", ">gv", { remap = true })
 set(mode.VISUAL_SELECT, "<S-Tab>", "<gv", { remap = true })
 
 -- sort selection
-set({ mode.VISUAL_SELECT }, "<leader>s", "<CMD>'<,'>Sort<CR>", { remap = true })
+set({ mode.VISUAL, mode.VISUAL_SELECT }, "<leader>s", "<CMD>'<,'>Sort<CR>", { remap = true })
+
+-- LSP options
+set(mode.NORMAL, "h", vim.lsp.buf.hover, { remap = true })
+set(mode.NORMAL, "gtd", vim.lsp.buf.definition)
+set(mode.NORMAL, "gtD", vim.lsp.buf.declaration)
+set(mode.NORMAL, "gti", vim.lsp.buf.implementation)
+set(mode.NORMAL, "gto", vim.lsp.buf.type_definition)
+set(mode.NORMAL, "gtr", vim.lsp.buf.references)
+set(mode.NORMAL, "gts", vim.lsp.buf.signature_help)
+set(mode.NORMAL, "r", vim.lsp.buf.rename)
+set(mode.INSERT, "<F2>", vim.lsp.buf.rename)
+set({ mode.NORMAL, mode.VISUAL }, "fo", function() vim.lsp.buf.format({ async = true }) end)
+set(mode.NORMAL, "<F4>", vim.lsp.buf.code_action)
 
 -- quit
 set(mode.NORMAL, "<leader>q", "<CMD>q<CR>")
 set(mode.NORMAL, "<C-q>", "<CMD>qa<CR>")
 set(mode.NORMAL, "<leader>Q", "<CMD>q!<CR>") -- force
-set(mode.NORMAL, "<CS-q>", "<CMD>qa!<CR>") -- force
+set(mode.NORMAL, "<CS-q>", "<CMD>qa!<CR>")   -- force
