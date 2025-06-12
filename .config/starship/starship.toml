@@ -31,7 +31,6 @@ error_symbol = "[❌](red)"
 format = "[$duration](comment)"
 min_time = 1_000
 min_time_to_notify = 20_000
-show_notifications = true
 
 [deno]
 format = "[$symbol]($style)"
