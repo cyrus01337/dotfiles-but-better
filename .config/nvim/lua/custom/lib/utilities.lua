@@ -59,7 +59,13 @@ function Utilities.clone_table(container)
     return copy
 end
 
-function Utilities.with_capabilities(object)
+local function on_attach(client, _)
+    if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable()
+    end
+end
+
+function Utilities.extend_lsp_options(object)
     if not cached_default_capabilities then
         local cmp_lsp = require("cmp_nvim_lsp")
 
@@ -68,27 +74,30 @@ function Utilities.with_capabilities(object)
 
     local cloned = Utilities.clone_table(object)
     cloned.capabilities = cached_default_capabilities
+    cloned.on_attach = on_attach
 
     return cloned
 end
 
 -- https://stackoverflow.com/a/41943392
 local function pretty_format(object, indentation)
-    if not indentation then indentation = 0 end
+    if not indentation then
+        indentation = 0
+    end
     local toprint = string.rep(" ", indentation) .. "{\r\n"
     indentation = indentation + 2
     for k, v in pairs(object) do
         toprint = toprint .. string.rep(" ", indentation)
-        if (type(k) == "number") then
+        if type(k) == "number" then
             toprint = toprint .. "[" .. k .. "] = "
-        elseif (type(k) == "string") then
+        elseif type(k) == "string" then
             toprint = toprint .. k .. "= "
         end
-        if (type(v) == "number") then
+        if type(v) == "number" then
             toprint = toprint .. v .. ",\r\n"
-        elseif (type(v) == "string") then
+        elseif type(v) == "string" then
             toprint = toprint .. "\"" .. v .. "\",\r\n"
-        elseif (type(v) == "table") then
+        elseif type(v) == "table" then
             toprint = toprint .. pretty_format(v, indentation + 2) .. ",\r\n"
         else
             toprint = toprint .. "\"" .. tostring(v) .. "\",\r\n"

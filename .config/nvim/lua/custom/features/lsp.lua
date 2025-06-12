@@ -1,29 +1,6 @@
-local constants = require("custom.lib.constants")
 local lsp = require("custom.features.complex.lsp")
 local mode = require("custom.lib.mode")
 local utilities = require("custom.lib.utilities")
-
-local function setup_language_server(server_name)
-    local lsp_configuration = require("lspconfig")
-
-    local server_found = lsp_configuration[server_name]
-
-    if not server_found then
-        print("Cannot find LSP named", server_name)
-
-        return
-    end
-
-    local options_found = constants.LSP_OPTIONS[server_name]
-
-    if options_found then
-        options_found = utilities.with_capabilities(options_found)
-    else
-        options_found = {}
-    end
-
-    server_found.setup(options_found)
-end
 
 return utilities.concatenate_tables(lsp, {
     {
@@ -100,43 +77,8 @@ return utilities.concatenate_tables(lsp, {
         end,
     },
     {
-        "VonHeikemen/lsp-zero.nvim",
-        dependencies = {
-
-                "hrsh7th/cmp-nvim-lsp",
-        },
-        branch = "v3.x",
-        event = { "BufReadPre", "BufNewFile" },
-        lazy = true,
-        config = false,
-        opts = {
-            handlers = {
-                setup_language_server,
-            },
-        },
-        keys = {
-            { "<F2>", vim.lsp.buf.rename, mode = { mode.NORMAL, mode.INSERT } },
-        },
-        init = function()
-            vim.g.lsp_zero_extend_cmp = 0
-            vim.g.lsp_zero_extend_lspconfig = 0
-        end,
-    },
-    {
         "yaegassy/nette-neon.vim",
         event = { "BufReadPre", "BufNewFile" },
-    },
-    {
-        "folke/lazydev.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        ft = "lua",
-        opts = {
-            library = {
-                "~/.config/nvim/lua/lib",
-                "lazy.nvim",
-                "LazyVim",
-            },
-        },
     },
     {
         "tzachar/cmp-tabnine",
@@ -193,7 +135,6 @@ return utilities.concatenate_tables(lsp, {
         },
         config = function()
             local cmp = require("cmp")
-            local lsp_zero = require("lsp-zero")
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
             local cmp_context = require("cmp.config.context")
 
@@ -239,8 +180,6 @@ return utilities.concatenate_tables(lsp, {
                 -- TODO: Resolve type error regarding missing fields
                 formatting = {
                     format = function(entry, item)
-                        lsp_zero.cmp_format({ details = true })
-
                         return require("nvim-highlight-colors").format(entry, item)
                     end,
                 },
