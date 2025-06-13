@@ -5,8 +5,10 @@ DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/r
 LABEL="${LABEL-Arch}"
 UNMOUNT=${UMOUNT-true}
 REBOOT=${REBOOT-true}
+MANUALLY_ASSIGN_PASSWORD=${MANUALLY_ASSIGN_PASSWORD-false}
+# PASSWORD="..."
 
-if test ! $PASSWORD && test ! $MANUALLY_ASSIGN_PASSWORD; then
+if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = true; then
     echo "Set and export the variable PASSWORD so that user account creation can be automated"
     echo ""
     echo "If you'd rather do this yourself, set and export the variable MANUALLY_ASSIGN_PASSWORD"
@@ -46,9 +48,10 @@ echo -n "en_GB.UTF-8 UTF-8" > /mnt/etc/locale.gen && \
     arch-chroot /mnt locale-gen
 
 arch-chroot /mnt useradd -m cyrus
+
 # this script is to automate guest installations where snapshots fail,
 # never do this for public-facing/online systems where security matters
-if test ! $MANUALLY_ASSIGN_PASSWORD; then
+if test $MANUALLY_ASSIGN_PASSWORD = true && test $PASSWORD; then
     echo "$PASSWORD" | arch-chroot /mnt passwd cyrus --stdin
 fi
 
