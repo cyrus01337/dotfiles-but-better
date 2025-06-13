@@ -11,7 +11,7 @@ if test ! $PASSWORD && test ! $MANUALLY_ASSIGN_PASSWORD; then
     echo ""
     echo "If you'd rather do this yourself, set and export the variable MANUALLY_ASSIGN_PASSWORD"
 
-    return 1
+    exit 1
 fi
 
 timedatectl set-timezone Europe/London
