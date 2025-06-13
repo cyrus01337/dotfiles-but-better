@@ -3,6 +3,8 @@ set -e
 
 DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main"
 LABEL="${LABEL-Arch}"
+UNMOUNT=${UMOUNT-true}
+REBOOT=${REBOOT-true}
 
 if test ! $PASSWORD && test ! $MANUALLY_ASSIGN_PASSWORD; then
     echo "Set and export the variable PASSWORD so that user account creation can be automated"
@@ -63,5 +65,15 @@ if test $LABEL != "Arch"; then
     sed -i "s/^\/Arch$/\/$LABEL/" /mnt/boot/limine.conf
 fi
 
-umount -R /mnt && \
+if test $UNMOUNT; then
+    umount -R /mnt
+fi
+
+if test $REBOOT; then
+    # avoid drive corruption via naive check for mounted filesystems
+    if ! test -d /mnt/boot; then
+        umount -R /mnt
+    fi
+
     reboot
+fi
