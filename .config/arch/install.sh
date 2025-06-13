@@ -3,10 +3,21 @@ set -e
 
 DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main"
 LABEL="${LABEL-Arch}"
-UNMOUNT=${UMOUNT-true}
+UNMOUNT=${UNMOUNT-true}
 REBOOT=${REBOOT-true}
+DISK="%{DISK-/dev/sda}"
 MANUALLY_ASSIGN_PASSWORD=${MANUALLY_ASSIGN_PASSWORD-false}
 # PASSWORD="..."
+
+get_partition() {
+    number="$1"
+
+    if test $DISK = *"nvme"*; then
+        echo "${DISK}p${number}"
+    else
+        echo "${DISK}${NUMBER}"
+    fi
+}
 
 if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = true; then
     echo "Set and export the variable PASSWORD so that user account creation can be automated"
@@ -22,16 +33,19 @@ sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     pacman -Sy --needed --noconfirm archlinux-keyring
 
 umount -R /mnt 2> /dev/null && \
-    curl -LO "$DOTFILES_URL/.config/arch/partitions.layout" && \
-    sfdisk --wipe always --wipe-partitions always /dev/sda < partitions.layout
+    parted $DISK --script mklabel gpt && \
+    parted $DISK --script mkpart primary ext4 1MiB 1025MiB && \
+    parted $DISK --script set 1 boot on && \
+    parted $DISK --script mkpart primary linux-swap 1025MiB 9217MiB && \
+    parted $DISK --script mkpart primary ext4 9217MiB 100%
 
-mkfs.fat -F 32 /dev/sda1 && \
-    mkswap /dev/sda2 && \
-    mkfs.ext4 -F /dev/sda3
+mkfs.fat -F 32 $(get_partition 1) && \
+    mkswap $(get_partition 2) && \
+    mkfs.ext4 -F $(get_partition 3)
 
-mount /dev/sda3 /mnt && \
-    swapon /dev/sda2 && \
-    mount --mkdir /dev/sda1 /mnt/boot
+mount $(get_partition 3) /mnt && \
+    swapon $(get_partition 2) && \
+    mount --mkdir $(get_partition 1) /mnt/boot
 
 pacstrap -K /mnt alacritty amd-ucode base dolphin efibootmgr fastfetch gtkmm3 limine linux-firmware linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
     sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /mnt/etc/pacman.conf
@@ -61,7 +75,7 @@ arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
 
 mkdir -p /mnt/boot/EFI/limine && \
     cp /mnt/usr/share/limine/BOOTX64.EFI /mnt/boot/EFI/limine && \
-    arch-chroot /mnt efibootmgr --create --disk /dev/sda --part 1 --label $LABEL --loader "\EFI\limine\BOOTX64.EFI" --unicode && \
+    arch-chroot /mnt efibootmgr --create --disk $DISK --part 1 --label $LABEL --loader "\EFI\limine\BOOTX64.EFI" --unicode && \
     curl -Lo /mnt/boot/limine.conf "$DOTFILES_URL/.config/arch/limine.conf"
 
 if test $LABEL != "Arch"; then
