@@ -27,13 +27,15 @@ export LANG="en_GB.UTF-8"
 export LC_ALL="en_GB.UTF-8"
 export LC_CTYPE="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
+export PARENT_TERM_PROGRAM="$TERM_PROGRAM"
 
 if [[
     $- == *"i"* &&
     $(which tmux) &&
     ! $TMUX &&
     -z ${BASH_EXECUTION_STRING} &&
-    ${SHLVL} == 1
+    ${SHLVL} == 1 ||
+    $TERM_PROGRAM == "vscode"
 ]]; then
     exec tmux new-session -As main
 fi
