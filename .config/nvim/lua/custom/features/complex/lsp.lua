@@ -95,7 +95,6 @@ else
                     "pyright",
                     "python-lsp-server",
                     "rust-analyzer",
-                    "sourcery",
                     "stylua",
                     "tailwindcss-language-server",
                     "taplo",

@@ -14,12 +14,6 @@ return {
                 },
             },
         },
-        sourcery = {
-            filetypes = { "python" },
-            init_options = {
-                token = "user_y_c5BVAcYOzPnfPwlzXA3KddRLTISzYRpDOE38YLLztYBefizqkRjrEqNRI",
-            },
-        },
     },
     NO_CONFIGURATION_LSPS = { "pyright" },
     THEME = {
