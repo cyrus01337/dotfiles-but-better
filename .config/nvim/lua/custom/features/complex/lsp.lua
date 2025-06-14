@@ -17,6 +17,12 @@ local LAZYDEV = {
 local function config()
     local lspconfig = require("lspconfig")
 
+    for _, name in ipairs(constants.NO_CONFIGURATION_LSPS) do
+        local language_server = lspconfig[name]
+
+        language_server.setup(utilities.extend_lsp_options({}))
+    end
+
     for name, options in pairs(constants.LSP_OPTIONS) do
         local language_server = lspconfig[name]
 

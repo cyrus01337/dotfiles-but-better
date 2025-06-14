@@ -21,6 +21,7 @@ return {
             },
         },
     },
+    NO_CONFIGURATION_LSPS = { "pyright" },
     THEME = {
         package = "Mofiqul/dracula.nvim",
         name = "dracula",
