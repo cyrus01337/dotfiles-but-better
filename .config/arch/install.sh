@@ -66,10 +66,18 @@ mount $(get_partition 3) /mnt && \
 
 log "Bootstrapping..."
 
-pacstrap -K /mnt alacritty amd-ucode base dolphin efibootmgr fastfetch gtkmm3 limine linux-firmware linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
+# TODO: Span packages across multiple lines
+pacstrap -K /mnt alacritty amd-ucode base base-devel booster dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
+    arch-chroot /mnt pacman -Rns --noconfirm mkinitcpio && \
+    rm /mnt/boot/initramfs-* && \
     sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /mnt/etc/pacman.conf
 
 genfstab -U /mnt >> /mnt/etc/fstab
+
+log "Configuring initramfs (Booster)..."
+
+curl -Lo /mnt/etc/booster.yaml "$DOTFILES_URL/.config/arch/booster.yaml" && \
+    arch-chroot /mnt /usr/lib/booster/regenerate_images
 
 log "Configuring locale..."
 
@@ -93,6 +101,17 @@ if test $MANUALLY_ASSIGN_PASSWORD = true && test $PASSWORD; then
 fi
 
 echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
+
+log "Installing Yay..."
+
+arch-chroot /mnt su cyrus -c "git clone https://aur.archlinux.org/yay.git /home/cyrus/bin/yay" && \
+    arch-chroot /mnt su cyrus -c "env GOFLAGS=-buildvcs=false makepkg -cirs --needed --noconfirm --dir /opt/yay" && \
+    arch-chroot /mnt su cyrus -c "yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all" && \
+    arch-chroot /mnt su cyrus -c "yay -Syu --noconfirm"
+
+log "Installing additional firmware..."
+
+arch-chroot /mnt su cyrus -c "yay -S --noconfirm aic94xx-firmware ast-firmware wd719x-firmware upd72020x-fw"
 
 log "Enabling services..."
 
