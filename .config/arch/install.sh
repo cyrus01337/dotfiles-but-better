@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO: Prefer chroot over arch-chroot
 set -e
 
 DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main"
@@ -19,6 +20,16 @@ get_partition() {
     fi
 }
 
+log() {
+    message="$1"
+
+    echo ""
+    echo "$message"
+    echo ""
+}
+
+log "Confirming user creation details..."
+
 if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = true; then
     echo "Set and export the variable PASSWORD so that user account creation can be automated"
     echo ""
@@ -27,10 +38,14 @@ if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = true; then
     exit 1
 fi
 
+log "Performing prep work..."
+
 timedatectl set-timezone Europe/London
 
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     pacman -Sy --needed --noconfirm archlinux-keyring
+
+log "Setting up partitions..."
 
 umount -R /mnt 2> /dev/null &&
     parted $DISK --script mklabel gpt && \
@@ -38,6 +53,8 @@ umount -R /mnt 2> /dev/null &&
     parted $DISK --script set 1 boot on && \
     parted $DISK --script mkpart primary linux-swap 1025MiB 9217MiB && \
     parted $DISK --script mkpart primary ext4 9217MiB 100%
+
+log "Configuring filesystems..."
 
 mkfs.fat -F 32 $(get_partition 1) && \
     mkswap $(get_partition 2) && \
@@ -47,10 +64,14 @@ mount $(get_partition 3) /mnt && \
     swapon $(get_partition 2) && \
     mount --mkdir $(get_partition 1) /mnt/boot
 
+log "Bootstrapping..."
+
 pacstrap -K /mnt alacritty amd-ucode base dolphin efibootmgr fastfetch gtkmm3 limine linux-firmware linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
     sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /mnt/etc/pacman.conf
 
 genfstab -U /mnt >> /mnt/etc/fstab
+
+log "Configuring locale..."
 
 ln -sf /usr/share/zoneinfo/Europe/London /mnt/etc/localtime && \
     arch-chroot /mnt hwclock --systohc
@@ -60,6 +81,8 @@ echo -n "en_GB.UTF-8 UTF-8" > /mnt/etc/locale.gen && \
     echo -n "KEYMAP=uk" > /mnt/etc/vconsole.conf && \
     echo -n "arch" > /mnt/etc/hostname && \
     arch-chroot /mnt locale-gen
+
+log "Creating user..."
 
 arch-chroot /mnt useradd -m cyrus
 
@@ -71,7 +94,11 @@ fi
 
 echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
 
+log "Enabling services..."
+
 arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
+
+log "Setting up bootloader..."
 
 mkdir -p /mnt/boot/EFI/limine && \
     cp /mnt/usr/share/limine/BOOTX64.EFI /mnt/boot/EFI/limine && \
@@ -83,14 +110,20 @@ if test $LABEL != "Arch"; then
 fi
 
 if test $UNMOUNT; then
+    echo "Unmounting..."
+
     umount -R /mnt
 fi
 
 if test $REBOOT; then
     # avoid drive corruption via naive check for mounted filesystems
     if ! test -d /mnt/boot; then
+        echo "Found mounted filesystem, unmounting..."
+
         umount -R /mnt
     fi
+
+    echo "Rebooting..."
 
     reboot
 fi
