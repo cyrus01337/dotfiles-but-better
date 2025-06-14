@@ -25,9 +25,13 @@ def main():
                 f'WEBHOOK_URL "{webhook_url}" does not match the following regex: {URL_REGEX.pattern}'
             )
 
-        command, status = sys.argv[1:]
+        command, duration, status = sys.argv[1:]
+
+        formatted_duration = humanize.naturaldelta(
+            datetime.timedelta(milliseconds=int(duration))
+        )
         json = {
-            "content": f'"{command}" failed with exit code {status}',
+            "content": f"`{command}` ran for {formatted_duration} with exit code `{status}`",
         }
 
         requests.post(webhook_url, json=json)
