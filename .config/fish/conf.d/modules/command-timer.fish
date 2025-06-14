@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-set CUSTOM_COMMAND_TIMER_MINIMUM_DURATION_IN_MILLISECONDS 2000
+set CUSTOM_COMMAND_TIMER_MINIMUM_DURATION_IN_MILLISECONDS 20000
 set -a CUSTOM_COMMAND_TIMER_NOTIFY_PHONE_COMMAND "$__fish_config_dir/lib/notify-phone.py"
 
 if not command -q custom_command_timer
