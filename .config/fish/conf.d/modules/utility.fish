@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+alias c="clear"
 alias l="ls -al"
 alias q="exit"
 alias r="clear && source $__fish_config_dir"
