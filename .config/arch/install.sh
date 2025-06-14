@@ -15,7 +15,7 @@ get_partition() {
     if test $DISK = *"nvme"*; then
         echo "${DISK}p${number}"
     else
-        echo "${DISK}${NUMBER}"
+        echo "${DISK}${number}"
     fi
 }
 
