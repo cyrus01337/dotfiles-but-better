@@ -5,7 +5,7 @@ DOTFILES_URL="https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/r
 LABEL="${LABEL-Arch}"
 UNMOUNT=${UNMOUNT-true}
 REBOOT=${REBOOT-true}
-DISK="%{DISK-/dev/sda}"
+DISK="${DISK-/dev/sda}"
 MANUALLY_ASSIGN_PASSWORD=${MANUALLY_ASSIGN_PASSWORD-false}
 # PASSWORD="..."
 
@@ -32,8 +32,8 @@ timedatectl set-timezone Europe/London
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     pacman -Sy --needed --noconfirm archlinux-keyring
 
-umount -R /mnt 2> /dev/null && \
-    parted $DISK --script mklabel gpt && \
+umount -R /mnt 2> /dev/null || true
+parted $DISK --script mklabel gpt && \
     parted $DISK --script mkpart primary ext4 1MiB 1025MiB && \
     parted $DISK --script set 1 boot on && \
     parted $DISK --script mkpart primary linux-swap 1025MiB 9217MiB && \
