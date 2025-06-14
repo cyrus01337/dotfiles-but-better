@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+import datetime
 import pathlib
 import re
 import sys
 import tomllib
 
+import humanize
 import requests
 
 CURRENT_FILE = pathlib.Path(__file__)
@@ -26,6 +28,14 @@ def main():
             )
 
         command, duration, status = sys.argv[1:]
+
+        if (ignored_commands_found := environment.get("IGNORED_COMMANDS", None)) and (
+            _starts_with_ignored_command := any(
+                command.startswith(ignored_command)
+                for ignored_command in ignored_commands_found
+            )
+        ):
+            exit(1)
 
         formatted_duration = humanize.naturaldelta(
             datetime.timedelta(milliseconds=int(duration))
