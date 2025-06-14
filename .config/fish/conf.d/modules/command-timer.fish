@@ -7,7 +7,7 @@ if not command -q custom_command_timer
         set cached_status $status
 
         if test $CMD_DURATION -ge $CUSTOM_COMMAND_TIMER_MINIMUM_DURATION_IN_MILLISECONDS
-            python3 $CUSTOM_COMMAND_TIMER_NOTIFY_PHONE_COMMAND "$argv" "$CMD_DURATION" "$cached_status"
+            env PYENV_VERSION="home" python3 $CUSTOM_COMMAND_TIMER_NOTIFY_PHONE_COMMAND "$argv" "$CMD_DURATION" "$cached_status"
         end
     end
 end
