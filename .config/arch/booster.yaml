@@ -1,0 +1,2 @@
+compression: lz4
+strip: true
