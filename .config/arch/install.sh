@@ -144,14 +144,18 @@ if test $LABEL != "Arch"; then
     sed -i "s/^\/Arch$/\/$LABEL/" /mnt/boot/limine.conf
 fi
 
-if test $UNMOUNT; then
+log "Cleaning up..."
+
+arch-chroot /mnt pacman -Scc
+
+if test $UNMOUNT = true; then
     echo "Unmounting..."
 
     umount -R /mnt
 fi
 
-if test $REBOOT; then
-    # avoid drive corruption via naive check for mounted filesystems
+if test $REBOOT = true; then
+    # naive check for mounted filesystems to avoid drive corruption
     if test -d /mnt/boot; then
         echo "Found mounted filesystem, unmounting..."
 
