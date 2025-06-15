@@ -46,6 +46,7 @@ timedatectl set-timezone Europe/London && \
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     sed -i "s/!ccache/ccache/" /etc/makepkg.conf && \
     sed -i -E "s/#MAKEFLAGS=.*/MAKEFLAGS='--jobs=\$(nproc)'/" /etc/makepkg.conf && \
+    sed -i -E 's/PKGEXT="(.+)"/PKGEXT=".pkg.tar.lz4"/' /etc/makepkg.conf && \
     sed -i -E 's/RUSTFLAGS="(.*)"/RUSTFLAGS="\1 -C link-arg=-fuse-ld=mold/"' /etc/makepkg.conf.d/rust.conf && \
     echo "LDFLAGS+=' -fuse-ld=mold'" >> /etc/makepkg.conf && \
     pacman -Sy --noconfirm archlinux-keyring && \
