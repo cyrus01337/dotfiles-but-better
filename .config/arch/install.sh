@@ -148,7 +148,7 @@ fi
 
 log "Cleaning up..."
 
-arch-chroot /mnt pacman -Scc
+arch-chroot /mnt yes | pacman -Scc
 
 if test $UNMOUNT = true; then
     echo "Unmounting..."
