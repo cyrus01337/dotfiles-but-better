@@ -75,7 +75,8 @@ mount $(get_partition 3) /mnt && \
 log "Bootstrapping..."
 
 # TODO: Span packages across multiple lines
-pacstrap -K /mnt alacritty amd-ucode base base-devel ccache dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages mold networkmanager open-vm-tools openssh plasma-desktop sddm sddm-kcm sudo texinfo vim
+pacstrap -K /mnt alacritty amd-ucode base base-devel ccache dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages mold networkmanager open-vm-tools openssh plasma-desktop sddm sddm-kcm sudo texinfo vim && \
+    arch-chroot /mnt gpg --refresh-keys
 
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /mnt/etc/pacman.conf && \
     sed -i "s/!ccache/ccache/" /mnt/etc/makepkg.conf && \
