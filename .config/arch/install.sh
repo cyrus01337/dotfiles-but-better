@@ -8,7 +8,6 @@ UNMOUNT=${UNMOUNT-true}
 REBOOT=${REBOOT-true}
 DISK="${DISK-/dev/sda}"
 MANUALLY_ASSIGN_PASSWORD=${MANUALLY_ASSIGN_PASSWORD-false}
-# PASSWORD="..."
 
 get_partition() {
     number="$1"
