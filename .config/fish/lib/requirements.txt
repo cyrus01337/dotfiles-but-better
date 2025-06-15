@@ -1,5 +1,2 @@
-black
 humanize
-isort
-pyright
 requests
