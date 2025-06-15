@@ -139,10 +139,10 @@ fi
 
 if test $REBOOT; then
     # avoid drive corruption via naive check for mounted filesystems
-    if ! test -d /mnt/boot; then
+    if test -d /mnt/boot; then
         echo "Found mounted filesystem, unmounting..."
 
-        umount -R /mnt
+        umount -R /mnt 2> /dev/null || true
     fi
 
     echo "Rebooting..."
