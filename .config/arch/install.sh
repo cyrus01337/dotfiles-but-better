@@ -29,10 +29,10 @@ log() {
 
 log "Confirming user creation details..."
 
-if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = true; then
+if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = false; then
     echo "Set and export the variable PASSWORD so that user account creation can be automated"
     echo ""
-    echo "If you'd rather do this yourself, set and export the variable MANUALLY_ASSIGN_PASSWORD"
+    echo "If you'd rather do it yourself, export MANUALLY_ASSIGN_PASSWORD=true"
 
     exit 1
 fi
