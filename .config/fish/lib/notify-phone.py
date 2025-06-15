@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import contextlib
 import datetime
 import pathlib
 import re
@@ -18,10 +19,15 @@ class ConfigurationError(Exception):
 
 
 def running_ignored_command(command: str, ignored_commands: set[str]) -> bool:
-    head, maybe_command, *_ = command.split(" ")
+    components = command.split(" ")
+    head = components[0]
+    maybe_command = None
+
+    with contextlib.suppress(IndexError):
+        maybe_command = components[1]
 
     for ignored in ignored_commands:
-        if head.startswith(ignored) or head.startswith("sudo") and maybe_command.startswith(ignored):
+        if head.startswith(ignored) or head.startswith("sudo") and maybe_command is not None and maybe_command.startswith(ignored):
             return True
 
     return False
