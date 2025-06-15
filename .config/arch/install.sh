@@ -43,7 +43,7 @@ log "Performing prep work..."
 timedatectl set-timezone Europe/London && \
     dd if=/dev/zero of=$DISK bs=512 count=1
 
-sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
+sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /etc/pacman.conf && \
     sed -i "s/!ccache/ccache/" /etc/makepkg.conf && \
     sed -i -E "s/#MAKEFLAGS=.*/MAKEFLAGS='--jobs=\$(nproc)'/" /etc/makepkg.conf && \
     sed -i -E 's/PKGEXT="(.+)"/PKGEXT=".pkg.tar.lz4"/' /etc/makepkg.conf && \
