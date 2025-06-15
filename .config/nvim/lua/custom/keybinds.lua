@@ -27,7 +27,7 @@ end
 set(mode.INSERT, "<C-BS>", "<Esc>db", { remap = true })
 
 -- delete up to common symbols
-set(mode.NORMAL, 'd"', 'd/"<CR>')
+set(mode.NORMAL, "d\"", "d/\"<CR>")
 set(mode.NORMAL, "d'", "d/'<CR>")
 set(mode.NORMAL, "d)", "d/)<CR>")
 set(mode.NORMAL, "d}'", "d/}<CR>")
@@ -153,13 +153,14 @@ set(mode.NORMAL, "gti", vim.lsp.buf.implementation)
 set(mode.NORMAL, "gto", vim.lsp.buf.type_definition)
 set(mode.NORMAL, "gtr", vim.lsp.buf.references)
 set(mode.NORMAL, "gts", vim.lsp.buf.signature_help)
-set(mode.NORMAL, "r", vim.lsp.buf.rename)
 set(mode.INSERT, "<F2>", vim.lsp.buf.rename)
-set({ mode.NORMAL, mode.VISUAL }, "fo", function() vim.lsp.buf.format({ async = true }) end)
+set({ mode.NORMAL, mode.VISUAL }, "fo", function()
+    vim.lsp.buf.format({ async = true })
+end)
 set(mode.NORMAL, "<F4>", vim.lsp.buf.code_action)
 
 -- quit
 set(mode.NORMAL, "<leader>q", "<CMD>q<CR>")
 set(mode.NORMAL, "<C-q>", "<CMD>qa<CR>")
 set(mode.NORMAL, "<leader>Q", "<CMD>q!<CR>") -- force
-set(mode.NORMAL, "<CS-q>", "<CMD>qa!<CR>")   -- force
+set(mode.NORMAL, "<CS-q>", "<CMD>qa!<CR>") -- force
