@@ -99,7 +99,7 @@ if command -q gh
         end
 
         # https://stackoverflow.com/a/64915484
-        parallel -j 10 gh repo clone "git@github.com:cyrus01337/{}" -- --recurse-submodules ::: (gh repo list --json "name" --jq ".[].name" --limit 1000)
+        parallel -j (nproc) gh repo clone "git@github.com:cyrus01337/{}" -- --recurse-submodules ::: (gh repo list --json "name" --jq ".[].name" --limit 1000)
     end
 end
 
