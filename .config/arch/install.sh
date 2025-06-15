@@ -12,7 +12,7 @@ MANUALLY_ASSIGN_PASSWORD=${MANUALLY_ASSIGN_PASSWORD-false}
 get_partition() {
     number="$1"
 
-    if test $DISK = *"nvme"*; then
+    if [[ $DISK == "nvme"* ]]; then
         echo "${DISK}p${number}"
     else
         echo "${DISK}${number}"
