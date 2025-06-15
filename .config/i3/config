@@ -1,5 +1,6 @@
 include autostart.conf
 include settings.conf
+include theme.conf
 include workspaces.conf
 
 set $MODIFIER Mod4
@@ -21,7 +22,7 @@ set $EXIT_COMMAND "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do yo
 
 bindsym $MODIFIER+b exec flatpak run app.zen_browser.zen
 bindsym $MODIFIER+t exec i3-sensible-terminal
-bindsym $MODIFIER+r exec --no-startup-id dmenu_run
+bindsym $MODIFIER+r exec --no-startup-id "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 # A more modern dmenu replacement is rofi:
 # bindsym Mod1+d exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
