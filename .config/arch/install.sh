@@ -39,17 +39,19 @@ fi
 
 log "Performing prep work..."
 
-timedatectl set-timezone Europe/London && \
-    dd if=/dev/zero of=$DISK bs=512 count=1
+timedatectl set-timezone Europe/London
 
-sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /etc/pacman.conf && \
+dd if=/dev/zero of=$DISK bs=512 count=1
+
+pacman -Sy --noconfirm archlinux-keyring && \
+    gpg --refresh-keys
+pacman -S --needed --noconfirm ccache mold && \
+    sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /etc/pacman.conf && \
     sed -i "s/!ccache/ccache/" /etc/makepkg.conf && \
     sed -i -E "s/#MAKEFLAGS=.*/MAKEFLAGS='--jobs=\$(nproc)'/" /etc/makepkg.conf && \
     sed -i -E 's/PKGEXT="(.+)"/PKGEXT=".pkg.tar.lz4"/' /etc/makepkg.conf && \
     sed -i -E 's/RUSTFLAGS="(.*)"/RUSTFLAGS="\1 -C link-arg=-fuse-ld=mold"/' /etc/makepkg.conf.d/rust.conf && \
-    echo "LDFLAGS+=' -fuse-ld=mold'" >> /etc/makepkg.conf && \
-    pacman -Sy --noconfirm archlinux-keyring && \
-    pacman -S --needed --noconfirm ccache mold
+    echo "LDFLAGS+=' -fuse-ld=mold'" >> /etc/makepkg.conf
 
 log "Setting up partitions..."
 
@@ -76,7 +78,12 @@ log "Bootstrapping..."
 pacstrap -K /mnt alacritty amd-ucode base base-devel dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
     arch-chroot /mnt pacman -Rns --noconfirm mkinitcpio && \
     rm /mnt/boot/initramfs-* && \
-    sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /mnt/etc/pacman.conf
+    sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /mnt/etc/pacman.conf && \
+    sed -i "s/!ccache/ccache/" /mnt/etc/makepkg.conf && \
+    sed -i -E "s/#MAKEFLAGS=.*/MAKEFLAGS='--jobs=\$(nproc)'/" /mnt/etc/makepkg.conf && \
+    sed -i -E 's/PKGEXT="(.+)"/PKGEXT=".pkg.tar.lz4"/' /mnt/etc/makepkg.conf && \
+    sed -i -E 's/RUSTFLAGS="(.*)"/RUSTFLAGS="\1 -C link-arg=-fuse-ld=mold"/' /mnt/etc/makepkg.conf.d/rust.conf && \
+    echo "LDFLAGS+=' -fuse-ld=mold'" >> /mnt/etc/makepkg.conf
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
