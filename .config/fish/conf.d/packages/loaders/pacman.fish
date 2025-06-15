@@ -8,7 +8,7 @@ function p_detect
 end
 
 function p_setup
-    alias p "pacman"
+    alias p "sudo pacman"
     alias pi "sudo pacman -S --needed --noconfirm"
     alias prm "sudo pacman -Rns --noconfirm"
     alias psr "pacman -Ss"
