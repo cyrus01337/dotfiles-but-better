@@ -24,13 +24,21 @@ alias r="source ~/.bashrc"
 
 export PARENT_TERM_PROGRAM="$TERM_PROGRAM"
 
-if [[
-    $- == *"i"* &&
-    $(which tmux) &&
-    ! $TMUX &&
-    -z ${BASH_EXECUTION_STRING} &&
-    ${SHLVL} == 1 ||
-    $TERM_PROGRAM == "vscode"
-]]; then
+is_interactive_shell() {
+    [[ $- == *"i"* ]]
+}
+
+in_i3() {
+    ps -e | rg "i3"
+}
+
+if (
+    is_interactive_shell &&
+    which tmux &> /dev/null &&
+    test ! $TMUX &&
+    test ! ${BASH_EXECUTION_STRING} &&
+    [[ $(in_i3) || ${SHLVL} == 1 ]] ||
+    test $TERM_PROGRAM = "vscode"
+); then
     exec tmux new-session -As main
 fi
