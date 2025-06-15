@@ -105,7 +105,7 @@ echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
 log "Installing Yay..."
 
 arch-chroot /mnt su cyrus -c "git clone https://aur.archlinux.org/yay.git /home/cyrus/bin/yay" && \
-    arch-chroot /mnt su cyrus -c "env GOFLAGS=-buildvcs=false makepkg -cirs --needed --noconfirm --dir /opt/yay" && \
+    arch-chroot /mnt su cyrus -c "env GOFLAGS=-buildvcs=false makepkg -cirs --needed --noconfirm --dir /home/cyrus/bin/yay" && \
     arch-chroot /mnt su cyrus -c "yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all" && \
     arch-chroot /mnt su cyrus -c "yay -Syu --noconfirm"
 
