@@ -99,6 +99,7 @@ prepare_operating_system() {
         fzf \
         git \
         git-delta \
+        htop \
         jq \
         lua \
         obs-studio \
