@@ -67,7 +67,7 @@ mount $(get_partition 3) /mnt && \
 log "Bootstrapping..."
 
 # TODO: Span packages across multiple lines
-pacstrap -K /mnt alacritty amd-ucode base base-devel booster dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
+pacstrap -K /mnt alacritty amd-ucode base base-devel dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
     arch-chroot /mnt pacman -Rns --noconfirm mkinitcpio && \
     rm /mnt/boot/initramfs-* && \
     sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /mnt/etc/pacman.conf
@@ -77,7 +77,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 log "Configuring initramfs (Booster)..."
 
 curl -Lo /mnt/etc/booster.yaml "$DOTFILES_URL/.config/arch/booster.yaml" && \
-    arch-chroot /mnt /usr/lib/booster/regenerate_images
+    arch-chroot /mnt pacman -S --noconfirm booster
 
 log "Configuring locale..."
 
@@ -96,8 +96,10 @@ arch-chroot /mnt useradd -m cyrus
 
 # this script is to automate guest installations where snapshots fail,
 # never do this for public-facing/online systems where security matters
-if test $MANUALLY_ASSIGN_PASSWORD = true && test $PASSWORD; then
+if test $MANUALLY_ASSIGN_PASSWORD = false && test $PASSWORD; then
     echo "$PASSWORD" | arch-chroot /mnt passwd cyrus --stdin
+elif test $MANUALLY_ASSIGN_PASSWORD = true; then
+    arch-chroot /mnt passwd cyrus
 fi
 
 echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
