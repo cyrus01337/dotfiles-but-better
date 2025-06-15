@@ -1,11 +1,19 @@
 set $MODIFIER Mod4
+set $MAIN_WORKSPACE "main"
+set $DEVELOPMENT_WORKSPACE "development"
+set $MUSIC_WORKSPACE "music"
+set $COMMUNICATION_WORKSPACE "communication"
+set $EXTRA_WORKSPACE "extra"
+set $EXIT_COMMAND "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 font pango:FantasqueSansMono NF 8
 hide_edge_borders smart_no_gaps
 
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
+assign [class="^zen$"] $MAIN_WORKSPACE
+assign [class="^alacritty$"] $DEVELOPMENT_WORKSPACE
 exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id nm-applet
+exec i3-sensible-terminal
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -14,10 +22,6 @@ exec --no-startup-id dex --autostart --environment i3
 # screen before suspend. Use loginctl lock-session to lock your screen.
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
 # Use pactl to adjust volume in PulseAudio.
 # set $refresh_i3status killall -SIGUSR1 i3status
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -25,19 +29,8 @@ exec --no-startup-id nm-applet
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 # bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# use Mouse+Mod1 to drag floating windows to their wanted position
-# floating_MODIFIER Mod1
-
-# move tiling windows via drag & drop by left-clicking into the title bar,
-# or left-clicking anywhere into the window while holding the floating MODIFIER.
-# tiling_drag MODIFIER titlebar
-
-exec i3-sensible-terminal
 bindsym $MODIFIER+b exec flatpak run app.zen_browser.zen
 bindsym $MODIFIER+t exec i3-sensible-terminal
-
-bindsym $MODIFIER+q kill
-
 bindsym $MODIFIER+r exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindsym Mod1+d exec "rofi -modi drun,run -show drun"
@@ -58,33 +51,14 @@ bindsym $MODIFIER+Shift+Right move right
 bindsym $MODIFIER+h split h
 bindsym $MODIFIER+v split v
 bindsym $MODIFIER+f fullscreen toggle
-
 bindsym $MODIFIER+space layout toggle split
+bindsym $MODIFIER+q kill
 
 # toggle tiling / floating
 # bindsym Mod1+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 # bindsym Mod1+space focus mode_toggle
-
-# focus the parent container
-# bindsym Mod1+a focus parent
-
-# focus the child container
-# bindsym Mod1+d focus child
-
-# move the currently focused window to the scratchpad
-# bindsym Mod1+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-# bindsym Mod1+minus scratchpad show
-
-set $MAIN_WORKSPACE "main"
-set $DEVELOPMENT_WORKSPACE "development"
-set $MUSIC_WORKSPACE "music"
-set $COMMUNICATION_WORKSPACE "communication"
-set $EXTRA_WORKSPACE "extra"
 
 bindsym $MODIFIER+1 workspace $MAIN_WORKSPACE
 bindsym $MODIFIER+2 workspace $DEVELOPMENT_WORKSPACE
@@ -100,13 +74,7 @@ bindsym $MODIFIER+Shift+5 move container to workspace $EXTRA_WORKSPACE
 
 bindsym $MODIFIER+Shift+c reload
 bindsym $MODIFIER+Shift+r restart
-
-set $EXIT_COMMAND "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-# exit i3 (logs you out of your X session)
 bindsym $MODIFIER+Shift+q exec $EXIT_COMMAND
-
-assign [class="^zen$"] 1
-assign [class="^alacritty$"] 2
 
 # resize window (you can also use the mouse for that)
 # mode "resize" {
@@ -129,8 +97,6 @@ assign [class="^alacritty$"] 2
 
 # bindsym $MODIFIER+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
     status_command i3status
 }
