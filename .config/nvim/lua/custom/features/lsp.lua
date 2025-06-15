@@ -244,7 +244,7 @@ return utilities.concatenate_tables(lsp, {
                 lua = { "stylua" },
                 nix = { "alejandra" },
                 php = { "php-cs-fixer" },
-                python = { "isort", "black" },
+                python = { "ruff" },
                 typescript = {
                     "prettierd",
                     "prettier",

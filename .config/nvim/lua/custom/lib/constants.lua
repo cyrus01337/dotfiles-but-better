@@ -14,8 +14,20 @@ return {
                 },
             },
         },
+        pyright = {
+            settings = {
+                pyright = {
+                    disableOrganizeImports = true,
+                },
+                python = {
+                    analysis = {
+                        ignore = { "*" },
+                    },
+                },
+            },
+        },
     },
-    NO_CONFIGURATION_LSPS = { "pyright" },
+    NO_CONFIGURATION_LSPS = {},
     THEME = {
         package = "Mofiqul/dracula.nvim",
         name = "dracula",
