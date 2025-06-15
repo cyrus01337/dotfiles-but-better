@@ -40,7 +40,8 @@ fi
 
 log "Performing prep work..."
 
-timedatectl set-timezone Europe/London
+timedatectl set-timezone Europe/London && \
+    dd if=/dev/zero of=$DISK bs=512 count=1
 
 sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     pacman -Sy --needed --noconfirm archlinux-keyring
