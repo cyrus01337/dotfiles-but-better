@@ -48,7 +48,8 @@ sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/g" /etc/pacman.conf && \
     sed -i -E "s/#MAKEFLAGS=.*/MAKEFLAGS='--jobs=\$(nproc)'" /etc/makepkg.conf && \
     sed -i -E 's/RUSTFLAGS="(.*)"/RUSTFLAGS="\1 -C link-arg=-fuse-ld=mold"' /etc/makepkg.conf.d/rust.conf && \
     echo "LDFLAGS+=' -fuse-ld=mold'" >> /etc/makepkg.conf && \
-    pacman -Sy --needed --noconfirm archlinux-keyring ccache mold
+    pacman -Sy --needed --noconfirm archlinux-keyring && \
+    pacman -S --needed --noconfirm ccache mold
 
 log "Setting up partitions..."
 
