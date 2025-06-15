@@ -219,6 +219,7 @@ install_pyenv() {
         pyenv virtualenv $default_major_python_version home && \
         pyenv global home && \
         pyenv shell home
+    pip install git+https://github.com/cyrus01337/sharenv.git#egg=sharenv uv
 }
 
 install_rust() {
