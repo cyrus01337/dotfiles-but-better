@@ -23,7 +23,7 @@ log() {
     message="$1"
 
     echo ""
-    echo "$message"
+    echo "$message" | tee log.txt
     echo ""
 }
 
