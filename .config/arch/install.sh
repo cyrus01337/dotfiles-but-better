@@ -75,10 +75,9 @@ mount $(get_partition 3) /mnt && \
 log "Bootstrapping..."
 
 # TODO: Span packages across multiple lines
-pacstrap -K /mnt alacritty amd-ucode base base-devel dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim && \
-    arch-chroot /mnt pacman -Rns --noconfirm mkinitcpio && \
-    rm /mnt/boot/initramfs-* && \
-    sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /mnt/etc/pacman.conf && \
+pacstrap -K /mnt alacritty amd-ucode base base-devel ccache dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages mold networkmanager open-vm-tools plasma-desktop sddm sddm-kcm sudo texinfo vim
+
+sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /mnt/etc/pacman.conf && \
     sed -i "s/!ccache/ccache/" /mnt/etc/makepkg.conf && \
     sed -i -E "s/#MAKEFLAGS=.*/MAKEFLAGS='--jobs=\$(nproc)'/" /mnt/etc/makepkg.conf && \
     sed -i -E 's/PKGEXT="(.+)"/PKGEXT=".pkg.tar.lz4"/' /mnt/etc/makepkg.conf && \
@@ -90,7 +89,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 log "Configuring initramfs (Booster)..."
 
 curl -Lo /mnt/etc/booster.yaml "$DOTFILES_URL/.config/arch/booster.yaml" && \
-    arch-chroot /mnt pacman -S --noconfirm booster
+    arch-chroot /mnt pacman -S --noconfirm booster && \
+    arch-chroot /mnt pacman -Rns --noconfirm mkinitcpio && \
+    rm /mnt/boot/initramfs-* && \
 
 log "Configuring locale..."
 
