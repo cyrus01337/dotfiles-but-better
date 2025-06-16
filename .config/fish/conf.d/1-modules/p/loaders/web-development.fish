@@ -22,8 +22,8 @@ function p_setup
         alias pci "npm ci"
         alias pd "npm run dev"
         alias pf "npm run format"
-        alias pi "npm install"
-        alias pin "npm init"
+        alias pini "npm init"
+        alias pins "npm install"
         alias pl "npm run lint"
         alias prm "npm remove"
         alias pst "npm run start"
@@ -50,7 +50,7 @@ function p_setup
 end
 
 function p_teardown
-    functions --erase p pa pad pb pci pd pf pi pin pl prm pst px
+    functions --erase p pa pad pb pci pd pf pini pins pl prm pst px
 
     return 0
 end
