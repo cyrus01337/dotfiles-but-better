@@ -75,7 +75,3 @@ bindsym $MODIFIER+Shift+q exec $EXIT_COMMAND
 # }
 
 # bindsym $MODIFIER+r mode "resize"
-
-bar {
-    status_command i3status
-}
