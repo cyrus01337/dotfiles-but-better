@@ -1,32 +1,32 @@
 #!/usr/bin/env fish
 if command -q git
-    alias g="git"
-    alias gb="git branch"
-    alias gch="git checkout"
-    alias gcl="git clone --recurse-submodules"
-    alias gca="git commit --amend"
-    alias gcn="git config"
-    alias gco="git commit"
-    alias gcog="git config --global"
-    alias gd="git diff"
-    alias gds="git diff --staged"
-    alias gi="git init"
-    alias gm="git merge"
-    alias gpl="git pull"
-    alias gps="git push"
-    alias gr="git remote"
-    alias gra="git remote add"
-    alias gst="git status"
-    alias gsm="git submodule"
+    abbr --add g "git"
+    abbr --add gb "git branch"
+    abbr --add gch "git checkout"
+    abbr --add gcl "git clone --recurse-submodules"
+    abbr --add gca "git commit --amend"
+    abbr --add gcn "git config"
+    abbr --add gco "git commit"
+    abbr --add gcog "git config --global"
+    abbr --add gd "git diff"
+    abbr --add gds "git diff --staged"
+    abbr --add gi "git init"
+    abbr --add gm "git merge"
+    abbr --add gpl "git pull"
+    abbr --add gps "git push"
+    abbr --add gr "git remote"
+    abbr --add gra "git remote add"
+    abbr --add gst "git status"
+    abbr --add gsm "git submodule"
 
-    alias git-add-submodule "git submodule add"
-    alias git-initialise-submodules "git submodule update --init --recursive"
-    alias git-save-credentials "git config --global credential.helper store"
-    alias git-update-submodules "git submodule update --remote"
-    alias gasm="git-add-submodule"
-    alias gism="git-initialise-submodules"
-    alias gusm="git-update-submodules"
-    alias gusmr="git-update-submodules --recursive"
+    abbr --add git-add-submodule "git submodule add"
+    abbr --add git-initialise-submodules "git submodule update --init --recursive"
+    abbr --add git-save-credentials "git config --global credential.helper store"
+    abbr --add git-update-submodules "git submodule update --remote"
+    abbr --add gasm "git-add-submodule"
+    abbr --add gism "git-initialise-submodules"
+    abbr --add gusm "git-update-submodules"
+    abbr --add gusmr "git-update-submodules --recursive"
 
     function ga --wraps "git add"
         set files $argv
@@ -89,7 +89,7 @@ if command -q gh
         gh repo clone "git@github.com:$author/$repository" -- --recurse-submodules
     end
 
-    alias ghrc="gh-repo-clone"
+    abbr --add ghrc "gh-repo-clone"
 
     function gh-clone-all-repositories
         if not command -q parallel
