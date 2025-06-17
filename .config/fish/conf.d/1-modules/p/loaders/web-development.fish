@@ -27,6 +27,7 @@ function p_setup
         alias pl "npm run lint"
         alias prm "npm remove"
         alias pst "npm run start"
+        alias pup "npm update"
         alias px "npx"
     else if test -f "bun.lockb"; or test -f "bun.lock"
         alias p "bun"
@@ -41,6 +42,7 @@ function p_setup
         alias pl "bun run lint"
         alias prm "bun remove"
         alias pst "bun run start"
+        alias pup "bun update"
         alias px "bunx"
     else
         return 127
