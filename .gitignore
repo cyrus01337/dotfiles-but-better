@@ -1,6 +1,7 @@
 !.ssh/config
 .Trash-*/
 .config/fish/completions/environments/
+.config/fish/fish_variables
 .config/tmux/plugins/*/
 .ssh/
 .stow-local-ignore
