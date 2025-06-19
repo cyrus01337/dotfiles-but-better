@@ -27,7 +27,7 @@ return {
             },
         },
     },
-    NO_CONFIGURATION_LSPS = {},
+    NO_CONFIGURATION_LSPS = { "ts_ls" },
     THEME = {
         package = "Mofiqul/dracula.nvim",
         name = "dracula",
