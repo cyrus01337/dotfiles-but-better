@@ -12,6 +12,11 @@ if command -q starship; and not pidof "code" 1> /dev/null
 
     starship init fish | source
     enable_transience
+else
+    function fish_prompt
+        echo (set_color cyan)(string replace --max-matches 1 "$HOME" "~" "$PWD")
+        echo (set_color magenta)"> "(set_color normal)
+    end
 end
 
 return 0
