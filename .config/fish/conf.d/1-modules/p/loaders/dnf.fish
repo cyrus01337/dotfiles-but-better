@@ -8,16 +8,16 @@ function p_detect
 end
 
 function p_setup
-    alias p "dnf"
-    alias pce "sudo dnf copr enable -y"
-    alias pcr "sudo dnf copr remove -y"
-    alias pi "sudo dnf install -y"
-    alias pinf "dnf info"
-    alias prm "sudo dnf remove -y"
-    alias psr "dnf search"
-    alias psu "sudo dnf system-upgrade -y"
-    alias pu "sudo dnf upgrade -y"
-    alias pup "sudo dnf upgrade -y"
+    abbr p "dnf"
+    abbr pce "sudo dnf copr enable -y"
+    abbr pcr "sudo dnf copr remove -y"
+    abbr pi "sudo dnf install -y"
+    abbr pinf "dnf info"
+    abbr prm "sudo dnf remove -y"
+    abbr psr "dnf search"
+    abbr psu "sudo dnf system-upgrade -y"
+    abbr pu "sudo dnf upgrade -y"
+    abbr pup "sudo dnf upgrade -y"
 
     return 0
 end

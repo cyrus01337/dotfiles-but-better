@@ -8,18 +8,18 @@ function p_detect
 end
 
 function p_setup
-    alias p "sudo pacman"
-    alias pi "sudo pacman -S --needed --noconfirm"
-    alias prm "sudo pacman -Rns --noconfirm"
-    alias psr "pacman -Ss"
-    alias psu "sudo pacman -Syu --noconfirm"
-    alias pu "sudo pacman -S --needed --noconfirm"
+    abbr p "sudo pacman"
+    abbr pi "sudo pacman -S --needed --noconfirm"
+    abbr prm "sudo pacman -Rns --noconfirm"
+    abbr psr "pacman -Ss"
+    abbr psu "sudo pacman -Syu --noconfirm"
+    abbr pu "sudo pacman -S --needed --noconfirm"
 
     return 0
 end
 
 function p_teardown
-    functions --erase p pi prm psr psu pu
+    abbr --erase p pi prm psr psu pu
 
     return 0
 end

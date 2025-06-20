@@ -2,7 +2,7 @@
 set -x RANGER_LOAD_DEFAULT_RC false
 
 if command -q ranger
-    alias ra="ranger"
+    abbr ra "ranger"
 end
 
 return 0

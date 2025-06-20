@@ -12,7 +12,7 @@ if test -d /etc/nixos
         sudo nixos-rebuild --flake $FLAKE_URL switch
     end
 
-    alias nr="nixos-rebuild-extended"
+    abbr nr "nixos-rebuild-extended"
 end
 
 return 0

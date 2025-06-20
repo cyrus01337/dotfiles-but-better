@@ -8,18 +8,18 @@ function p_detect
 end
 
 function p_setup
-    alias p "yay"
-    alias pi "sudo yay -S --needed --noconfirm"
-    alias prm "sudo yay -Rns --noconfirm"
-    alias psr "yay -Ss"
-    alias psu "sudo yay -Syu --noconfirm"
-    alias pu "sudo yay -S --needed --noconfirm"
+    abbr p "yay"
+    abbr pi "sudo yay -S --needed --noconfirm"
+    abbr prm "sudo yay -Rns --noconfirm"
+    abbr psr "yay -Ss"
+    abbr psu "sudo yay -Syu --noconfirm"
+    abbr pu "sudo yay -S --needed --noconfirm"
 
     return 0
 end
 
 function p_teardown
-    functions --erase p pi prm psr psu pu
+    abbr --erase p pi prm psr psu pu
 
     return 0
 end

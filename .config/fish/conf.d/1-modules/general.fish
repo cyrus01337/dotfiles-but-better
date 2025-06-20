@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
-alias re="sudo reboot now"
-alias shu="sudo shutdown now"
+abbr re "sudo reboot now"
+abbr shu "sudo shutdown now"
 
 function switch-and-link
     set target $argv[1]
