@@ -25,6 +25,8 @@ function p_setup
         abbr pini "npm init"
         abbr pins "npm install"
         abbr pl "npm run lint"
+        abbr plf "npm run lint:formatting"
+        abbr pr "npm run"
         abbr prm "npm remove"
         abbr prt "npm run test"
         abbr pst "npm run start"
@@ -42,6 +44,8 @@ function p_setup
         abbr pini "bun init"
         abbr pins "bun install"
         abbr pl "bun run lint"
+        abbr plf "bun run lint:formatting"
+        abbr pr "bun run"
         abbr prm "bun remove"
         abbr prt "bun run test"
         abbr pst "bun run start"
@@ -56,7 +60,7 @@ function p_setup
 end
 
 function p_teardown
-    abbr --erase p pa pad pb pci pd pf pini pins pl prm prt pst pt px
+    abbr --erase p pa pad pb pci pd pf pini pins pl plf pr prm prt pst pt px
 
     return 0
 end
