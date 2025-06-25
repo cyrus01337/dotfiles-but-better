@@ -5,6 +5,7 @@ include workspaces.conf
 
 set $MODIFIER Mod4
 set $EXIT_COMMAND "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+set $BROWSER "firefox"
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -20,7 +21,7 @@ set $EXIT_COMMAND "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do yo
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 # bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-bindsym $MODIFIER+b exec flatpak run app.zen_browser.zen
+bindsym $MODIFIER+b exec $BROWSER
 bindsym $MODIFIER+t exec i3-sensible-terminal
 bindsym $MODIFIER+r exec --no-startup-id "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 # A more modern dmenu replacement is rofi:
