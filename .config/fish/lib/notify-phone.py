@@ -27,7 +27,7 @@ def running_ignored_command(command: str, ignored_commands: set[str]) -> bool:
         maybe_command = components[1]
 
     for ignored in ignored_commands:
-        if head.startswith(ignored) or head.startswith("sudo") and maybe_command is not None and maybe_command.startswith(ignored):
+        if ignored in head or head.startswith("sudo") and maybe_command is not None and maybe_command.startswith(ignored):
             return True
 
     return False
