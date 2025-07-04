@@ -1,9 +1,12 @@
+set $MODIFIER Mod4
+set $TERMINAL_COMMAND "i3-sensible-terminal"
+
 include autostart.conf
 include settings.conf
 include theme.conf
 include workspaces.conf
 
-set $MODIFIER Mod4
+set $MENU_COMMAND "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 set $EXIT_COMMAND "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 set $BROWSER "firefox"
 
@@ -22,8 +25,10 @@ set $BROWSER "firefox"
 # bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 bindsym $MODIFIER+b exec $BROWSER
-bindsym $MODIFIER+t exec i3-sensible-terminal
-bindsym $MODIFIER+r exec --no-startup-id "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+bindsym $MODIFIER+t exec $TERMINAL_COMMAND
+bindsym $MODIFIER+Shift+q exec $EXIT_COMMAND
+bindsym $MODIFIER+r exec --no-startup-id $MENU_COMMAND
+
 # A more modern dmenu replacement is rofi:
 # bindsym Mod1+d exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -54,7 +59,6 @@ bindsym $MODIFIER+q kill
 
 bindsym $MODIFIER+Shift+c reload
 bindsym $MODIFIER+Shift+r restart
-bindsym $MODIFIER+Shift+q exec $EXIT_COMMAND
 
 # resize window (you can also use the mouse for that)
 # mode "resize" {
