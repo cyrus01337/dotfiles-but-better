@@ -80,6 +80,11 @@ if command -q gh
         set repository_shorthand $argv[1]
         set matches (string match -r "(.+)/(.+)" $repository_shorthand)
         set author $matches[1]
+
+        if not test $author
+            set author $GITHUB_USERNAME
+        end
+
         set repository $matches[2]
 
         if not [ $author ]; and [ $GITHUB_AUTHOR ]
