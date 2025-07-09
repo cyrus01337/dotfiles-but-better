@@ -108,6 +108,7 @@ prepare_operating_system() {
         stow \
         tmux \
         unzip \
+        $(cross_system_package "" "atuin") \
         $(cross_system_package "gh" "github-cli") \
         $(cross_system_package "" "openssh") \
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
