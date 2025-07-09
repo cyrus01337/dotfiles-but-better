@@ -78,17 +78,13 @@ end
 if command -q gh
     function gh-repo-clone --wraps "gh repo clone"
         set repository_shorthand $argv[1]
-        set matches (string match -r "(.+)/(.+)" $repository_shorthand)
+        set matches (string match -r "(?:(.+)/)?(.+)" $repository_shorthand)
         set author $matches[1]
-
-        if not test $author
-            set author $GITHUB_USERNAME
-        end
-
         set repository $matches[2]
 
-        if not [ $author ]; and [ $GITHUB_AUTHOR ]
-            set author $GITHUB_AUTHOR
+        if not test $repository
+            set repository $author
+            set author $GITHUB_USERNAME
         end
 
         gh repo clone "git@github.com:$author/$repository" -- --recurse-submodules
