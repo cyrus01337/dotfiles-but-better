@@ -117,6 +117,7 @@ return utilities.concatenate_tables(lsp, {
         opts = {
             ignore = "^$",
             mappings = {
+                basic = false,
                 extra = false,
             },
             toggler = {
