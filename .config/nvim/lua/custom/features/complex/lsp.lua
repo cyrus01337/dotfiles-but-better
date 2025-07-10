@@ -9,7 +9,6 @@ local LAZYDEV = {
         library = {
             "~/.config/nvim/lua/lib",
             "lazy.nvim",
-            "LazyVim",
         },
     },
 }
