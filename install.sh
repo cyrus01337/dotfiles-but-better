@@ -112,7 +112,9 @@ prepare_operating_system() {
         $(cross_system_package "gh" "github-cli") \
         $(cross_system_package "" "openssh") \
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools") \
-        $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono")
+        $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono") \
+        $(cross_system_package "" "tree-sitter-cli") \
+        $(cross_system_package "" "wget")
 
     remove_package $EXCLUDE_KDE_SOFTWARE
 
