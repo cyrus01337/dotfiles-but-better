@@ -48,6 +48,7 @@ return {
         event = "BufEnter",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
+            "echasnovski/mini.icons",
         },
         init = function()
             vim.opt.laststatus = 3
