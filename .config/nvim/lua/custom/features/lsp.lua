@@ -2,6 +2,8 @@ local lsp = require("custom.features.complex.lsp")
 local mode = require("custom.lib.mode")
 local utilities = require("custom.lib.utilities")
 
+vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true } })
+
 return utilities.concatenate_tables(lsp, {
     {
         "nvim-treesitter/nvim-treesitter",
