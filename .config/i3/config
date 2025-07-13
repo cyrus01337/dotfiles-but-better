@@ -57,8 +57,7 @@ bindsym $MODIFIER+q kill
 # change focus between tiling / floating windows
 # bindsym Mod1+space focus mode_toggle
 
-bindsym $MODIFIER+Shift+c reload
-bindsym $MODIFIER+Shift+r restart
+bindsym $MODIFIER+Shift+r reload
 
 # resize window (you can also use the mouse for that)
 # mode "resize" {
