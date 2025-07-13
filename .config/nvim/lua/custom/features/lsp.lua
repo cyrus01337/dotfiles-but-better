@@ -263,15 +263,12 @@ return utilities.concatenate_tables(lsp, {
     {
         "OXY2DEV/markview.nvim",
         lazy = false,
+        priority = 49,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons",
         },
-        options = {
-            experimental = {
-                check_rtp_message = false,
-            },
-        },
+        config = true,
     },
     {
         "brenton-leighton/multiple-cursors.nvim",
