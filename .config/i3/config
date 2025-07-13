@@ -35,15 +35,15 @@ bindsym $MODIFIER+r exec --no-startup-id $MENU_COMMAND
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym $MODIFIER+Left focus left
-bindsym $MODIFIER+Down focus down
-bindsym $MODIFIER+Up focus up
-bindsym $MODIFIER+Right focus right
+bindsym Alt+Left focus left
+bindsym Alt+Down focus down
+bindsym Alt+Up focus up
+bindsym Alt+Right focus right
 
-bindsym $MODIFIER+Shift+Left move left
-bindsym $MODIFIER+Shift+Down move down
-bindsym $MODIFIER+Shift+Up move up
-bindsym $MODIFIER+Shift+Right move right
+bindsym $MODIFIER+Left move left
+bindsym $MODIFIER+Down move down
+bindsym $MODIFIER+Up move up
+bindsym $MODIFIER+Right move right
 
 bindsym $MODIFIER+h split h
 bindsym $MODIFIER+v split v
