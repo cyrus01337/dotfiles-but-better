@@ -9,12 +9,12 @@ end
 
 function p_setup
     abbr p "yay"
-    abbr pi "sudo yay -S --needed --noconfirm"
-    abbr prm "sudo yay -Rns --noconfirm"
+    abbr pi "yay -S --needed --noconfirm"
     abbr pq "yay -Qi"
+    abbr prm "yay -Rns --noconfirm"
     abbr psr "yay -Ss"
-    abbr psu "sudo yay -Syu --noconfirm"
-    abbr pu "sudo yay -S --needed --noconfirm"
+    abbr psu "yay -Syu --noconfirm"
+    abbr pu "yay -S --needed --noconfirm"
 
     return 0
 end
