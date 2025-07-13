@@ -2,7 +2,7 @@
 abbr c "clear"
 abbr l "ls -al"
 abbr q "exit"
-abbr r "clear && source $__fish_config_dir"
+abbr r "clear && source $__fish_config_dir/config.fish"
 abbr schmod "sudo chmod"
 abbr schown "sudo chown"
 abbr sshq "ssh -q"
