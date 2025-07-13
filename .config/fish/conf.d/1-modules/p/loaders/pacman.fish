@@ -10,6 +10,7 @@ end
 function p_setup
     abbr p "sudo pacman"
     abbr pi "sudo pacman -S --needed --noconfirm"
+    abbr pq "sudo pacman -Qi"
     abbr prm "sudo pacman -Rns --noconfirm"
     abbr psr "pacman -Ss"
     abbr psu "sudo pacman -Syu --noconfirm"
