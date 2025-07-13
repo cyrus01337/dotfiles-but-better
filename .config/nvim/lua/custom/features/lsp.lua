@@ -267,7 +267,11 @@ return utilities.concatenate_tables(lsp, {
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons",
         },
-        config = true,
+        options = {
+            experimental = {
+                check_rtp_message = false,
+            },
+        },
     },
     {
         "brenton-leighton/multiple-cursors.nvim",
