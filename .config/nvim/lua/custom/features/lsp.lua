@@ -130,15 +130,28 @@ return utilities.concatenate_tables(lsp, {
     },
     {
         "numToStr/Comment.nvim",
-        opts = {
-            ignore = "^$",
-            mappings = {
-                extra = false,
-            },
-            toggler = {
-                line = "cl",
-            },
-        },
+        config = function()
+            local comment = require("Comment")
+            local comment_api = require("Comment.api")
+
+            local options = {
+                ignore = "^$",
+                mappings = {
+                    basic = false,
+                    extra = false,
+                },
+            }
+
+            comment.setup(options)
+            vim.keymap.set(mode.NORMAL, "<leader>cb", comment_api.toggle.blockwise.current)
+            vim.keymap.set(mode.NORMAL, "<leader>cl", comment_api.toggle.linewise.current)
+            vim.keymap.set({ mode.VISUAL, mode.VISUAL }, "cb", function()
+                comment_api.toggle.blockwise(vim.fn.visualmode())
+            end, { remap = true })
+            vim.keymap.set({ mode.VISUAL, mode.VISUAL_SELECT }, "cl", function()
+                comment_api.toggle.linewise(vim.fn.visualmode())
+            end, { remap = true })
+        end,
     },
     {
         "hrsh7th/nvim-cmp",
