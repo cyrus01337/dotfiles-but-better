@@ -6,7 +6,8 @@ return {
         "Sort",
     },
     keys = {
-        { "s", "<CMD>Sort<CR>", mode = mode.VISUAL_SELECT },
+        { "so", "<CMD>Sort<CR>", mode = mode.VISUAL_SELECT },
+        { "so", "<CMD>'<,'>Sort<CR>", mode = mode.VISUAL },
     },
     config = true,
 }

@@ -112,14 +112,27 @@ return utilities.concatenate_tables(lsp, {
         "kylechui/nvim-surround",
         version = "*",
         event = "VeryLazy",
-        config = true,
+        options = {
+            keymaps = {
+                insert = nil,
+                insert_line = nil,
+                normal = nil,
+                normal_cur = "su",
+                normal_line = "su",
+                normal_cur_line = nil,
+                visual = "su",
+                visual_line = "su",
+                delete = "ds",
+                change = "cs",
+                change_line = nil,
+            },
+        },
     },
     {
         "numToStr/Comment.nvim",
         opts = {
             ignore = "^$",
             mappings = {
-                basic = false,
                 extra = false,
             },
             toggler = {
