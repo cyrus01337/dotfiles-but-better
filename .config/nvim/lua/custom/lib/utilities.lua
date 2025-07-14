@@ -59,12 +59,6 @@ function Utilities.clone_table(container)
     return copy
 end
 
-local function on_attach(client, _)
-    if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(true, { 0 })
-    end
-end
-
 function Utilities.extend_lsp_options(object)
     if not cached_default_capabilities then
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -74,7 +68,6 @@ function Utilities.extend_lsp_options(object)
 
     local cloned = Utilities.clone_table(object)
     cloned.capabilities = cached_default_capabilities
-    cloned.on_attach = on_attach
 
     return cloned
 end
