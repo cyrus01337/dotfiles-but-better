@@ -16,6 +16,9 @@ input type:keyboard {
     xkb_layout "gb"
 }
 
+input * repeat_delay 250
+input * repeat_rate 30
+
 bindsym $MODIFIER+b exec $BROWSER_COMMAND
 bindsym $MODIFIER+t exec $TERMINAL_COMMAND
 bindsym $MODIFIER+Shift+q exec $EXIT_COMMAND
