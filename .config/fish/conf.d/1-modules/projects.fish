@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
-set PROJECTS_DIRECTORY "$HOME/Projects/"
+set PROJECTS_DIRECTORY "$HOME/Projects"
 set INTERRUPTED_OR_FATAL_ERROR 130
-set -l FZF_FLAGS -1 --cycle --no-mouse --no-scrollbar --ellipsis ...
+set -l FZF_FLAGS -1 --cycle --no-mouse --no-scrollbar --ellipsis ... --layout reverse
 
 if test -d $PROJECTS_DIRECTORY
     function get_current_group
@@ -34,7 +34,7 @@ if test -d $PROJECTS_DIRECTORY
 
     # TODO: Refactor all prompts to a singular function
     function prompt_for_group
-        set -l groups (ls -r $PROJECTS_DIRECTORY)
+        set -l groups (ls $PROJECTS_DIRECTORY)
 
         if test (count $groups) = 0
             echo ""
@@ -46,13 +46,13 @@ if test -d $PROJECTS_DIRECTORY
             return 0
         end
 
-        set group (ls -r $PROJECTS_DIRECTORY | fzf $FZF_FLAGS)
-
-        echo $group
+        set group (ls $PROJECTS_DIRECTORY | fzf $FZF_FLAGS)
 
         if test "$group" = ""
             return $INTERRUPTED_OR_FATAL_ERROR
         end
+
+        echo $group
 
         return 0
     end
@@ -71,13 +71,13 @@ if test -d $PROJECTS_DIRECTORY
             return 0
         end
 
-        set project (ls -r "$PROJECTS_DIRECTORY/$group" | fzf $FZF_FLAGS)
-
-        echo $project
+        set project (ls "$PROJECTS_DIRECTORY/$group" | fzf $FZF_FLAGS)
 
         if test "$project" = ""
             return $INTERRUPTED_OR_FATAL_ERROR
         end
+
+        echo $project
 
         return 0
     end
@@ -85,7 +85,7 @@ if test -d $PROJECTS_DIRECTORY
     function prompt_for_subproject
         set group $argv[1]
         set project $argv[2]
-        set -l subprojects (ls -r "$PROJECTS_DIRECTORY/$group/$project")
+        set -l subprojects (ls "$PROJECTS_DIRECTORY/$group/$project")
 
         if test (count $subprojects) = 0
             echo ""
@@ -97,13 +97,13 @@ if test -d $PROJECTS_DIRECTORY
             return 0
         end
 
-        set subproject (ls -r "$PROJECTS_DIRECTORY/$group/$project" | fzf $FZF_FLAGS)
-
-        echo $subproject
+        set subproject (ls "$PROJECTS_DIRECTORY/$group/$project" | fzf $FZF_FLAGS)
 
         if test "$subproject" = ""
             return $INTERRUPTED_OR_FATAL_ERROR
         end
+
+        echo $subproject
 
         return 0
     end
@@ -111,7 +111,7 @@ if test -d $PROJECTS_DIRECTORY
     function prompt_for_course
         set group $argv[1]
         set project $argv[2]
-        set -l courses (ls -r "$PROJECTS_DIRECTORY/$group/$project/courses")
+        set -l courses (ls "$PROJECTS_DIRECTORY/$group/$project/courses")
 
         if test (count $courses) = 0
             echo ""
@@ -123,15 +123,21 @@ if test -d $PROJECTS_DIRECTORY
             return 0
         end
 
-        set course (ls -r "$PROJECTS_DIRECTORY/$group/$project/courses" | fzf $FZF_FLAGS)
-
-        echo $course
+        set course (ls "$PROJECTS_DIRECTORY/$group/$project/courses" | fzf $FZF_FLAGS)
 
         if test "$course" = ""
             return $INTERRUPTED_OR_FATAL_ERROR
         end
 
+        echo $course
+
         return 0
+    end
+
+    function in_shell
+        set running_process (tmux display-message -p "#{window_name}")
+
+        test $running_process = "fish"; or test $running_process = "bash"
     end
 
     function projects
@@ -183,7 +189,16 @@ if test -d $PROJECTS_DIRECTORY
             set selected_project "$selected_project/courses/$selected_course"
         end
 
-        cd "$PROJECTS_DIRECTORY/$selected_group/$selected_project"
+        set full_project_path (realpath "$PROJECTS_DIRECTORY/$selected_group/$selected_project")
+
+        if in_shell
+            if test $TMUX
+                clear
+                tmux send-keys "cd $full_project_path" C-m
+            else
+                cd $full_project_path
+            end
+        end
 
         return 0
     end
