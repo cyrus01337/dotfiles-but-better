@@ -1,4 +1,6 @@
 git:
     overrideGpg: true
+gui:
+    mouseEvents: false
 os:
     editPreset: nvim
