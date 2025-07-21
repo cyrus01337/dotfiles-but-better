@@ -329,11 +329,4 @@ return utilities.concatenate_tables(lsp, {
             },
         },
     },
-    {
-        "jmbuhr/otter.nvim",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-        config = true,
-    },
 })

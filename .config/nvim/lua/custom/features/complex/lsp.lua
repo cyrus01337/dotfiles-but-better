@@ -12,9 +12,18 @@ local LAZYDEV = {
         },
     },
 }
+local OTTER = {
+    "jmbuhr/otter.nvim",
+    event = { "BufWritePost" },
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+    },
+    config = true,
+}
 
 local function config()
     local lspconfig = require("lspconfig")
+    local otter = require("otter")
 
     for _, name in ipairs(constants.NO_CONFIGURATION_LSPS) do
         local language_server = lspconfig[name]
@@ -27,6 +36,8 @@ local function config()
 
         language_server.setup(utilities.extend_lsp_options(options))
     end
+
+    otter.activate({ "javascript", "nix", "python", "typescript" })
 end
 
 if utilities.exists("/etc/nixos") then
@@ -37,10 +48,12 @@ if utilities.exists("/etc/nixos") then
             dependencies = {
                 "hrsh7th/cmp-nvim-lsp",
                 "folke/lazydev.nvim",
+                "jmbuhr/otter.nvim",
             },
             config = config,
         },
         LAZYDEV,
+        OTTER,
     }
 else
     return {
@@ -51,12 +64,14 @@ else
                 "hrsh7th/cmp-nvim-lsp",
                 "folke/lazydev.nvim",
                 "williamboman/mason.nvim",
+                "jmbuhr/otter.nvim",
                 "mason-org/mason-lspconfig.nvim",
                 "WhoIsSethDaniel/mason-tool-installer.nvim",
             },
             config = config,
         },
         LAZYDEV,
+        OTTER,
         {
             "williamboman/mason.nvim",
             build = ":MasonUpdate",
