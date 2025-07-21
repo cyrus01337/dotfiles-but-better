@@ -147,16 +147,24 @@ return utilities.concatenate_tables(lsp, {
             local comment = require("Comment")
 
             comment.setup({
-                ignore = "^$",
+                extra = {
+                    above = "<Nop>",
+                    below = "<Nop>",
+                    eol = "<Nop>",
+                },
+                ignore = "^ *$",
                 mappings = {
                     basic = true,
                     extra = false,
                 },
                 opleader = {
-                    line = "gc",
-                    block = "gb",
+                    line = "<Nop>",
+                    block = "<Nop>",
                 },
+                padding = true,
+                post_hook = function(...) end,
                 pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+                sticky = true,
                 toggler = {
                     line = "cl",
                     block = "cb",
@@ -242,7 +250,7 @@ return utilities.concatenate_tables(lsp, {
             })
             cmp.setup.cmdline(":", {
                 mapping = mapping,
-                matching = { disallow_symbol_nonprefix_matching = false },
+                -- matching = { disallow_symbol_nonprefix_matching = false },
                 sources = cmp.config.sources({
                     { name = "path", keyword_length = 3 },
                 }, {
