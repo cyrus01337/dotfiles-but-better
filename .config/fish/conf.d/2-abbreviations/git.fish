@@ -23,10 +23,10 @@ if command -q git
     abbr --add git-initialise-submodules "git submodule update --init --recursive"
     abbr --add git-save-credentials "git config --global credential.helper store"
     abbr --add git-update-submodules "git submodule update --remote"
-    abbr --add gasm "git-add-submodule"
-    abbr --add gism "git-initialise-submodules"
-    abbr --add gusm "git-update-submodules"
-    abbr --add gusmr "git-update-submodules --recursive"
+    abbr gasm "git submodule add"
+    abbr gism "git submodule update --init --recursive"
+    abbr gusm "git submodule update --remote"
+    abbr gusmr "git submodule update --remote --recursive"
 
     function ga --wraps "git add"
         set files $argv
