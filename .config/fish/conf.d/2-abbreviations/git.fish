@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 if command -q git
     abbr g "git"
+    abbr ga "git add"
     abbr gb "git branch"
     abbr gch "git checkout"
     abbr gcl "git clone --recurse-submodules"
@@ -14,13 +15,16 @@ if command -q git
     abbr gm "git merge"
     abbr gpl "git pull"
     abbr gps "git push"
+    abbr gpsu "git push --upstream origin (git branch --show-current)"
     abbr gr "git remote"
     abbr gra "git remote add"
     abbr gst "git status"
     abbr gsm "git submodule"
 
     abbr git-add-submodule "git submodule add"
+    abbr git-fix-formatting-commit "p format && git add . && git commit -m \"Fix formatting\" && git push"
     abbr git-initialise-submodules "git submodule update --init --recursive"
+    abbr git-push-upstream "git push --upstream origin (git branch --show-current)"
     abbr git-save-credentials "git config --global credential.helper store"
     abbr git-update-submodules "git submodule update --remote"
     abbr gasm "git submodule add"
@@ -28,33 +32,6 @@ if command -q git
     abbr gsc "git config --global credential.helper store"
     abbr gusm "git submodule update --remote"
     abbr gusmr "git submodule update --remote --recursive"
-
-    function ga --wraps "git add"
-        set files $argv
-
-        if not [ $files ]
-            set files "."
-        end
-
-        git add $files
-    end
-
-    function gpsu --wraps "git push"
-        set branch $argv[1]
-
-        if not [ $branch ]
-            set branch "main"
-        end
-
-        git push -u origin $branch
-    end
-
-    function fix-formatting-commit
-        p format
-        git add .
-        git commit -m "Fix formatting"
-        git push
-    end
 
     function git-fetch-all-branches
         for remote in (git branch -r | grep -v '\->' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")
