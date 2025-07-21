@@ -28,15 +28,10 @@ return {
         config = true,
     },
     {
-        "nvim-telescope/telescope-fzy-native.nvim",
-        config = true,
-    },
-    {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-fzy-native.nvim",
         },
         keys = {
             { "<leader>ff", "<CMD>Telescope find_files<CR>" },
@@ -67,14 +62,6 @@ return {
                     },
                     vimgrep_arguments = vimgrep_arguments,
                 },
-                extensions = {
-                    fzy_native = {
-                        fuzzy = true,
-                        override_generic_sorter = true,
-                        override_file_sorter = true,
-                        case_mode = "smart_case",
-                    },
-                },
                 pickers = {
                     find_files = {
                         find_command = {
@@ -103,7 +90,6 @@ return {
                     },
                 },
             })
-            telescope.load_extension("fzy_native")
         end,
     },
 }
