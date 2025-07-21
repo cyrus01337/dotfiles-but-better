@@ -51,6 +51,7 @@ else
                 "hrsh7th/cmp-nvim-lsp",
                 "folke/lazydev.nvim",
                 "williamboman/mason.nvim",
+                "mason-org/mason-lspconfig.nvim",
                 "WhoIsSethDaniel/mason-tool-installer.nvim",
             },
             config = config,
@@ -74,6 +75,10 @@ else
             "WhoIsSethDaniel/mason-tool-installer.nvim",
             build = ":MasonToolsInstall",
             lazy = false,
+            dependencies = {
+                "williamboman/mason.nvim",
+                "mason-org/mason-lspconfig.nvim",
+            },
             opts = {
                 auto_update = true,
                 ensure_installed = {
