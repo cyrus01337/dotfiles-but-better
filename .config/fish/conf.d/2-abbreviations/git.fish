@@ -1,30 +1,31 @@
 #!/usr/bin/env fish
 if command -q git
-    abbr --add g "git"
-    abbr --add gb "git branch"
-    abbr --add gch "git checkout"
-    abbr --add gcl "git clone --recurse-submodules"
-    abbr --add gca "git commit --amend"
-    abbr --add gcn "git config"
-    abbr --add gco "git commit"
-    abbr --add gcog "git config --global"
-    abbr --add gd "git diff"
-    abbr --add gds "git diff --staged"
-    abbr --add gi "git init"
-    abbr --add gm "git merge"
-    abbr --add gpl "git pull"
-    abbr --add gps "git push"
-    abbr --add gr "git remote"
-    abbr --add gra "git remote add"
-    abbr --add gst "git status"
-    abbr --add gsm "git submodule"
+    abbr g "git"
+    abbr gb "git branch"
+    abbr gch "git checkout"
+    abbr gcl "git clone --recurse-submodules"
+    abbr gca "git commit --amend"
+    abbr gcn "git config"
+    abbr gco "git commit"
+    abbr gcog "git config --global"
+    abbr gd "git diff"
+    abbr gds "git diff --staged"
+    abbr gi "git init"
+    abbr gm "git merge"
+    abbr gpl "git pull"
+    abbr gps "git push"
+    abbr gr "git remote"
+    abbr gra "git remote add"
+    abbr gst "git status"
+    abbr gsm "git submodule"
 
-    abbr --add git-add-submodule "git submodule add"
-    abbr --add git-initialise-submodules "git submodule update --init --recursive"
-    abbr --add git-save-credentials "git config --global credential.helper store"
-    abbr --add git-update-submodules "git submodule update --remote"
+    abbr git-add-submodule "git submodule add"
+    abbr git-initialise-submodules "git submodule update --init --recursive"
+    abbr git-save-credentials "git config --global credential.helper store"
+    abbr git-update-submodules "git submodule update --remote"
     abbr gasm "git submodule add"
     abbr gism "git submodule update --init --recursive"
+    abbr gsc "git config --global credential.helper store"
     abbr gusm "git submodule update --remote"
     abbr gusmr "git submodule update --remote --recursive"
 
@@ -90,7 +91,7 @@ if command -q gh
         gh repo clone "git@github.com:$author/$repository" -- --recurse-submodules
     end
 
-    abbr --add ghrc "gh-repo-clone"
+    abbr ghrc "gh-repo-clone"
 
     function gh-clone-all-repositories
         if not command -q parallel
