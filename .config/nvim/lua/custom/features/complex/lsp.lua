@@ -104,6 +104,7 @@ else
                     "css-lsp",
                     "css-variables-language-server",
                     "eslint-lsp",
+                    "fish-lsp",
                     "gopls",
                     "html-lsp",
                     "json-lsp",
