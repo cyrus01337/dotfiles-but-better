@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 abbr c "clear"
 abbr l "ls -al"
+abbr nuke "rm -rf ./{*,.*}"
 abbr q "exit"
 abbr r "clear && source $__fish_config_dir/config.fish"
 abbr schmod "sudo chmod"
