@@ -9,8 +9,10 @@ include workspaces.conf
 set $MENU_COMMAND "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 set $EXIT_COMMAND "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 set $BROWSER_COMMAND "firefox"
+set $FILE_EXPLORER_COMMAND "dolphin"
 
 bindsym $MODIFIER+b exec $BROWSER_COMMAND
+bindsym $MODIFIER+e exec $FILE_EXPLORER_COMMAND
 bindsym $MODIFIER+t exec $TERMINAL_COMMAND
 bindsym $MODIFIER+Shift+q exec $EXIT_COMMAND
 bindsym $MODIFIER+r exec --no-startup-id $MENU_COMMAND

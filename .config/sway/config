@@ -9,6 +9,7 @@ include workspaces.conf
 set $MENU_COMMAND "wmenu-run"
 set $EXIT_COMMAND "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'"
 set $BROWSER_COMMAND "firefox"
+set $FILE_EXPLORER_COMMAND "dolphin"
 
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
@@ -20,6 +21,7 @@ input * repeat_delay 250
 input * repeat_rate 30
 
 bindsym $MODIFIER+b exec $BROWSER_COMMAND
+bindsym $MODIFIER+e exec $FILE_EXPLORER_COMMAND
 bindsym $MODIFIER+t exec $TERMINAL_COMMAND
 bindsym $MODIFIER+Shift+q exec $EXIT_COMMAND
 bindsym $MODIFIER+r exec $MENU_COMMAND
