@@ -65,7 +65,7 @@ if command -q gh
             set author $GITHUB_USERNAME
         end
 
-        gh repo clone "git@github.com:$author/$repository" -- --recurse-submodules
+        gh repo clone "git@github.com:$author/$repository" -- --recurse-submodules --jobs (nproc)
     end
 
     abbr ghrc "gh-repo-clone"
