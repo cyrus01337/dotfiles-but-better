@@ -127,6 +127,10 @@ arch-chroot /mnt su cyrus -c "git clone https://aur.archlinux.org/yay.git /home/
     arch-chroot /mnt su cyrus -c "yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all" && \
     arch-chroot /mnt su cyrus -c "yay -Syu --noconfirm"
 
+log "Installing kernel..."
+
+arch-chroot /mnt su cyrus -c "yay -S --needed --noconfirm linux-cachyos"
+
 log "Installing additional firmware..."
 
 arch-chroot /mnt su cyrus -c "yay -S --noconfirm aic94xx-firmware ast-firmware wd719x-firmware upd72020x-fw"
