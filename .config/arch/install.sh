@@ -159,7 +159,7 @@ fi
 log "Cleaning up..."
 
 arch-chroot /mnt yes | pacman -Scc && \
-    arch-chroot /mnt yes | yay -Scc
+    arch-chroot /mnt su cyrus -c "yes | yay -Scc"
 
 if test $UNMOUNT = true; then
     echo "Unmounting..."
