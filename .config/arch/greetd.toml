@@ -1,0 +1,10 @@
+[default_session]
+command = "agreety --cmd sway"
+user = "cyrus"
+
+[initial_session]
+command = "sway"
+user = "cyrus"
+
+[terminal]
+vt = 1

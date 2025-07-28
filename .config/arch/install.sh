@@ -75,7 +75,7 @@ mount $(get_partition 3) /mnt && \
 log "Bootstrapping..."
 
 # TODO: Span packages across multiple lines
-pacstrap -K /mnt alacritty amd-ucode base base-devel ccache dolphin efibootmgr fastfetch git gtkmm3 limine linux-firmware linux-firmware-qlogic linux-zen man-db man-pages mold networkmanager open-vm-tools openssh plasma-desktop sddm sddm-kcm sudo texinfo vim && \
+pacstrap -K /mnt alacritty amd-ucode base base-devel ccache dolphin fastfetch git greetd gtkmm3 limine linux-firmware linux-firmware-qlogic man-db man-pages mold networkmanager open-vm-tools openssh plasma-desktop sddm sddm-kcm sudo texinfo vim && \
     arch-chroot /mnt pacman-key --init && \
     arch-chroot /mnt pacman-key --populate archlinux
 
@@ -135,11 +135,15 @@ log "Installing additional firmware..."
 
 arch-chroot /mnt su cyrus -c "yay -S --noconfirm aic94xx-firmware ast-firmware wd719x-firmware upd72020x-fw"
 
-log "Enabling services..."
+log "Enabling core services..."
 
 mkdir -p /mnt/etc/sddm.conf.d && \
     curl -Lo /mnt/etc/sddm.conf.d/autologin.conf "$DOTFILES_URL/.config/arch/autologin.conf" && \
-    arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
+    arch-chroot /mnt systemctl enable NetworkManager greetd vmtoolsd
+
+log "Setting up display manager..."
+
+curl -Lo /mnt/etc/greetd/config.toml "$DOTFILES_URL/.config/arch/greetd.toml"
 
 log "Setting up bootloader..."
 
@@ -154,7 +158,8 @@ fi
 
 log "Cleaning up..."
 
-arch-chroot /mnt yes | pacman -Scc
+arch-chroot /mnt yes | pacman -Scc && \
+    arch-chroot /mnt yes | yay -Scc
 
 if test $UNMOUNT = true; then
     echo "Unmounting..."
