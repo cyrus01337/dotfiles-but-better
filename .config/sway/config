@@ -5,7 +5,6 @@ include autostart.conf
 include keybinds.conf
 include settings.conf
 include theme.conf
-include workspaces.conf
 
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
