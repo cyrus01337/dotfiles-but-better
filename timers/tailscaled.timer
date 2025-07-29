@@ -1,0 +1,9 @@
+[Unit]
+Description="Delayed start for the Tailscale service"
+
+[Timer]
+OnBootSec=30s
+
+[Install]
+WantedBy=timers.target
+
