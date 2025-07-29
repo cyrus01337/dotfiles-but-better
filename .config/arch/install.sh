@@ -75,7 +75,7 @@ mount $(get_partition 3) /mnt && \
 log "Bootstrapping..."
 
 # TODO: Span packages across multiple lines
-pacstrap -K /mnt alacritty amd-ucode base base-devel ccache dolphin fastfetch git greetd gtkmm3 limine linux-firmware linux-firmware-qlogic man-db man-pages mold networkmanager open-vm-tools openssh plasma-desktop sddm sddm-kcm sudo texinfo vim && \
+pacstrap -K /mnt alacritty amd-ucode base base-devel ccache dolphin efibootmgr fastfetch git greetd gtkmm3 limine linux-firmware linux-firmware-qlogic man-db man-pages mold networkmanager open-vm-tools openssh plasma-desktop sddm sddm-kcm sudo sway texinfo vim && \
     arch-chroot /mnt pacman-key --init && \
     arch-chroot /mnt pacman-key --populate archlinux
 
