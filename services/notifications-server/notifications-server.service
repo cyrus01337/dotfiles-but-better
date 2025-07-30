@@ -1,0 +1,8 @@
+[Unit]
+Description=Serve local machine's port 80 under Tailnet with HTTPS support
+
+[Service]
+ExecStart=/usr/bin/tailscale serve 80
+
+[Install]
+RequiredBy=tailscaled.service

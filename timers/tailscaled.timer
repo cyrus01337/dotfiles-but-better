@@ -6,4 +6,4 @@ OnBootSec=30s
 
 [Install]
 WantedBy=timers.target
-
+Also=notifications-server.service
