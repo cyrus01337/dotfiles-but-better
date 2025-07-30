@@ -1,3 +1,0 @@
-pyright
-ruff
-sourcery

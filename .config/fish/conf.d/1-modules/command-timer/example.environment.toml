@@ -1,0 +1,4 @@
+ignored_components = ["docker compose up", "less", "vim", "sudo"]
+minimum_notification_duration = 15000
+notification_server_domain = "example.com"
+ntfy_user_token = "..."
