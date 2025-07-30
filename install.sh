@@ -8,6 +8,7 @@ ARCH="Arch"
 NIXOS="NixOS"
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC com.github.tchx84.Flatseal")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
+ARCH_PACKAGE_MANAGER="yay"
 
 is_operating_system() {
     # Without double brackets the same line using "test" reports the wrong exit
@@ -19,7 +20,7 @@ upgrade_system() {
     if is_operating_system $FEDORA; then
         sudo dnf upgrade -y
     elif is_operating_system $ARCH; then
-        sudo pacman -Syu --needed --noconfirm
+        $ARCH_PACKAGE_MANAGER -Syu --needed --noconfirm
     fi
 }
 
@@ -27,7 +28,7 @@ install_package() {
     if is_operating_system $FEDORA; then
         sudo dnf install -y $@
     elif is_operating_system $ARCH; then
-        sudo pacman -S --needed --noconfirm $@
+        $ARCH_PACKAGE_MANAGER -S --needed --noconfirm $@
     fi
 }
 
@@ -35,7 +36,7 @@ remove_package() {
     if is_operating_system $FEDORA; then
         sudo dnf remove -y $@ 2> /dev/null
     elif is_operating_system $ARCH; then
-        sudo pacman -Rns --noconfirm $@ 2> /dev/null || true
+        $ARCH_PACKAGE_MANAGER -Rns --noconfirm $@ 2> /dev/null || true
     fi
 }
 
@@ -113,6 +114,7 @@ prepare_operating_system() {
         $(cross_system_package "" "openssh") \
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools") \
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono") \
+        $(cross_system_package "" "qq") \
         $(cross_system_package "" "tree-sitter-cli") \
         $(cross_system_package "" "wget")
 
