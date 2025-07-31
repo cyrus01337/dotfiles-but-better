@@ -2,7 +2,7 @@
 set -e
 
 TEMPORARY_DIRECTORY="$(mktemp -d)"
-OPERATING_SYSTEM="$(hostnamectl | grep 'Operating System')"
+OPERATING_SYSTEM="${OPERATING_SYSTEM-$(hostnamectl | grep 'Operating System')}"
 FEDORA="Fedora"
 ARCH="Arch"
 NIXOS="NixOS"
