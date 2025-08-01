@@ -84,8 +84,6 @@ if not command -q custom_command_timer; and command -q qq; and not set -q DISABL
         set message (printf '\\\\"%s\\\\" %sran for %s%s' $full_command $success_message $pretty_command_duration $failure_message)
         set payload (printf '{"topic": "notify-phone", "title": "%s", "message": "%s"}' $title $message)
 
-        echo $payload
-
         curl \
             --silent \
             --data $payload \
