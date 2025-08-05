@@ -9,6 +9,7 @@ NIXOS="NixOS"
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC com.github.tchx84.Flatseal")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 ARCH_PACKAGE_MANAGER="yay"
+export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
 
 is_operating_system() {
     # Without double brackets the same line using "test" reports the wrong exit
