@@ -103,7 +103,7 @@ setup_ssh() {
     curl -Lo .ssh/config https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config && \
         sudo systemctl enable --now --quiet sshd
 
-    if which bw &> /dev/null; && ! test -f "$SSH_DIRECTORY/github_ed25519"; || ! test -f "$SSH_DIRECTORY/github_ed25519.pub" then
+    if which bw &> /dev/null && ! test -f "$SSH_DIRECTORY/github_ed25519" || ! test -f "$SSH_DIRECTORY/github_ed25519.pub" then
         BITWARDEN_PAYLOAD=""
 
         bw login
