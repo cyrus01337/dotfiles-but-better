@@ -2,10 +2,10 @@
 set -e
 
 TEMPORARY_DIRECTORY="$(mktemp -d)"
-OPERATING_SYSTEM="${OPERATING_SYSTEM-$(hostnamectl | grep 'Operating System')}"
 FEDORA="Fedora"
 ARCH="Arch"
 NIXOS="NixOS"
+OPERATING_SYSTEM="${OPERATING_SYSTEM-$(hostnamectl | grep 'Operating System')}"
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC com.github.tchx84.Flatseal")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 ARCH_PACKAGE_MANAGER="yay"
@@ -61,6 +61,8 @@ warn_if_system_unsupported() {
         echo "Unsupported OS"
     else
         echo "Unsupported OS: $addendum"
+
+        exit 1
     fi
 }
 
