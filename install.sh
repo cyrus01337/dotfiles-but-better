@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# TODO: Add logging
 set -e
 
 TEMPORARY_DIRECTORY="$(mktemp -d)"
@@ -75,7 +76,7 @@ setup_automatic_updates() {
     if is_operating_system $FEDORA; then
         configuration_file="/etc/dnf/automatic.conf"
 
-        # TODO: Move to .config/fedora
+        # TODO: Organise OS-specific packages better
         install_package dnf-automatic && \
             echo "[commands]" | sudo tee $configuration_file > /dev/null && \
             echo "apply_updates=True" | sudo tee $configuration_file > /dev/null && \
@@ -87,9 +88,46 @@ setup_automatic_updates() {
 }
 
 setup_ssh() {
-    mkdir "$HOME/.ssh" || true
+    SSH_DIRECTORY="$HOME/.ssh"
+    PRIVATE_KEY_FILE="$SSH_DIRECTORY/github_ed25519"
+    PUBLIC_KEY_FILE="$SSH_DIRECTORY/github_ed25519.pub"
+
+    if ! test -d $SSH_DIRECTORY; then
+        mkdir --mode 700 $SSH_DIRECTORY
+    fi
+
+    if ! test -f "$SSH_DIRECTORY/config"; then
+        install -m 600 /dev/null "$SSH_DIRECTORY/config"
+    fi
+
     curl -Lo .ssh/config https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config && \
         sudo systemctl enable --now --quiet sshd
+
+    if which bw &> /dev/null; && ! test -f "$SSH_DIRECTORY/github_ed25519"; || ! test -f "$SSH_DIRECTORY/github_ed25519.pub" then
+        BITWARDEN_PAYLOAD=""
+
+        bw login
+
+        if test "$(bw status | jq -r '.status')" = "unlocked"; then
+            BITWARDEN_PAYLOAD="$(bw get item 'GitHub Signing Key' | jq -r '.sshKey')"
+        fi
+
+        if test $BITWARDEN_PAYLOAD != ""; then
+            if ! test -f "$SSH_DIRECTORY/github_ed25519"; then
+                touch "$SSH_DIRECTORY/github_ed25519" && \
+                    chmod 600 "$SSH_DIRECTORY/github_ed25519" && \
+                    echo $BITWARDEN_PAYLOAD | jq -r ".privateKey" > "$SSH_DIRECTORY/github_ed25519"
+            fi
+
+            if ! test -f "$SSH_DIRECTORY/github_ed25519.pub"; then
+                touch "$SSH_DIRECTORY/github_ed25519.pub" && \
+                    chmod 644 "$SSH_DIRECTORY/github_ed25519.pub" && \
+                    echo $BITWARDEN_PAYLOAD | jq -r ".publicKey" > "$SSH_DIRECTORY/github_ed25519.pub"
+            fi
+        fi
+
+        BITWARDEN_PAYLOAD=""
+    fi
 }
 
 prepare_operating_system() {
@@ -114,14 +152,15 @@ prepare_operating_system() {
         tmux \
         unzip \
         $(cross_system_package "" "atuin") \
-        $INSTALL_FLATPAKS && $(cross_system_package "" "flatpak") || "" \
+        $(cross_system_package "" "bitwarden-cli") \
         $(cross_system_package "gh" "github-cli") \
         $(cross_system_package "" "openssh") \
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools") \
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono") \
         $(cross_system_package "" "qq-bin") \
         $(cross_system_package "" "tree-sitter-cli") \
-        $(cross_system_package "" "wget")
+        $(cross_system_package "" "wget") \
+        $INSTALL_FLATPAKS && $(cross_system_package "" "flatpak") || "" \
 
     remove_package $EXCLUDE_KDE_SOFTWARE
 
