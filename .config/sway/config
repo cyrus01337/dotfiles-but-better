@@ -1,21 +1,23 @@
 set $MODIFIER Mod4
 set $TERMINAL_COMMAND "LIBGL_ALWAYS_SOFTWARE=1 alacritty"
 
-include autostart.conf
-include keybinds.conf
-include settings.conf
-include theme.conf
+include {
+    theme.conf
+    settings.conf
+    keybinds.conf
+}
 
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 output * mode 1920x1080
 
-input type:keyboard {
-    xkb_layout "gb"
+input {
+    * repeat_delay 250
+    * repeat_rate 30
+
+    type:keyboard {
+        xkb_layout "gb"
+    }
 }
-
-input * repeat_delay 250
-input * repeat_rate 30
-
 
 # mode "resize" {
     # bindsym $left resize shrink width 10px
