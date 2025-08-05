@@ -11,7 +11,9 @@ INSTALL_FLATPAKS=${INSTALL_FLATPAKS-true}
 FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC com.github.tchx84.Flatseal")
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 ARCH_PACKAGE_MANAGER="yay"
+SSH_DIRECTORY="$HOME/.ssh"
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
+export BW_SESSION="$BW_SESSION"
 
 is_operating_system() {
     # Without double brackets the same line using "test" reports the wrong exit
@@ -87,46 +89,73 @@ setup_automatic_updates() {
     fi
 }
 
-setup_ssh() {
-    SSH_DIRECTORY="$HOME/.ssh"
+setup_bitwarden() {
+    bitwarden_status="$(bw status | jq -r '.status')"
+
+    if ! test $bitwarden_status = "unlocked"; then
+        if test $bitwarden_status = "unauthenticated"; then
+            bw login
+        fi
+
+        echo "Please export/pass in the BW_SESSION environment variable to export the SSH keys from Bitwarden"
+
+        exit 1
+    fi
+}
+
+setup_github_signing_key() {
     PRIVATE_KEY_FILE="$SSH_DIRECTORY/github_ed25519"
     PUBLIC_KEY_FILE="$SSH_DIRECTORY/github_ed25519.pub"
+
+    if ! which bw &> /dev/null; then
+        echo "Unable to setup signing key without Bitwarden CLI"
+
+        exit 1
+    fi
+
+    setup_bitwarden
+
+    if ! test -f $PRIVATE_KEY_FILE || ! test -f $PUBLIC_KEY_FILE; then
+        bitwarden_payload="$(bw get item 'GitHub Signing Key' | jq -r '.sshKey')"
+
+        if test $bitwarden_payload = ""; then
+            echo "Unable to find signing key"
+
+            exit 1
+        fi
+
+        if ! test -f $PRIVATE_KEY_FILE; then
+            touch $PRIVATE_KEY_FILE && \
+                chmod 600 $PRIVATE_KEY_FILE && \
+                echo $bitwarden_payload | jq -r ".privateKey" > $PRIVATE_KEY_FILE
+        fi
+
+        if ! test -f $PUBLIC_KEY_FILE; then
+            touch $PUBLIC_KEY_FILE && \
+                chmod 644 $PUBLIC_KEY_FILE && \
+                echo $bitwarden_payload | jq -r ".publicKey" > $PUBLIC_KEY_FILE
+        fi
+        
+        bitwarden_payload=""
+    fi
+}
+
+setup_ssh() {
+    SSH_CONFIGURATION_FILE="$SSH_DIRECTORY/config"
 
     if ! test -d $SSH_DIRECTORY; then
         mkdir --mode 700 $SSH_DIRECTORY
     fi
 
-    if ! test -f "$SSH_DIRECTORY/config"; then
-        install -m 600 /dev/null "$SSH_DIRECTORY/config"
+    if ! test -f $SSH_CONFIGURATION_FILE; then
+        curl -L https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config -o $SSH_CONFIGURATION_FILE && \
+            chmod 600 $SSH_CONFIGURATION_FILE
     fi
 
-    curl -Lo .ssh/config https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config && \
+    setup_github_signing_key
+
+    if ! ps aux | grep -e "^root.*sshd"; then
         sudo systemctl enable --now --quiet sshd
-
-    if which bw &> /dev/null && ! test -f "$SSH_DIRECTORY/github_ed25519" || ! test -f "$SSH_DIRECTORY/github_ed25519.pub" then
-        BITWARDEN_PAYLOAD=""
-
-        bw login
-
-        if test "$(bw status | jq -r '.status')" = "unlocked"; then
-            BITWARDEN_PAYLOAD="$(bw get item 'GitHub Signing Key' | jq -r '.sshKey')"
-        fi
-
-        if test $BITWARDEN_PAYLOAD != ""; then
-            if ! test -f "$SSH_DIRECTORY/github_ed25519"; then
-                touch "$SSH_DIRECTORY/github_ed25519" && \
-                    chmod 600 "$SSH_DIRECTORY/github_ed25519" && \
-                    echo $BITWARDEN_PAYLOAD | jq -r ".privateKey" > "$SSH_DIRECTORY/github_ed25519"
-            fi
-
-            if ! test -f "$SSH_DIRECTORY/github_ed25519.pub"; then
-                touch "$SSH_DIRECTORY/github_ed25519.pub" && \
-                    chmod 644 "$SSH_DIRECTORY/github_ed25519.pub" && \
-                    echo $BITWARDEN_PAYLOAD | jq -r ".publicKey" > "$SSH_DIRECTORY/github_ed25519.pub"
-            fi
-        fi
-
-        BITWARDEN_PAYLOAD=""
     fi
 }
 
