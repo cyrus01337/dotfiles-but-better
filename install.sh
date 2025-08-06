@@ -171,12 +171,6 @@ setup_ssh() {
 }
 
 prepare_operating_system() {
-    if is_operating_system $ARCH && ! which yay &> /dev/null; then
-        setup_yay
-    fi
-
-    upgrade_system
-
     packages=(
         "alacritty"
         "bat"
@@ -207,11 +201,17 @@ prepare_operating_system() {
         $(cross_system_package "" "wget")
     )
 
+    if is_operating_system $ARCH && ! which yay &> /dev/null; then
+        setup_yay
+    fi
+
+    upgrade_system
+
     if $INSTALL_FLATPAKS; then
         packages+=($(cross_system_package "" "flatpak"))
     fi
 
-    install_package $packages[@]
+    install_package $packages
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
