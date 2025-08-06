@@ -397,7 +397,8 @@ install_dotfiles() {
         sort -f --sort=n $stow_ignore_file_location --output $stow_ignore_file_location && \
         rm "$HOME/.bashrc" && \
         stow -t $HOME -d $directory --adopt . && \
-        rm -f $stow_ignore_file_location
+        rm -f $stow_ignore_file_location && \
+        git -C $directory checkout -f .
 }
 
 install_neovim() {
