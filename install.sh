@@ -159,7 +159,7 @@ setup_ssh() {
 
     setup_github_signing_key
 
-    if ! ps aux | grep -e "^root.*sshd"; then
+    if ! ps aux | grep -e "^root.*sshd" &> /dev/null; then
         sudo systemctl enable --now --quiet sshd
     fi
 }
