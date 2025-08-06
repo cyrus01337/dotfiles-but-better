@@ -175,39 +175,41 @@ prepare_operating_system() {
 
     upgrade_system
 
-    install_package \
-        alacritty \
-        bat \
-        curl \
-        fastfetch \
-        fish \
-        flatpak \
-        fzf \
-        git \
-        git-delta \
-        htop \
-        jq \
-        obs-studio \
-        parallel \
-        ranger \
-        stow \
-        tmux \
-        unzip \
-        $(cross_system_package "" "atuin") \
-        $(cross_system_package "" "bitwarden-cli") \
-        $(cross_system_package "gh" "github-cli") \
-        $(cross_system_package "lua" "lua51") \
-        $(cross_system_package "" "openssh") \
-        $(cross_system_package "open-vm-tools-desktop" "open-vm-tools") \
-        $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono") \
-        $(cross_system_package "" "qq-bin") \
-        $(cross_system_package "" "tree-sitter-cli") \
+    packages=(
+        "alacritty"
+        "bat"
+        "curl"
+        "fastfetch"
+        "fish"
+        "flatpak"
+        "fzf"
+        "git"
+        "git-delta"
+        "htop"
+        "jq"
+        "obs-studio"
+        "parallel"
+        "ranger"
+        "stow"
+        "tmux"
+        "unzip"
+        $(cross_system_package "" "atuin")
+        $(cross_system_package "" "bitwarden-cli")
+        $(cross_system_package "gh" "github-cli")
+        $(cross_system_package "lua" "lua51")
+        $(cross_system_package "" "openssh")
+        $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
+        $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono")
+        $(cross_system_package "" "qq-bin")
+        $(cross_system_package "" "tree-sitter-cli")
         $(cross_system_package "" "wget")
+    )
 
     if $INSTALL_FLATPAKS; then
-        install_package $(cross_system_package "" "flatpak")
+        packages+=($(cross_system_package "" "flatpak"))
     fi
 
+    install_package $packages[@]
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
