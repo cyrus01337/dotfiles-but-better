@@ -157,13 +157,11 @@ setup_github_signing_key() {
         fi
 
         if test ! -f $PRIVATE_KEY_FILE; then
-            install --mode 600 $PRIVATE_KEY_FILE && \
-                echo $bitwarden_payload | jq -r ".privateKey" > $PRIVATE_KEY_FILE
+            install --mode 600 <(echo $bitwarden_payload | jq -r ".privateKey") $PRIVATE_KEY_FILE
         fi
 
         if test ! -f $PUBLIC_KEY_FILE; then
-            install --mode 644 $PUBLIC_KEY_FILE && \
-                echo $bitwarden_payload | jq -r ".publicKey" > $PUBLIC_KEY_FILE
+            install --mode 644 <(echo $bitwarden_payload | jq -r ".publicKey") $PUBLIC_KEY_FILE
         fi
         
         bitwarden_payload=""
