@@ -36,6 +36,10 @@ log() {
     echo -e "\n\x1b[33;1m$@...\x1b[0m\n" >&2
 }
 
+log_red() {
+    echo -e "\n\x1b[31;1m$@...\x1b[0m\n" >&2
+}
+
 upgrade_system() {
     log "Upgrading system"
 
@@ -94,13 +98,12 @@ warn_if_system_unsupported() {
         log "$addendum is supported"
 
         return
-    elif ! test $addendum; then
-        log "$addendum is \x1b[41;1mnot\x1b[33;1m supported"
-
-        echo "Unsupported OS"
     else
-        log "$addendum is \x1b[41;1mnot\x1b[33;1m supported"
-        echo "Unsupported OS: $addendum"
+        if ! test $addendum; then
+            log_red "Unsupported OS"
+        else
+            log_red "Unsupported OS: $addendum"
+        fi
 
         exit 1
     fi
@@ -138,7 +141,7 @@ setup_github_signing_key() {
     log "Setting up GitHub signing key"
 
     if ! which bw &> /dev/null; then
-        echo "Unable to setup signing key without Bitwarden CLI"
+        log_red "Unable to setup signing key without Bitwarden CLI"
 
         exit 1
     elif test "$BITWARDEN_SESSION_TOKEN" = ""; then
@@ -162,10 +165,10 @@ setup_github_signing_key() {
 
         error_message="Unable to setup signing key without session token, run the following command:\n\n"
         error_message+="\t$shell_command\n\n"
-        error_message+="Then run this script again using the BW_SESSION environment variable:\n\n"
+        error_message+="Then run this script again using the BITWARDEN_SESSION_TOKEN environment variable:\n\n"
         error_message+="\tenv BITWARDEN_SESSION_TOKEN=... <command>"
 
-        echo -e $error_message
+        log $error_message
 
         exit 1
     fi
@@ -174,7 +177,7 @@ setup_github_signing_key() {
         bitwarden_payload="$(bw get item --session $BITWARDEN_SESSION_TOKEN 'GitHub Signing Key' | jq -r '.sshKey')"
 
         if test "$bitwarden_payload" = ""; then
-            echo "Unable to find signing key"
+            log_red "Unable to find signing key"
 
             exit 1
         fi
@@ -444,7 +447,6 @@ install_dotfiles() {
     cp "$directory/lib/default.stow-local-ignore" $stow_ignore_file_location && \
         cat "$directory/lib/${shared_stow_ignore_file_kind}.stow-local-ignore" >> $stow_ignore_file_location && \
         sort -f --sort=n $stow_ignore_file_location --output $stow_ignore_file_location && \
-        rm "$HOME/.bashrc" && \
         stow -t $HOME -d $directory --adopt . && \
         rm -f $stow_ignore_file_location && \
         git -C $directory checkout -f .
