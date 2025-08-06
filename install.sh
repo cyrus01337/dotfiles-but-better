@@ -109,6 +109,10 @@ setup_automatic_updates() {
     fi
 }
 
+get_shell() {
+    echo $SHELL | grep -oP '(?<=/bin/)(.+)'
+}
+
 setup_github_signing_key() {
     PRIVATE_KEY_FILE="$SSH_DIRECTORY/github_ed25519"
     PUBLIC_KEY_FILE="$SSH_DIRECTORY/github_ed25519.pub"
@@ -119,9 +123,9 @@ setup_github_signing_key() {
         exit 1
     elif test "$BITWARDEN_SESSION_TOKEN" = ""; then
         shell_command=""
-        shell="$(echo $SHELL | grep -oP '(?<=/bin/)(.+)')"
+        running_shell="$(get_shell)"
 
-        case $shell in
+        case $running_shell in
             bash | zsh)
                 shell_command='export BITWARDEN_SESSION_TOKEN="$(bw login --raw)"'
 
@@ -131,7 +135,7 @@ setup_github_signing_key() {
 
                 ;;
             *)
-                shell_command="I have no idea how to export a variable in $shell"
+                shell_command="I have no idea how to export a variable in $running_shell"
 
                 ;;
         esac
@@ -429,6 +433,12 @@ if ! is_operating_system $NIXOS; then
     install_starship && \
         install_dotfiles && \
         install_neovim
+
+    running_shell="$(get_shell)"
+
+    if test ! "$running_shell" = "bash"; then
+        chsh -s /usr/bin/bash $USER
+    fi
 fi
 
 source $HOME/.bashrc
