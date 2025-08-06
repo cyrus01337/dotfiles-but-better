@@ -21,9 +21,7 @@ get_partition() {
 }
 
 log() {
-    message="\n\x1b[33;1m$@...\x1b[0m\n"
-
-    echo -e $message >&2
+    echo -e "\n\x1b[33;1m$@...\x1b[0m\n" >&2
 }
 
 log "Confirming user creation details..."
