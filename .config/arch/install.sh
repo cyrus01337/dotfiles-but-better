@@ -21,11 +21,9 @@ get_partition() {
 }
 
 log() {
-    message="$1"
+    message="\n\x1b[33;1m$@...\x1b[0m\n"
 
-    echo ""
-    echo "$message" | tee log.txt
-    echo ""
+    echo -e $message >&2
 }
 
 log "Confirming user creation details..."
