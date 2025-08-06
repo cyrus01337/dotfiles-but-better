@@ -175,12 +175,12 @@ setup_ssh() {
 }
 
 prepare_operating_system() {
-    upgrade_system
-
     if is_operating_system $ARCH && ! which yay &> /dev/null; then
         setup_yay
     fi
-    
+
+    upgrade_system
+
     install_package \
         alacritty \
         bat \
