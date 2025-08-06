@@ -12,10 +12,9 @@ FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 ARCH_PACKAGE_MANAGER="yay"
 SSH_DIRECTORY="$HOME/.ssh"
+BITWARDEN_SESSION_TOKEN="$BITWARDEN_SESSION_TOKEN"
 
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
-
-bitwarden_session_token="$BW_SESSION"
 
 is_operating_system() {
     # Without double brackets the same line using "test" reports the wrong exit
@@ -99,24 +98,6 @@ setup_automatic_updates() {
     fi
 }
 
-fetch_bitwarden_session_token() {
-    bitwarden_email=""
-    bitwarden_status="$(bw status | jq -r '.status')"
-
-    read -p "Enter Bitwarden email: " bitwarden_email
-
-    case $bitwarden_status in
-        unauthenticated)
-            bitwarden_session_token="$(bw login --raw $bitwarden_email)"
-
-            ;;
-        *)
-            bitwarden_session_token="$(bw unlock --raw $bitwarden_email)"
-
-            ;;
-    esac
-}
-
 setup_github_signing_key() {
     PRIVATE_KEY_FILE="$SSH_DIRECTORY/github_ed25519"
     PUBLIC_KEY_FILE="$SSH_DIRECTORY/github_ed25519.pub"
@@ -125,15 +106,38 @@ setup_github_signing_key() {
         echo "Unable to setup signing key without Bitwarden CLI"
 
         exit 1
-    fi
+    elif test "$BITWARDEN_SESSION_TOKEN" = ""; then
+        shell_command=""
+        shell="$(echo $SHELL | grep -oP '(?<=/bin/)(.+)')"
 
-    if test "$bitwarden_session_token" = ""; then
-        bitwarden_session_token="$(fetch_bitwarden_session_token)"
+        case $shell in
+            bash | zsh)
+                shell_command='export BW_SESSION="$(bw login --raw)"'
+
+                ;;
+            fish)
+                shell_command="set -x BW_SESSION (bw login --raw)"
+
+                ;;
+            *)
+                shell_command="I have no idea how to export a variable in $shell"
+
+                ;;
+        esac
+
+        error_message="Unable to setup signing key without session token, run the following command:\n\n"
+        error_message+="    $shell_command\n\n"
+        error_message+="Then run the same command again using the BW_SESSION environment variable:\n\n"
+        error_message+="    env BW_SESSION=... <command>"
+
+        echo -e $error_message
+
+        exit 1
     fi
 
     if test ! -f $PRIVATE_KEY_FILE || test ! -f $PUBLIC_KEY_FILE; then
-        bitwarden_payload="$(bw get item --session $bitwarden_session_token 'GitHub Signing Key' | jq -r '.sshKey')"
-        bitwarden_session_token=""
+        bitwarden_payload="$(bw get item --session $BITWARDEN_SESSION_TOKEN 'GitHub Signing Key' | jq -r '.sshKey')"
+        BITWARDEN_SESSION_TOKEN=""
 
         if test "$bitwarden_payload" = ""; then
             echo "Unable to find signing key"
