@@ -32,13 +32,9 @@ upgrade_system() {
 }
 
 setup_yay() {
-    previous_directory=$PWD
-
-    sudo chmod -R uo+w /opt && \
+    sudo install --directory --mode 757 /opt/yay && \
         git clone https://aur.archlinux.org/yay.git /opt/yay && \
-        cd /opt/yay && \
-        makepkg -cfirsC --noconfirm && \
-        cd $previous_directory
+        makepkg -cfirsC --noconfirm --dir /opt/yay
 }
 
 install_package() {
@@ -140,14 +136,12 @@ setup_github_signing_key() {
         fi
 
         if test ! -f $PRIVATE_KEY_FILE; then
-            touch $PRIVATE_KEY_FILE && \
-                chmod 600 $PRIVATE_KEY_FILE && \
+            install --mode 600 $PRIVATE_KEY_FILE && \
                 echo $bitwarden_payload | jq -r ".privateKey" > $PRIVATE_KEY_FILE
         fi
 
         if test ! -f $PUBLIC_KEY_FILE; then
-            touch $PUBLIC_KEY_FILE && \
-                chmod 644 $PUBLIC_KEY_FILE && \
+            install --mode 644 $PUBLIC_KEY_FILE && \
                 echo $bitwarden_payload | jq -r ".publicKey" > $PUBLIC_KEY_FILE
         fi
         
