@@ -138,7 +138,7 @@ setup_github_signing_key() {
 
         error_message="Unable to setup signing key without session token, run the following command:\n\n"
         error_message+="    $shell_command\n\n"
-        error_message+="Then run the same command again using the BW_SESSION environment variable:\n\n"
+        error_message+="Then run this script again using the BW_SESSION environment variable:\n\n"
         error_message+="    env BW_SESSION=... <command>"
 
         echo -e $error_message
