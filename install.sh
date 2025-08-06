@@ -314,7 +314,7 @@ install_python_build_dependencies() {
     if is_operating_system $FEDORA; then
         install_package bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
     elif is_operating_system $ARCH; then
-        install_package --needed base-devel openssl tk xz zlib
+        install_package base-devel openssl tk xz zlib
     fi
 }
 
