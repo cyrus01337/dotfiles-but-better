@@ -31,6 +31,16 @@ upgrade_system() {
     fi
 }
 
+setup_yay() {
+    previous_directory=$PWD
+
+    sudo chmod -R uo+w /opt && \
+        git clone https://aur.archlinux.org/yay.git /opt/yay && \
+        cd /opt/yay && \
+        makepkg -cfirsC --noconfirm && \
+        cd $previous_directory
+}
+
 install_package() {
     if is_operating_system $FEDORA; then
         sudo dnf install -y $@
@@ -166,6 +176,11 @@ setup_ssh() {
 
 prepare_operating_system() {
     upgrade_system
+
+    if is_operating_system $ARCH && ! which yay &> /dev/null; then
+        setup_yay
+    fi
+    
     install_package \
         alacritty \
         bat \
@@ -178,7 +193,6 @@ prepare_operating_system() {
         git-delta \
         htop \
         jq \
-        lua \
         obs-studio \
         parallel \
         ranger \
@@ -188,6 +202,7 @@ prepare_operating_system() {
         $(cross_system_package "" "atuin") \
         $(cross_system_package "" "bitwarden-cli") \
         $(cross_system_package "gh" "github-cli") \
+        $(cross_system_package "lua" "lua51") \
         $(cross_system_package "" "openssh") \
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools") \
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono") \
