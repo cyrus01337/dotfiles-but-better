@@ -211,7 +211,7 @@ prepare_operating_system() {
         packages+=($(cross_system_package "" "flatpak"))
     fi
 
-    install_package $packages
+    install_package ${packages[@]}
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
