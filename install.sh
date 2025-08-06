@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# TODO: Add logging
 set -e
 
 TEMPORARY_DIRECTORY="$(mktemp -d)"
@@ -33,7 +32,13 @@ is_operating_system() {
     [[ $OPERATING_SYSTEM == *"$1"* ]]
 }
 
+log() {
+    echo -e "\n\x1b[33;1m$@...\x1b[0m\n" >&2
+}
+
 upgrade_system() {
+    log "Upgrading system"
+
     if is_operating_system $FEDORA; then
         sudo dnf upgrade -y
     elif is_operating_system $ARCH; then
@@ -42,6 +47,8 @@ upgrade_system() {
 }
 
 setup_yay() {
+    log "Setting up Yay"
+
     # TODO: Move to $HOME/bin/yay
     sudo install --directory --mode 757 /opt/yay && \
         git clone https://aur.archlinux.org/yay.git /opt/yay && \
@@ -50,6 +57,8 @@ setup_yay() {
 }
 
 install_package() {
+    log "Installing $@"
+
     if is_operating_system $FEDORA; then
         sudo dnf install -y $@
     elif is_operating_system $ARCH; then
@@ -58,6 +67,8 @@ install_package() {
 }
 
 remove_package() {
+    log "Removing $@"
+
     if is_operating_system $FEDORA; then
         sudo dnf remove -y $@ 2> /dev/null
     elif is_operating_system $ARCH; then
@@ -80,10 +91,15 @@ warn_if_system_unsupported() {
     addendum="$1"
 
     if is_operating_system $FEDORA || is_operating_system $ARCH; then
+        log "$addendum is supported"
+
         return
     elif ! test $addendum; then
+        log "$addendum is \x1b[41;1mnot\x1b[33;1m supported"
+
         echo "Unsupported OS"
     else
+        log "$addendum is \x1b[41;1mnot\x1b[33;1m supported"
         echo "Unsupported OS: $addendum"
 
         exit 1
@@ -91,6 +107,8 @@ warn_if_system_unsupported() {
 }
 
 setup_automatic_updates() {
+    log "Setting up automatic updates"
+
     if is_operating_system $NIXOS; then
         return
     fi
@@ -116,6 +134,8 @@ get_shell() {
 setup_github_signing_key() {
     PRIVATE_KEY_FILE="$SSH_DIRECTORY/github_ed25519"
     PUBLIC_KEY_FILE="$SSH_DIRECTORY/github_ed25519.pub"
+
+    log "Setting up GitHub signing key"
 
     if ! which bw &> /dev/null; then
         echo "Unable to setup signing key without Bitwarden CLI"
@@ -176,6 +196,8 @@ setup_github_signing_key() {
 setup_ssh() {
     SSH_CONFIGURATION_FILE="$SSH_DIRECTORY/config"
 
+    log "Setting up SSH"
+
     if test ! -d $SSH_DIRECTORY; then
         mkdir --mode 700 $SSH_DIRECTORY
     fi
@@ -223,6 +245,8 @@ prepare_operating_system() {
         $(cross_system_package "" "wget")
     )
 
+    log "Preparing operating system"
+
     if is_operating_system $ARCH && ! which yay &> /dev/null; then
         setup_yay
     fi
@@ -247,6 +271,8 @@ install_bun() {
         return
     fi
 
+    log "Installing Bun"
+
     curl -fsSL https://bun.sh/install | bash
 }
 
@@ -254,6 +280,8 @@ install_docker() {
     if which docker &> /dev/null; then
         return
     fi
+
+    log "Installing Docker"
 
     if is_operating_system $ARCH; then
         install_package docker docker-compose
@@ -274,6 +302,8 @@ install_fnm() {
         return
     fi
 
+    log "Installing FNM"
+
     curl -fsSL https://fnm.vercel.app/install | bash
     eval "$(fnm env --shell bash)"
     fnm install $default_major_node_version
@@ -287,6 +317,8 @@ install_go() {
         return
     fi
 
+    log "Installing Go"
+
     export PATH="$PATH:/usr/local/go/bin"
 
     curl -Lo $archive_path https://go.dev/dl/go1.24.3.linux-amd64.tar.gz && \
@@ -298,6 +330,8 @@ install_lazydocker() {
         return
     fi
 
+    log "Installing Lazydocker"
+
     curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 }
 
@@ -305,6 +339,8 @@ install_lazygit() {
     if which lazygit &> /dev/null; then
         return
     fi
+
+    log "Installing Lazygit"
 
     if is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/lazygit && \
@@ -315,6 +351,8 @@ install_lazygit() {
 }
 
 install_python_build_dependencies() {
+    log "Installing Python build dependencies"
+
     if is_operating_system $FEDORA; then
         install_package bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
     elif is_operating_system $ARCH; then
@@ -329,6 +367,8 @@ install_pyenv() {
     if test -d $PYENV_ROOT; then
         return
     fi
+
+    log "Installing Pyenv and Python"
 
     export PATH="$PYENV_ROOT/bin:$PATH"
 
@@ -352,6 +392,8 @@ install_rust() {
         return
     fi
 
+    log "Installing Rust"
+
     curl https://sh.rustup.rs -fsS | sh -s -- -y && \
         source "$CARGO_HOME/env"
 }
@@ -360,6 +402,8 @@ install_starship() {
     if which starship &> /dev/null; then
         return
     fi
+
+    log "Installing Starship"
 
     if is_operating_system $FEDORA; then
         sudo dnf copr enable -y atim/starship && \
@@ -376,6 +420,8 @@ install_dotfiles() {
     if test -d $directory; then
         return
     fi
+
+    log "Installing dotfiles"
 
     shared_stow_ignore_file_kind="default"
     stow_ignore_file_location="$directory/.stow-local-ignore"
@@ -409,6 +455,8 @@ install_neovim() {
         return
     fi
 
+    log "Installing Neovim"
+
     if is_operating_system $FEDORA || is_operating_system $ARCH; then
         install_package luarocks neovim
     fi
@@ -417,6 +465,8 @@ install_neovim() {
 prepare_operating_system
 
 if $INSTALL_FLATPAKS; then
+    log "Installing Flatpaks"
+
     flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
         flatpak install -y --noninteractive --user ${FLATPAK_SOFTWARE[@]} || true
 fi
@@ -437,6 +487,8 @@ if ! is_operating_system $NIXOS; then
     running_shell="$(get_shell)"
 
     if test ! "$running_shell" = "bash"; then
+        log "Changing shell to Bash"
+
         sudo chsh -s /usr/bin/bash $USER
     fi
 fi
