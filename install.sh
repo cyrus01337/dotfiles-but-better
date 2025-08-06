@@ -89,18 +89,18 @@ setup_automatic_updates() {
     fi
 }
 
-setup_bitwarden() {
+fetch_bitwarden_session_token() {
     bitwarden_status="$(bw status | jq -r '.status')"
 
-    if ! test $bitwarden_status = "unlocked"; then
-        if test $bitwarden_status = "unauthenticated"; then
-            bw login
-        fi
-
-        echo "Please export/pass in the BW_SESSION environment variable to export the SSH keys from Bitwarden"
-
-        exit 1
-    fi
+    case $bitwarden_status in
+        unauthenticated)
+            echo $(bw login | grep "export" | sed -E 's/.+"(.+)"/\1/')
+            ;;
+            
+        *)
+            echo $(bw unlock | grep "export" | sed -E 's/.+"(.+)"/\1/')
+            ;;
+    esac
 }
 
 setup_github_signing_key() {
@@ -113,10 +113,11 @@ setup_github_signing_key() {
         exit 1
     fi
 
-    setup_bitwarden
+    bitwarden_session_token="$(fetch_bitwarden_session_token)"
 
     if ! test -f $PRIVATE_KEY_FILE || ! test -f $PUBLIC_KEY_FILE; then
-        bitwarden_payload="$(bw get item 'GitHub Signing Key' | jq -r '.sshKey')"
+        bitwarden_payload="$(bw get item --session $bitwarden_session_token 'GitHub Signing Key' | jq -r '.sshKey')"
+        bitwarden_session_token=""
 
         if test $bitwarden_payload = ""; then
             echo "Unable to find signing key"
