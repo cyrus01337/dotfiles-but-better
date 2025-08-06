@@ -49,7 +49,7 @@ if (
     test ! $TMUX &&
     test ! ${BASH_EXECUTION_STRING} &&
     [[ $(in_i3) || ${SHLVL} == 1 ]] ||
-    test $TERM_PROGRAM = "vscode"
+    test "$TERM_PROGRAM" = "vscode"
 ); then
     exec tmux new-session -As main
 fi
