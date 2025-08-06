@@ -166,6 +166,8 @@ setup_github_signing_key() {
         
         bitwarden_payload=""
     fi
+
+    curl --silent https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]' >> ~/.ssh/known_hosts
 }
 
 setup_ssh() {
