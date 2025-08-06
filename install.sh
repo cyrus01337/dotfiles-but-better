@@ -100,15 +100,18 @@ setup_automatic_updates() {
 }
 
 fetch_bitwarden_session_token() {
+    bitwarden_email=""
     bitwarden_status="$(bw status | jq -r '.status')"
+
+    read -p "Enter Bitwarden email: " bitwarden_email
 
     case $bitwarden_status in
         unauthenticated)
-            bitwarden_session_token="$(bw login --raw)"
+            bitwarden_session_token="$(bw login --raw $bitwarden_email)"
 
             ;;
         *)
-            bitwarden_session_token="$(bw unlock --raw)"
+            bitwarden_session_token="$(bw unlock --raw $bitwarden_email)"
 
             ;;
     esac
