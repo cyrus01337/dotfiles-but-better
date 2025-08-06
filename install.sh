@@ -148,7 +148,6 @@ setup_github_signing_key() {
 
     if test ! -f $PRIVATE_KEY_FILE || test ! -f $PUBLIC_KEY_FILE; then
         bitwarden_payload="$(bw get item --session $BITWARDEN_SESSION_TOKEN 'GitHub Signing Key' | jq -r '.sshKey')"
-        BITWARDEN_SESSION_TOKEN=""
 
         if test "$bitwarden_payload" = ""; then
             echo "Unable to find signing key"
