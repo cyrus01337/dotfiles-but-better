@@ -125,27 +125,27 @@ setup_github_signing_key() {
         exit 1
     fi
 
-    if test $bitwarden_session_token = ""; then
+    if test "$bitwarden_session_token" = ""; then
         bitwarden_session_token="$(fetch_bitwarden_session_token)"
     fi
 
-    if ! test -f $PRIVATE_KEY_FILE || ! test -f $PUBLIC_KEY_FILE; then
+    if test ! -f $PRIVATE_KEY_FILE || test ! -f $PUBLIC_KEY_FILE; then
         bitwarden_payload="$(bw get item --session $bitwarden_session_token 'GitHub Signing Key' | jq -r '.sshKey')"
         bitwarden_session_token=""
 
-        if test $bitwarden_payload = ""; then
+        if test "$bitwarden_payload" = ""; then
             echo "Unable to find signing key"
 
             exit 1
         fi
 
-        if ! test -f $PRIVATE_KEY_FILE; then
+        if test ! -f $PRIVATE_KEY_FILE; then
             touch $PRIVATE_KEY_FILE && \
                 chmod 600 $PRIVATE_KEY_FILE && \
                 echo $bitwarden_payload | jq -r ".privateKey" > $PRIVATE_KEY_FILE
         fi
 
-        if ! test -f $PUBLIC_KEY_FILE; then
+        if test ! -f $PUBLIC_KEY_FILE; then
             touch $PUBLIC_KEY_FILE && \
                 chmod 644 $PUBLIC_KEY_FILE && \
                 echo $bitwarden_payload | jq -r ".publicKey" > $PUBLIC_KEY_FILE
@@ -158,11 +158,11 @@ setup_github_signing_key() {
 setup_ssh() {
     SSH_CONFIGURATION_FILE="$SSH_DIRECTORY/config"
 
-    if ! test -d $SSH_DIRECTORY; then
+    if test ! -d $SSH_DIRECTORY; then
         mkdir --mode 700 $SSH_DIRECTORY
     fi
 
-    if ! test -f $SSH_CONFIGURATION_FILE; then
+    if test ! -f $SSH_CONFIGURATION_FILE; then
         curl -L https://raw.githubusercontent.com/cyrus01337/dotfiles-but-better/refs/heads/main/.ssh/config -o $SSH_CONFIGURATION_FILE && \
             chmod 600 $SSH_CONFIGURATION_FILE
     fi
