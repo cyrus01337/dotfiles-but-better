@@ -123,11 +123,11 @@ setup_github_signing_key() {
 
         case $shell in
             bash | zsh)
-                shell_command='export BW_SESSION="$(bw login --raw)"'
+                shell_command='export BITWARDEN_SESSION_TOKEN="$(bw login --raw)"'
 
                 ;;
             fish)
-                shell_command="set -x BW_SESSION (bw login --raw)"
+                shell_command="set -x BITWARDEN_SESSION_TOKEN (bw login --raw)"
 
                 ;;
             *)
@@ -137,9 +137,9 @@ setup_github_signing_key() {
         esac
 
         error_message="Unable to setup signing key without session token, run the following command:\n\n"
-        error_message+="    $shell_command\n\n"
+        error_message+="\t$shell_command\n\n"
         error_message+="Then run this script again using the BW_SESSION environment variable:\n\n"
-        error_message+="    env BW_SESSION=... <command>"
+        error_message+="\tenv BITWARDEN_SESSION_TOKEN=... <command>"
 
         echo -e $error_message
 
