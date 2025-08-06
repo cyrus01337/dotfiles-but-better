@@ -117,7 +117,7 @@ if not command -q custom_command_timer; and command -q qq; and not set -q DISABL
 
         set cached_status $status
 
-        if test "$CMD_DURATION" -ge $MINIMUM_NOTIFICATION_DURATION
+        if test $CMD_DURATION -ge $MINIMUM_NOTIFICATION_DURATION
             notify_phone "$argv" "$CMD_DURATION" "$cached_status"
         end
     end
