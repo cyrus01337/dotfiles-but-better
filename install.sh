@@ -8,7 +8,18 @@ ARCH="Arch"
 NIXOS="NixOS"
 OPERATING_SYSTEM="${OPERATING_SYSTEM-$(hostnamectl | grep 'Operating System')}"
 INSTALL_FLATPAKS=${INSTALL_FLATPAKS-true}
-FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.taiko2k.tauonmb com.github.wwmm.easyeffects com.interversehq.qView com.visualstudio.code org.flameshot.Flameshot org.onlyoffice.desktopeditors org.videolan.VLC com.github.tchx84.Flatseal")
+FLATPAK_SOFTWARE=(
+    "app.zen_browser.zen"
+    "com.github.PintaProject.Pinta"
+    "com.github.taiko2k.tauonmb"
+    "com.github.wwmm.easyeffects"
+    "com.interversehq.qView"
+    "com.visualstudio.code"
+    "org.flameshot.Flameshot"
+    "org.onlyoffice.desktopeditors"
+    "org.videolan.VLC"
+    "com.github.tchx84.Flatseal"
+)
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 ARCH_PACKAGE_MANAGER="yay"
 SSH_DIRECTORY="$HOME/.ssh"
@@ -403,7 +414,7 @@ prepare_operating_system
 
 if $INSTALL_FLATPAKS; then
     flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
-        flatpak install -y --noninteractive --user $FLATPAK_SOFTWARE || true
+        flatpak install -y --noninteractive --user ${FLATPAK_SOFTWARE[@]} || true
 fi
 
 if ! is_operating_system $NIXOS; then
