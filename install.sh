@@ -104,11 +104,12 @@ fetch_bitwarden_session_token() {
 
     case $bitwarden_status in
         unauthenticated)
-            bitwarden_session_token="$(bw login | grep 'export' | sed -E 's/.+"(.+)"/\1/')"
+            bitwarden_session_token="$(bw login --raw)"
+
             ;;
-            
         *)
-            bitwarden_session_token="$(bw unlock | grep 'export' | sed -E 's/.+"(.+)"/\1/')"
+            bitwarden_session_token="$(bw unlock --raw)"
+
             ;;
     esac
 }
