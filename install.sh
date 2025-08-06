@@ -208,8 +208,11 @@ prepare_operating_system() {
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono") \
         $(cross_system_package "" "qq-bin") \
         $(cross_system_package "" "tree-sitter-cli") \
-        $(cross_system_package "" "wget") \
-        $INSTALL_FLATPAKS && $(cross_system_package "" "flatpak") || "" \
+        $(cross_system_package "" "wget")
+
+    if $INSTALL_FLATPAKS; then
+        install_package $(cross_system_package "" "flatpak")
+    fi
 
     remove_package $EXCLUDE_KDE_SOFTWARE
 
