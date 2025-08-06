@@ -32,9 +32,11 @@ upgrade_system() {
 }
 
 setup_yay() {
+    # TODO: Move to $HOME/bin/yay
     sudo install --directory --mode 757 /opt/yay && \
         git clone https://aur.archlinux.org/yay.git /opt/yay && \
-        makepkg -cfirsC --noconfirm --dir /opt/yay
+        env GOFLAGS=-buildvcs=false makepkg -cfirsC --needed --noconfirm --dir /opt/yay && \
+        yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all
 }
 
 install_package() {
