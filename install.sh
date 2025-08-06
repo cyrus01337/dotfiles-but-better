@@ -12,8 +12,10 @@ FLATPAK_SOFTWARE=("app.zen_browser.zen com.github.PintaProject.Pinta com.github.
 EXCLUDE_KDE_SOFTWARE=("elisa gwenview khelpcenter kinfocenter konsole spectacle")
 ARCH_PACKAGE_MANAGER="yay"
 SSH_DIRECTORY="$HOME/.ssh"
+
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
-export BW_SESSION="$BW_SESSION"
+
+bitwarden_session_token="$BW_SESSION"
 
 is_operating_system() {
     # Without double brackets the same line using "test" reports the wrong exit
@@ -94,11 +96,11 @@ fetch_bitwarden_session_token() {
 
     case $bitwarden_status in
         unauthenticated)
-            echo $(bw login | grep "export" | sed -E 's/.+"(.+)"/\1/')
+            bitwarden_session_token="$(bw login | grep 'export' | sed -E 's/.+"(.+)"/\1/')"
             ;;
             
         *)
-            echo $(bw unlock | grep "export" | sed -E 's/.+"(.+)"/\1/')
+            bitwarden_session_token="$(bw unlock | grep 'export' | sed -E 's/.+"(.+)"/\1/')"
             ;;
     esac
 }
@@ -113,7 +115,9 @@ setup_github_signing_key() {
         exit 1
     fi
 
-    bitwarden_session_token="$(fetch_bitwarden_session_token)"
+    if test $bitwarden_session_token = ""; then
+        bitwarden_session_token="$(fetch_bitwarden_session_token)"
+    fi
 
     if ! test -f $PRIVATE_KEY_FILE || ! test -f $PUBLIC_KEY_FILE; then
         bitwarden_payload="$(bw get item --session $bitwarden_session_token 'GitHub Signing Key' | jq -r '.sshKey')"
