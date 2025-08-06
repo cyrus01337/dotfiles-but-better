@@ -437,7 +437,7 @@ if ! is_operating_system $NIXOS; then
     running_shell="$(get_shell)"
 
     if test ! "$running_shell" = "bash"; then
-        chsh -s /usr/bin/bash $USER
+        sudo chsh -s /usr/bin/bash $USER
     fi
 fi
 
