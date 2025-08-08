@@ -9,6 +9,7 @@ REBOOT=${REBOOT-true}
 DISK="${DISK-/dev/sda}"
 MANUALLY_ASSIGN_PASSWORD=${MANUALLY_ASSIGN_PASSWORD-false}
 MICROCODE="${MICROCODE:+$MICROCODE-ucode}"
+DESKTOP_ENVIRONMENT="${DESKTOP_ENVIRONMENT-sway}"
 
 get_partition() {
     number="$1"
@@ -140,7 +141,7 @@ mkdir -p /mnt/etc/sddm.conf.d && \
 
 log "Setting up display manager..."
 
-curl -Lo /mnt/etc/greetd/config.toml "$DOTFILES_URL/.config/arch/greetd.toml"
+curl -Lo /mnt/etc/greetd/config.toml "$DOTFILES_URL/.config/arch/greetd/$DESKTOP_ENVIRONMENT.toml"
 
 log "Setting up bootloader..."
 
