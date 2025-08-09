@@ -199,7 +199,7 @@ layout {
 }
 
 spawn-at-startup "swww-daemon"
-spawn-at-startup "swww img $HOME/Pictures/yeah.jpg"
+spawn-at-startup "swww img $HOME/.config/niri/yeah.jpg"
 prefer-no-csd
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
