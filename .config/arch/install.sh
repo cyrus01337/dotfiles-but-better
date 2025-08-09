@@ -56,7 +56,7 @@ log() {
     echo -e "\n\x1b[33;1m$@...\x1b[0m\n" >&2
 }
 
-log "Confirming user creation details..."
+log "Confirming user creation details"
 
 if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = false; then
     echo "Set and export the variable PASSWORD so that user account creation can be automated"
@@ -66,7 +66,7 @@ if test ! $PASSWORD && test $MANUALLY_ASSIGN_PASSWORD = false; then
     exit 1
 fi
 
-log "Performing prep work..."
+log "Performing prep work"
 
 timedatectl set-timezone Europe/London
 
@@ -82,7 +82,7 @@ pacman -S --needed --noconfirm ccache mold && \
     sed -i -E 's/RUSTFLAGS="(.*)"/RUSTFLAGS="\1 -C link-arg=-fuse-ld=mold"/' /etc/makepkg.conf.d/rust.conf && \
     echo "LDFLAGS+=' -fuse-ld=mold'" >> /etc/makepkg.conf
 
-log "Setting up partitions..."
+log "Setting up partitions"
 
 umount -R /mnt 2> /dev/null || true
 parted $DISK --script mklabel gpt && \
@@ -91,7 +91,7 @@ parted $DISK --script mklabel gpt && \
     parted $DISK --script mkpart primary linux-swap 1025MiB 9217MiB && \
     parted $DISK --script mkpart primary ext4 9217MiB 100%
 
-log "Configuring filesystems..."
+log "Configuring filesystems"
 
 mkfs.fat -F 32 $(get_partition 1) && \
     mkswap $(get_partition 2) && \
@@ -101,7 +101,7 @@ mount $(get_partition 3) /mnt && \
     swapon $(get_partition 2) && \
     mount --mkdir $(get_partition 1) /mnt/boot
 
-log "Bootstrapping..."
+log "Bootstrapping"
 
 pacstrap -K /mnt $PACKAGES && \
     arch-chroot /mnt pacman-key --init && \
@@ -116,14 +116,14 @@ sed -i -E "s/^#(Color|ParallelDownloads.+)/\1/" /mnt/etc/pacman.conf && \
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-log "Configuring initramfs (Booster)..."
+log "Configuring initramfs (Booster)"
 
 curl -Lo /mnt/etc/booster.yaml "$DOTFILES_URL/.config/arch/booster.yaml" && \
     arch-chroot /mnt pacman -S --noconfirm booster && \
     arch-chroot /mnt pacman -Rns --noconfirm mkinitcpio && \
     rm /mnt/boot/initramfs-* && \
 
-log "Configuring locale..."
+log "Configuring locale"
 
 ln -sf /usr/share/zoneinfo/Europe/London /mnt/etc/localtime && \
     arch-chroot /mnt hwclock --systohc
@@ -134,7 +134,7 @@ echo -n "en_GB.UTF-8 UTF-8" > /mnt/etc/locale.gen && \
     echo -n "arch" > /mnt/etc/hostname && \
     arch-chroot /mnt locale-gen
 
-log "Creating user..."
+log "Creating user"
 
 arch-chroot /mnt useradd -m cyrus
 
@@ -148,26 +148,26 @@ fi
 
 echo "cyrus ALL=(ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
 
-log "Installing Yay..."
+log "Installing Yay"
 
 arch-chroot /mnt su cyrus -c "git clone https://aur.archlinux.org/yay.git /home/cyrus/bin/yay" && \
     arch-chroot /mnt su cyrus -c "env GOFLAGS=-buildvcs=false makepkg -cirs --needed --noconfirm --dir /home/cyrus/bin/yay" && \
     arch-chroot /mnt su cyrus -c "yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all" && \
     arch-chroot /mnt su cyrus -c "yay -Syu --noconfirm"
 
-log "Installing additional firmware..."
+log "Installing additional firmware"
 
 arch-chroot /mnt su cyrus -c "yay -S --noconfirm aic94xx-firmware ast-firmware wd719x-firmware upd72020x-fw"
 
-log "Enabling core services..."
+log "Enabling core services"
 
 arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
 
-log "Setting up display manager..."
+log "Setting up display manager"
 
 curl -Lo /mnt/etc/greetd/config.toml "$DOTFILES_URL/.config/arch/greetd/$DESKTOP_ENVIRONMENT.toml"
 
-log "Setting up bootloader..."
+log "Setting up bootloader"
 
 mkdir -p /mnt/boot/EFI/limine && \
     cp /mnt/usr/share/limine/BOOTX64.EFI /mnt/boot/EFI/limine && \
@@ -178,13 +178,13 @@ if test $LABEL != "Arch"; then
     sed -i "s/^\/Arch$/\/$LABEL/" /mnt/boot/limine.conf
 fi
 
-log "Cleaning up..."
+log "Cleaning up"
 
 arch-chroot /mnt yes | pacman -Scc && \
     arch-chroot /mnt su cyrus -c "yes | yay -Scc"
 
 if test $UNMOUNT = true; then
-    echo "Unmounting..."
+    echo "Unmounting"
 
     umount -R /mnt
 fi
@@ -192,12 +192,12 @@ fi
 if test $REBOOT = true; then
     # naive check for mounted filesystems to avoid drive corruption
     if test -d /mnt/boot; then
-        echo "Found mounted filesystem, unmounting..."
+        echo "Found mounted filesystem, unmounting"
 
         umount -R /mnt 2> /dev/null || true
     fi
 
-    echo "Rebooting..."
+    echo "Rebooting"
 
     reboot
 fi
