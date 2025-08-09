@@ -12,6 +12,7 @@ function p_setup
         abbr p "yay"
         abbr pi "yay -S --needed --noconfirm"
         abbr pq "yay -Qi"
+        abbr --set-cursor pri "set target %; yay -Rns --noconfirm \$target && yay -S --needed --noconfirm \$target"
         abbr prm "yay -Rns --noconfirm"
         abbr psr "yay -Ss"
         abbr psu "yay -Syu --noconfirm"
@@ -20,6 +21,7 @@ function p_setup
         abbr p "sudo pacman"
         abbr pi "sudo pacman -S --needed --noconfirm"
         abbr pq "sudo pacman -Qi"
+        abbr --set-cursor pri "set target %; sudo pacman -Rns --noconfirm \$target && sudo pacman -S --needed --noconfirm \$target"
         abbr prm "sudo pacman -Rns --noconfirm"
         abbr psr "pacman -Ss"
         abbr psu "sudo pacman -Syu --noconfirm"
@@ -32,7 +34,7 @@ function p_setup
 end
 
 function p_teardown
-    abbr --erase p pi pq prm psr psu pu
+    abbr --erase p pi pq pri prm psr psu pu
 
     return 0
 end
