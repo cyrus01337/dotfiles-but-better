@@ -10,6 +10,37 @@ DISK="${DISK-/dev/sda}"
 MANUALLY_ASSIGN_PASSWORD=${MANUALLY_ASSIGN_PASSWORD-false}
 MICROCODE="${MICROCODE:+$MICROCODE-ucode}"
 DESKTOP_ENVIRONMENT="${DESKTOP_ENVIRONMENT-sway}"
+PACKAGES="
+    alacritty
+    base
+    base-devel
+    bottom
+    ccache
+    dolphin
+    efibootmgr
+    fastfetch
+    git
+    greetd
+    gtkmm3
+    limine
+    linux-firmware
+    linux-firmware-qlogic
+    linux-zen
+    man-db
+    man-pages
+    mold
+    networkmanager
+    open-vm-tools
+    openssh
+    plasma-desktop
+    sddm
+    sddm-kcm
+    sudo
+    sway
+    texinfo
+    vim
+    $MICROCODE
+"
 
 get_partition() {
     number="$1"
@@ -72,8 +103,7 @@ mount $(get_partition 3) /mnt && \
 
 log "Bootstrapping..."
 
-# TODO: Span packages across multiple lines
-pacstrap -K /mnt alacritty base base-devel bottom ccache dolphin efibootmgr fastfetch git greetd gtkmm3 limine linux-firmware linux-firmware-qlogic man-db man-pages mold networkmanager open-vm-tools openssh plasma-desktop sddm sddm-kcm sudo sway texinfo vim $MICROCODE && \
+pacstrap -K /mnt $PACKAGES && \
     arch-chroot /mnt pacman-key --init && \
     arch-chroot /mnt pacman-key --populate archlinux
 
