@@ -5,7 +5,8 @@ set P_FILE (status --current-filename)
 set P_DIRECTORY (dirname $P_FILE)
 set P_LOG_FILE "/tmp/p.log"
 set P_SUPPORTED_DEVELOPMENT "web-development"
-set -a P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS "dnf" "pacman" "yay"
+# TODO: Tidy
+set -a P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS "arch" "dnf"
 
 if not set -q P_DEBUG
     set P_DEBUG false
