@@ -64,7 +64,7 @@ layout {
 }
 
 animations {
-    slowdown 2.5
+    off
 }
 
 window-rule {
