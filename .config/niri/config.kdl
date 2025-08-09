@@ -1,6 +1,6 @@
 prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 spawn-at-startup "swww-daemon"
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 input {
     disable-power-key-handling
