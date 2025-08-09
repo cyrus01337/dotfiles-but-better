@@ -1,19 +1,20 @@
 # Archinstall
-TODO
+There's a [better way of doing this](https://github.com/archlinux/archinstall/tree/master/archinstall/default_profiles), this exists as a simpler alternative for better/worse.
 
 ### Setup
 ```bash
-curl -L archinstall.cyrus01337.co.uk | env DISK="/dev/sda" PASSWORD="..." bash
+curl -L archinstall.cyrus01337.co.uk | env DEVELOPMENT_ENVIRONMENT="sway" DISK="/dev/sda" PASSWORD="..." bash
 ```
 
-### Display Managers
+### Post-install
 
-#### SDDM
+#### Switching display managers
+The default display manager is [`greetd`](https://wiki.archlinux.org/title/Greetd). To switch to SDDM, run the following:
 ```bash
 change-display-manager sddm
 ```
 
-#### Greetd
+To switch back to `greetd`, run the following:
 ```bash
 change-display-manager greetd
 ```
