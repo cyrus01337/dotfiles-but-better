@@ -1,4 +1,5 @@
 prefer-no-csd
+spawn-at-startup "swww-daemon"
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 input {
