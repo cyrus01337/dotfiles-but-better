@@ -1,6 +1,8 @@
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 spawn-at-startup "swww-daemon"
+spawn-at-startup "swww img /home/cyrus/.config/niri/yeah.jpg"
+spawn-at-startup "waypaper --restore"
 workspace "main"
 workspace "development"
 workspace "music"
