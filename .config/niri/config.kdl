@@ -111,12 +111,12 @@ layout {
     }
 
     shadow {
-        color "#0007"
+        color "#000A"
         draw-behind-window true
         offset x=0 y=5
         on
         softness 30
-        spread 5
+        spread 8
     }
 }
 
