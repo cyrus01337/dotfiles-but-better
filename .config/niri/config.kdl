@@ -10,6 +10,7 @@ binds {
     Mod+E { spawn "dolphin"; }
     Mod+F { maximize-column; }
     Mod+Q { close-window; }
+    Mod+R { spawn "wmenu-run"; }
     Mod+Shift+Q { quit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+T { spawn "alacritty"; }
