@@ -161,9 +161,7 @@ arch-chroot /mnt su cyrus -c "yay -S --noconfirm aic94xx-firmware ast-firmware w
 
 log "Enabling core services..."
 
-mkdir -p /mnt/etc/sddm.conf.d && \
-    curl -Lo /mnt/etc/sddm.conf.d/autologin.conf "$DOTFILES_URL/.config/arch/autologin.conf" && \
-    arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
+arch-chroot /mnt systemctl enable NetworkManager sddm vmtoolsd
 
 log "Setting up display manager..."
 
