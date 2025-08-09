@@ -6,14 +6,14 @@ TODO
 curl -L archinstall.cyrus01337.co.uk | env DISK="/dev/sda" PASSWORD="..." bash
 ```
 
-#### Use SDDM and auto-login to KDE
+### Display Managers
+
+#### SDDM
 ```bash
-sudo systemctl disable --now greetd && \
-    sudo systemctl enable --now sddm
+change-display-manager sddm
 ```
 
-#### Use fast greetd and auto-login to Sway
+#### Greetd
 ```bash
-sudo systemctl disable --now sddm && \
-    sudo systemctl enable --now greetd
+change-display-manager greetd
 ```
