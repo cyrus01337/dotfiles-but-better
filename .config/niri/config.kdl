@@ -66,10 +66,10 @@ environment {
     QT_QPA_PLATFORM "wayland"
 }
 
-// hotkey-overlay {
-//     hide-not-bound
-//     skip-at-startup
-// }
+hotkey-overlay {
+    hide-not-bound
+    skip-at-startup
+}
 
 input {
     disable-power-key-handling
