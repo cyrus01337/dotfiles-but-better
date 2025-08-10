@@ -18,12 +18,13 @@ animations {
 binds {
     Mod+B { spawn "firefox"; }
     Mod+E { spawn "dolphin"; }
+    Mod+R { spawn "sysmenu"; }
+    Mod+T { spawn "alacritty"; }
+
     Mod+F { maximize-column; }
     Mod+Q { close-window; }
-    Mod+R { spawn "sysmenu"; }
     Mod+Shift+Q { quit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+T { spawn "alacritty"; }
 
     Mod+Alt+Up    { focus-window-up; }
     Mod+Alt+Down  { focus-window-down; }
