@@ -52,6 +52,10 @@ binds {
     Ctrl+Print { screenshot-screen; }
 }
 
+clipboard {
+    disable-primary
+}
+
 cursor {
     hide-after-inactive-ms 1000
     hide-when-typing
