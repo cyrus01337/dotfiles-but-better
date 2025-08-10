@@ -25,6 +25,11 @@ style = "Italic"
 family = "FantasqueSansM Nerd Font"
 style = "Bold Italic"
 
+[keyboard]
+bindings = [
+    { key = "Back", mods = "Control", chars = "\u001b[7;5~" }
+]
+
 [mouse]
 hide_when_typing = true
 
@@ -33,8 +38,3 @@ save_to_clipboard = true
 
 [window]
 dynamic_title = false
-
-[keyboard]
-bindings = [
-    { key = "Back", mods = "Control", chars = "\u001b[7;5~" }
-]
