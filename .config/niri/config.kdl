@@ -129,7 +129,7 @@ layout {
 
 window-rule {
     clip-to-geometry true
-    geometry-corner-radius 12
+    geometry-corner-radius 4
     open-maximized true
 }
 
