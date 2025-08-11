@@ -59,7 +59,7 @@
 [init]
     defaultBranch = main
 [credential]
-    helper = store
+	helper = store
 [core]
     pager = delta
 [interactive]
