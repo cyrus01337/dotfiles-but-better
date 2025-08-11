@@ -95,7 +95,7 @@ input {
 }
 
 layout {
-    gaps 16
+    gaps 36
     center-focused-column "never"
 
     border {
