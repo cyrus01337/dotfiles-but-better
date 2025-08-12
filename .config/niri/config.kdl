@@ -49,9 +49,9 @@ binds {
     Mod+Shift+4 { move-window-to-workspace "communication"; }
     Mod+Shift+5 { move-window-to-workspace "extra"; }
 
-    Print { screenshot; }
+    Print { spawn "flameshot" "gui" "--clipboard"; }
     Alt+Print { screenshot-window; }
-    Ctrl+Print { screenshot-screen; }
+    Ctrl+Print { spawn "flameshot" "screen" "--clipboard"; }
 }
 
 clipboard {
