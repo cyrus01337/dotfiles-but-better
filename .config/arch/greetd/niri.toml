@@ -1,9 +1,9 @@
 [default_session]
-command = "agreety --cmd 'niri --config /home/cyrus/.config/niri/config.kdl'"
+command = "agreety --cmd niri-session"
 user = "greeter"
 
 [initial_session]
-command = "niri --config /home/cyrus/.config/niri/config.kdl"
+command = "niri-session"
 user = "cyrus"
 
 [terminal]
