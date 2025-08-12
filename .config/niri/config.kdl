@@ -64,7 +64,7 @@ cursor {
 }
 
 environment {
-    DISPLAY null
+    DISPLAY ":0"
     QT_QPA_PLATFORM "wayland"
 }
 
