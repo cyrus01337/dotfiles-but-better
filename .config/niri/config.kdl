@@ -64,8 +64,10 @@ cursor {
 }
 
 environment {
-    DISPLAY ":0"
+    DISPLAY ":1"
     QT_QPA_PLATFORM "wayland"
+    XDG_SESSION_TYPE "wayland"
+    WAYLAND_DISPLAY "wayland-1"
 }
 
 hotkey-overlay {
