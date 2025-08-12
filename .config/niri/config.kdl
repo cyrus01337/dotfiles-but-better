@@ -2,6 +2,7 @@ prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "sh -c 'sleep 0 && swww img /home/cyrus/.config/niri/yeah.jpg'"
+spawn-at-startup "mako"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "firefox"
 spawn-at-startup "alacritty"
