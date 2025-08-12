@@ -53,10 +53,8 @@ upgrade_system() {
 setup_yay() {
     log "Setting up Yay"
 
-    # TODO: Move to $HOME/bin/yay
-    sudo install --directory --mode 757 /opt/yay && \
-        git clone https://aur.archlinux.org/yay.git /opt/yay && \
-        env GOFLAGS=-buildvcs=false makepkg -cfirsC --needed --noconfirm --dir /opt/yay && \
+    git clone https://aur.archlinux.org/yay.git /tmp/yay && \
+        env GOFLAGS=-buildvcs=false makepkg -cfirsC --needed --noconfirm --dir /tmp/yay && \
         yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all
 }
 
