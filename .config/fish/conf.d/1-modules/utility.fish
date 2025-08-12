@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 abbr c "clear"
-abbr --position=anywhere jc "journalctl"
+abbr --set-cursor --position=anywhere jc "journalctl -u%"
 abbr l "ls -al"
 abbr --position=anywhere nuke "rm -rf"
 abbr --position=anywhere nuke-all "rm -rf ./{*,.*}"
