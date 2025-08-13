@@ -31,13 +31,13 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Tab { toggle-overview; }
 
-    Mod+Alt+Up    { focus-window-up; }
-    Mod+Alt+Down  { focus-window-down; }
-    Mod+Alt+Left  { focus-column-left; }
+    Mod+Alt+Up { focus-window-up; }
+    Mod+Alt+Down { focus-window-down; }
+    Mod+Alt+Left { focus-column-left; }
     Mod+Alt+Right { focus-column-right; }
 
-    Mod+Up    { move-window-up; }
-    Mod+Down  { move-window-down; }
+    Mod+Up { move-window-up; }
+    Mod+Down { move-window-down; }
     Mod+Left { consume-or-expel-window-left; }
     Mod+Right { consume-or-expel-window-right; }
 
