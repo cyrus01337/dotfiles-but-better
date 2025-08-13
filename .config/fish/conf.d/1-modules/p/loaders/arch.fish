@@ -17,7 +17,8 @@ function p_setup
         abbr prm "yay -Rns --noconfirm"
         abbr psr "yay -Ss"
         abbr psu "yay -Syu --noconfirm"
-        abbr pu "yay -S --needed --noconfirm"
+        abbr pupd "yay -Sy"
+        abbr pupg "yay -S --needed --noconfirm"
     else if command -q pacman
         abbr p "sudo pacman"
         abbr pc "yes | sudo pacman -Scc"
@@ -27,7 +28,8 @@ function p_setup
         abbr prm "sudo pacman -Rns --noconfirm"
         abbr psr "pacman -Ss"
         abbr psu "sudo pacman -Syu --noconfirm"
-        abbr pu "sudo pacman -S --needed --noconfirm"
+        abbr pupd "sudo pacman -Sy"
+        abbr pupg "sudo pacman -S --noconfirm"
     else
         return 127
     end
@@ -36,8 +38,7 @@ function p_setup
 end
 
 function p_teardown
-    abbr --erase p pc pi pq pri prm psr psu pu
+    abbr --erase p pc pi pq pri prm psr psu pupd pupg
 
     return 0
 end
-
