@@ -23,6 +23,7 @@ binds {
     Mod+T { spawn "alacritty"; }
 
     Mod+F { spawn "sh" "-c" "niri msg action set-window-height '100%' && niri msg action set-column-width '100%'"; }
+    Mod+M { spawn "sh" "-c" "niri msg action set-window-height '50%' && niri msg action set-column-width '50%'"; }
     Mod+Q { close-window; }
     Mod+Shift+Q { quit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
