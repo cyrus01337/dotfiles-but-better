@@ -1,4 +1,5 @@
 background-color=#282a36
+default-timeout=5000
 
 [urgency=low]
 border-color=#6272a4
