@@ -22,9 +22,11 @@ binds {
     Mod+R { spawn "sysmenu"; }
     Mod+T { spawn "alacritty"; }
 
-    Mod+F { spawn "sh" "-c" "niri msg action set-window-height '100%' && niri msg action set-column-width '100%'"; }
-    Mod+M { spawn "sh" "-c" "niri msg action set-window-height '50%' && niri msg action set-column-width '50%'"; }
+    Mod+F { spawn "sh" "-c" "niri msg action set-window-height '100%' && niri msg action set-window-width '100%'"; }
+    Mod+H { switch-preset-window-height; }
+    Mod+M { spawn "sh" "-c" "niri msg action set-window-height '50%' && niri msg action set-window-width '50%'"; }
     Mod+Q { close-window; }
+    Mod+W { switch-preset-column-width; }
     Mod+Shift+Q { quit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
 
@@ -116,9 +118,14 @@ layout {
     }
 
     preset-column-widths {
-        proportion 0.33333
+        proportion 0.334
         proportion 0.5
-        proportion 0.66667
+        proportion 0.667
+    }
+
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
     }
 
     shadow {
