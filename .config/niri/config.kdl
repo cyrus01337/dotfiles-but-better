@@ -102,6 +102,7 @@ input {
 }
 
 layout {
+    background-color "transparent"
     gaps 36
     center-focused-column "never"
 
@@ -137,6 +138,11 @@ layout {
         softness 30
         spread 8
     }
+}
+
+layer-rule {
+    match namespace="^swww"
+    place-within-backdrop true
 }
 
 window-rule {
