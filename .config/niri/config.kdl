@@ -22,7 +22,7 @@ binds {
     Mod+R { spawn "sysmenu"; }
     Mod+T { spawn "alacritty"; }
 
-    Mod+F { maximize-column; }
+    Mod+F { spawn "sh" "-c" "niri msg action set-window-height '100%' && niri msg action set-column-width '100%'"; }
     Mod+Q { close-window; }
     Mod+Shift+Q { quit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
