@@ -31,8 +31,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Tab { toggle-overview; }
 
-    Mod+Alt+Up { focus-window-up; }
-    Mod+Alt+Down { focus-window-down; }
+    Mod+Alt+Up { focus-window-up-or-column-left; }
+    Mod+Alt+Down { focus-window-down-or-column-left; }
     Mod+Alt+Left { focus-column-left; }
     Mod+Alt+Right { focus-column-right; }
 
