@@ -2,6 +2,8 @@
 # VERSION: 3.0
 SETUVAR --export XDG_DATA_DIRS:/var/lib/flatpak/exports/share\x1e/home/cyrus/\x2elocal/share/flatpak/exports/share\x1e/usr/share/ubuntu\x1e/usr/share/gnome\x1e/usr/local/share/\x1e/usr/share/
 SETUVAR __fish_initialized:3800
+SETUVAR _fisher_paysonwallach_2F_fish_2D_you_2D_should_2D_use_files:\x7e/\x2econfig/fish/functions/__ysu__check_aliases\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__check_git_aliases\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__check_hardcore\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__flush_buffer\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__get_field\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__message\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__set_default\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__set_field\x2efish\x1e\x7e/\x2econfig/fish/functions/__ysu__write_buffer\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/you_should_use\x2efish
+SETUVAR _fisher_plugins:paysonwallach/fish\x2dyou\x2dshould\x2duse
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_key_bindings:fish_default_key_bindings
 SETUVAR fish_user_paths:/home/cyrus/\x2elocal/share/pyenv/bin\x1e/home/cyrus/\x2elocal/share/bun/bin\x1e/home/cyrus/\x2elocal/bin\x1e/home/cyrus/\x2elocal/share/fnm\x1e/home/cyrus/\x2elocal/go/bin\x1e/home/cyrus/\x2elocal/pyenv/bin\x1e/usr/local/go/bin\x1e/home/cyrus/bin\x1e/home/cyrus/\x2espicetify\x1e/var/lib/flatpak/exports/bin\x1e/home/cyrus/\x2ebun/bin\x1e/opt
