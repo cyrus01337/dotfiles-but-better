@@ -22,9 +22,9 @@ binds {
     Mod+R { spawn "sysmenu"; }
     Mod+T { spawn "alacritty"; }
 
-    Mod+F { spawn "sh" "-c" "niri msg action set-window-height '100%' && niri msg action set-window-width '100%'"; }
+    Mod+F { spawn "sh" "-c" "niri msg action set-window-height '100%' | niri msg action set-window-width '100%'"; }
     Mod+H { switch-preset-window-height; }
-    Mod+M { spawn "sh" "-c" "niri msg action set-window-height '50%' && niri msg action set-window-width '50%'"; }
+    Mod+M { spawn "sh" "-c" "niri msg action set-window-height '50%' | niri msg action set-window-width '50%'"; }
     Mod+Q { close-window; }
     Mod+W { switch-preset-column-width; }
     Mod+Shift+Q { quit; }
