@@ -4,7 +4,7 @@ spawn-at-startup "swww-daemon"
 spawn-at-startup "sh -c 'sleep 0 && swww img /home/cyrus/.config/niri/yeah.jpg'"
 spawn-at-startup "mako"
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "firefox"
+spawn-at-startup "librewolf"
 spawn-at-startup "alacritty"
 workspace "main"
 workspace "development"
@@ -17,7 +17,7 @@ animations {
 }
 
 binds {
-    Mod+B { spawn "firefox"; }
+    Mod+B { spawn "librewolf"; }
     Mod+E { spawn "dolphin"; }
     Mod+R { spawn "sysmenu"; }
     Mod+T { spawn "alacritty"; }
@@ -152,7 +152,7 @@ window-rule {
 }
 
 window-rule {
-    match at-startup=true app-id="firefox"
+    match at-startup=true app-id="librewolf"
     open-on-workspace "main"
 }
 
