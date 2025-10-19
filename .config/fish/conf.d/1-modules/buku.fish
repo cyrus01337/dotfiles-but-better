@@ -1,4 +1,4 @@
 #!/usr/bin/env fish
 if command -q buku
-    abbr b "buku --write"
+    abbr b "buku --offline --tacit --write"
 end
