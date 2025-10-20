@@ -107,6 +107,28 @@ warn_if_system_unsupported() {
     fi
 }
 
+install_atuin() {
+    if is_operating_system $ARCH; then
+        install_package atuin
+    else
+        bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
+    fi
+}
+
+install_qq() {
+    if is_operating_system $ARCH; then
+        install_package qq-bin
+    else
+        tarball_url=$(
+            curl https://api.github.com/repos/JFryy/qq/releases/latest \
+                | jq --raw-output '.assets[] | select(.name | endswith("linux-amd64.tar.gz")) | .browser_download_url'
+        )
+
+        curl -fsSL $tarball_url -o /tmp/qq.tar.gz \
+            && tar -C /usr/local/bin -xfz /tmp/qq.tar.gz
+    fi
+}
+
 setup_automatic_updates() {
     log "Setting up automatic updates"
 
@@ -187,7 +209,7 @@ setup_github_signing_key() {
         if test ! -f $PUBLIC_KEY_FILE; then
             install --mode 644 <(echo $bitwarden_payload | jq -r ".publicKey") $PUBLIC_KEY_FILE
         fi
-        
+
         bitwarden_payload=""
     fi
 
@@ -234,15 +256,13 @@ prepare_operating_system() {
         "stow"
         "tmux"
         "unzip"
-        $(cross_system_package "" "atuin")
-        $(cross_system_package "" "bitwarden-cli")
+        $(cross_system_package "bw-cli" "bitwarden-cli")
+        $(cross_system_package "fd-find" "fd")
         $(cross_system_package "gh" "github-cli")
         $(cross_system_package "lua" "lua51")
         $(cross_system_package "" "openssh")
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono")
-        $(cross_system_package "" "qq-bin")
-        $(cross_system_package "" "tree-sitter-cli")
         $(cross_system_package "" "wget")
     )
 
@@ -259,6 +279,8 @@ prepare_operating_system() {
     fi
 
     install_package ${packages[@]}
+    install_atuin
+    install_qq
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
