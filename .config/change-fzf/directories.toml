@@ -1,0 +1,11 @@
+[directories]
+alacritty = "$XDG_CONFIG_HOME/alacritty"
+dotfiles = "$HOME/Projects/personal/dotfiles-but-better/"
+fish = "$XDG_CONFIG_HOME/fish/"
+i3 = "$XDG_CONFIG_HOME/i3/"
+nixos = "$XDG_CONFIG_HOME/nixos/"
+nvim = "$XDG_CONFIG_HOME/nvim/"
+projects = "$HOME/Projects/"
+ssh = "$HOME/.ssh/"
+sway = "$XDG_CONFIG_HOME/sway/"
+tmux = "$XDG_CONFIG_HOME/tmux/"
