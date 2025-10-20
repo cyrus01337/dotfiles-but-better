@@ -1,0 +1,13 @@
+name: backblaze
+
+services:
+    container:
+        image: tessypowder/backblaze-personal-wine:latest
+        restart: always
+        ports:
+            - "8080:5800"
+        volumes:
+            - /home/cyrus/.config/backblaze/:/config/
+            - /run/media/cyrus/Backup/:/drive_d/
+            - /run/media/cyrus/HDD/:/drive_e/
+            - /run/media/cyrus/Virtual Machines/:/drive_f/
