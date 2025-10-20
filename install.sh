@@ -125,7 +125,7 @@ install_qq() {
         )
 
         curl -fsSL $tarball_url -o /tmp/qq.tar.gz \
-            && tar -C /usr/local/bin -xfz /tmp/qq.tar.gz
+            && sudo tar -C /usr/local/bin -xzf /tmp/qq.tar.gz
     fi
 }
 
