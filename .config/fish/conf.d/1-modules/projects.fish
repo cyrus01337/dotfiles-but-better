@@ -4,7 +4,7 @@ set INTERRUPTED_OR_FATAL_ERROR 130
 set -l FZF_FLAGS -1 --cycle --no-mouse --no-scrollbar --ellipsis ... --layout reverse
 
 if test -d $PROJECTS_DIRECTORY
-    function get_current_group
+    function get_current_group --inherit-variable PROJECTS_DIRECTORY
         set -l groups (ls $PROJECTS_DIRECTORY)
 
         if test (count $groups) = 0
@@ -33,7 +33,7 @@ if test -d $PROJECTS_DIRECTORY
     end
 
     # TODO: Refactor all prompts to a singular function
-    function prompt_for_group
+    function prompt_for_group --inherit-variable FZF_FLAGS --inherit-variable INTERRUPTED_OR_FATAL_ERROR --inherit-variable PROJECTS_DIRECTORY
         set -l groups (ls $PROJECTS_DIRECTORY)
 
         if test (count $groups) = 0
@@ -57,7 +57,7 @@ if test -d $PROJECTS_DIRECTORY
         return 0
     end
 
-    function prompt_for_project
+    function prompt_for_project --inherit-variable FZF_FLAGS --inherit-variable INTERRUPTED_OR_FATAL_ERROR --inherit-variable PROJECTS_DIRECTORY
         set group $argv[1]
         set -l projects (ls -l $PROJECTS_DIRECTORY/$group)
 
@@ -82,7 +82,7 @@ if test -d $PROJECTS_DIRECTORY
         return 0
     end
 
-    function prompt_for_subproject
+    function prompt_for_subproject --inherit-variable FZF_FLAGS --inherit-variable INTERRUPTED_OR_FATAL_ERROR --inherit-variable PROJECTS_DIRECTORY
         set group $argv[1]
         set project $argv[2]
         set -l subprojects (ls "$PROJECTS_DIRECTORY/$group/$project")
@@ -108,7 +108,7 @@ if test -d $PROJECTS_DIRECTORY
         return 0
     end
 
-    function prompt_for_course
+    function prompt_for_course --inherit-variable FZF_FLAGS --inherit-variable INTERRUPTED_OR_FATAL_ERROR --inherit-variable PROJECTS_DIRECTORY
         set group $argv[1]
         set project $argv[2]
         set -l courses (ls "$PROJECTS_DIRECTORY/$group/$project/courses")
@@ -140,7 +140,7 @@ if test -d $PROJECTS_DIRECTORY
         test $running_process = "fish"; or test $running_process = "bash"
     end
 
-    function projects
+    function projects --inherit-variable PROJECTS_DIRECTORY
         set selected_group ""
 
         argparse "r/root" "g/groups" -- $argv
