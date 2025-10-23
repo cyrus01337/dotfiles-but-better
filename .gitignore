@@ -5,3 +5,5 @@
 .config/tmux/plugins/*/
 .ssh/
 .stow-local-ignore
+__pycache__/
+ranger/colorschemes/__init__.py
