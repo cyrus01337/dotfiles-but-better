@@ -279,6 +279,7 @@ prepare_operating_system() {
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono")
         $(cross_system_package "" "wget")
+        $(cross_system_package "ydotool" "ydotool-git")
     )
 
     log "Preparing operating system"
