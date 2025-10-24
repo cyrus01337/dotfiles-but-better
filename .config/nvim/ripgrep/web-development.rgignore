@@ -1,3 +1,4 @@
 *lock*
 *.svg
 *env.d.ts
+.next/
