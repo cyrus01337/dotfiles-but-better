@@ -3,7 +3,7 @@ services:
         image: tessypowder/backblaze-personal-wine:latest
         restart: always
         ports:
-            - "8080:5800"
+            - "4000:5800"
         volumes:
             - /home/cyrus/.config/backblaze/:/config/
             - /mnt/backup/:/drive_d/
