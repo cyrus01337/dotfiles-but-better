@@ -174,7 +174,7 @@ function auto_detect_package_manager
     return 0
 end
 
-function on_pwd_change --on-variable PWD
+function on_postexec --on-event fish_postexec
     set previously_loaded $P_LOADED
 
     auto_detect_package_manager
