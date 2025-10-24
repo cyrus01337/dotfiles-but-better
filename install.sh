@@ -129,6 +129,21 @@ install_qq() {
     fi
 }
 
+install_bluetooth_autoconnect() {
+    if is_operating_system $ARCH; then
+        install_package bluetooth-autoconnect
+    else
+        directory="/tmp/bluetooth-autoconnect"
+
+        git clone https://github.com/jrouleau/bluetooth-autoconnect.git $directory \
+            && sudo mv "$directory/bluetooth-autoconnect" /usr/local/bin/ \
+            && sudo cp "$directory/bluetooth-autoconnect.service" /etc/systemd/system/ \
+            && sudo cp "$directory/bluetooth-autoconnect.service" /usr/lib/systemd/system/
+    fi
+
+    sudo systemctl enable --now bluetooth-autoconnect
+}
+
 setup_automatic_updates() {
     log "Setting up automatic updates"
 
@@ -281,6 +296,7 @@ prepare_operating_system() {
     install_package ${packages[@]}
     install_atuin
     install_qq
+    install_bluetooth_autoconnect
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
