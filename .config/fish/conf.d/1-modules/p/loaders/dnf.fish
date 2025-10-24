@@ -13,6 +13,7 @@ function p_setup
     abbr pcr "sudo dnf copr remove -y"
     abbr pi "sudo dnf install -y"
     abbr pinf "dnf info"
+    abbr pq "dnf list installed"
     abbr prm "sudo dnf remove -y"
     abbr psr "dnf search"
     abbr psu "sudo dnf system-upgrade -y"
@@ -23,7 +24,7 @@ function p_setup
 end
 
 function p_teardown
-    functions --erase p pce pcr pi pinf prm psr psu pu pup
+    functions --erase p pce pcr pi pinf pq prm psr psu pu pup
 
     return 0
 end
