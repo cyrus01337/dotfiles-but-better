@@ -17,7 +17,7 @@ if command -q git
     abbr gm "git merge"
     abbr gpl "git pull"
     abbr gps "git push"
-    abbr gpsu "git push --upstream origin (git branch --show-current)"
+    abbr gpsu "git push --set-upstream origin (git branch --show-current)"
     abbr gr "git remote"
     abbr gra "git remote add"
     abbr gsc "git config --global credential.helper store"
@@ -29,7 +29,7 @@ if command -q git
     abbr git-add-submodule "git submodule add"
     abbr git-fix-formatting-commit "p format && git add . && git commit -m \"Fix formatting\" && git push"
     abbr git-initialise-submodules "git submodule update --init --recursive"
-    abbr git-push-upstream "git push --upstream origin (git branch --show-current)"
+    abbr git-push-upstream "git push --set-upstream origin (git branch --show-current)"
     abbr git-save-credentials "git config --global credential.helper store"
     abbr git-update-submodules "git submodule update --remote"
 
