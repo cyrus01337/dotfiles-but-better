@@ -6,7 +6,7 @@ for script in $__fish_config_dir/conf.d/*/*{,/*}.fish
     source $script
 end
 
-if command -q systemd-analyze; and not set -q INITIALISED
+if command -q systemd-analyze &> /dev/null; and not set -q INITIALISED
     systemd-analyze
 end
 

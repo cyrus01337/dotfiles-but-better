@@ -164,7 +164,7 @@ function auto_detect_package_manager
     add_log_footer
 
     if test $P_DEBUG = true
-        if command -q bat
+        if command -q bat &> /dev/null
             bat $P_LOG_FILE
         else
             cat $P_LOG_FILE

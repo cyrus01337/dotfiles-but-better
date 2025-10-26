@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q git
+if command -q git &> /dev/null
     abbr g "git"
     abbr ga "git add"
     abbr gasm "git submodule add"
@@ -53,7 +53,7 @@ if command -q git
     end
 end
 
-if command -q gh
+if command -q gh &> /dev/null
     function gh-repo-clone --wraps "gh repo clone"
         set repository_shorthand $argv[1]
         set destination $argv[2]
@@ -72,7 +72,7 @@ if command -q gh
     abbr ghrc "gh-repo-clone"
 
     function gh-clone-all-repositories
-        if not command -q parallel
+        if not command -q parallel &> /dev/null
             echo "GNU Parallel is needed to run this"
 
             return 127

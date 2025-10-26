@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q docker
+if command -q docker &> /dev/null
     set USER_IN_DOCKER_GROUP (id -nG "$USER" | grep docker)
 
     function silence

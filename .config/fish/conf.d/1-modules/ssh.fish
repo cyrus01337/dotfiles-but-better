@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q ssh
+if command -q ssh &> /dev/null
     set ENVIRONMENTS_DIRECTORY "$__fish_config_dir/completions/environments"
 
     function ssh-wp-engine

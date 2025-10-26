@@ -1,9 +1,10 @@
 #!/usr/bin/env fish
 set PROJECTS_DIRECTORY "$HOME/Projects"
-set INTERRUPTED_OR_FATAL_ERROR 130
-set -l FZF_FLAGS -1 --cycle --no-mouse --no-scrollbar --ellipsis ... --layout reverse
 
 if test -d $PROJECTS_DIRECTORY
+    set INTERRUPTED_OR_FATAL_ERROR 130
+    set -l FZF_FLAGS -1 --cycle --no-mouse --no-scrollbar --ellipsis ... --layout reverse
+
     function get_current_group --inherit-variable PROJECTS_DIRECTORY
         set -l groups (ls $PROJECTS_DIRECTORY)
 

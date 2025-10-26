@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q ffmpeg
+if command -q ffmpeg &> /dev/null
     function ffmpeg-concat --wraps ffmpeg
         set input $argv[1]
         set output $argv[2]

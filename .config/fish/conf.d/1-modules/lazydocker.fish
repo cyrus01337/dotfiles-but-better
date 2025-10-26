@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q lazydocker
+if command -q lazydocker &> /dev/null
     abbr ld "lazydocker"
 end
 

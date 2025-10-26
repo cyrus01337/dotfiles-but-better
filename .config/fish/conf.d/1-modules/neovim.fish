@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q nvim
+if command -q nvim &> /dev/null
     function n --wraps nvim
         set PREVIOUS_DIRECTORY $PWD
         set target $argv[1]

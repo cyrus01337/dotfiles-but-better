@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 set -x PNPM_HOME "$HOME/.local/share/pnpm"
 
-if test -d $PNPM_HOME; and command -q pnpm
+if command -q pnpm &> /dev/null; and test -d $PNPM_HOME
     fish_add_path $PNPM_HOME
 end
 

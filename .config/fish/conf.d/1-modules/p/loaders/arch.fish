@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 function p_detect
-    if command -q yay; or command -q pacman
+    if command -q yay &> /dev/null; or command -q pacman &> /dev/null
         return 0
     end
 

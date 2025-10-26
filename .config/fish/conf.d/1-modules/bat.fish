@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q batcat
+if command -q batcat &> /dev/null
     abbr bat "batcat"
 end
 

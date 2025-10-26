@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if command -q docker
+if command -q docker &> /dev/null
     abbr d "docker"
     abbr db "docker build"
     abbr dcb "dc build"

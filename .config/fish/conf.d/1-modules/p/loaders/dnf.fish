@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 function p_detect
-    if command -q dnf
+    if command -q dnf &> /dev/null
         return 0
     end
 
