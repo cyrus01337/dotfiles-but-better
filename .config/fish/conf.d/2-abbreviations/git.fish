@@ -55,6 +55,12 @@ end
 
 if command -q gh &> /dev/null
     function gh-repo-clone --wraps "gh repo clone"
+        if not command -q jq &> /dev/null
+            echo "JQ is required to run this"
+
+            return 127
+        end
+
         set repository_shorthand $argv[1]
         set destination $argv[2]
         set -a matches (string match -r "(?:(.+)\/)?(.+)" $repository_shorthand)
@@ -71,15 +77,11 @@ if command -q gh &> /dev/null
 
     abbr ghrc "gh-repo-clone"
 
-    function gh-clone-all-repositories
-        if not command -q parallel &> /dev/null
-            echo "GNU Parallel is needed to run this"
-
-            return 127
+    function gh-repo-clone-all
+        for repository in (gh repo list --json "name" --jq ".[].name" --limit 1000)
+            gh-repo-clone $repository
+            sleep 1
         end
-
-        # https://stackoverflow.com/a/64915484
-        parallel -j (nproc) gh repo clone "git@github.com:cyrus01337/{}" -- --recurse-submodules ::: (gh repo list --json "name" --jq ".[].name" --limit 1000)
     end
 end
 
