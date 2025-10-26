@@ -1,4 +1,6 @@
 #!/usr/bin/env fish
-set -x GITHUB_USERNAME "cyrus01337"
+if command -q git &> /dev/null
+    set -x GITHUB_USERNAME "cyrus01337"
+end
 
 return 0
