@@ -5,8 +5,8 @@ if command -q flatpak &> /dev/null
     abbr f "flatpak"
     abbr fi "flatpak install -y"
     abbr fu "flatpak uninstall -y"
-    abbr --set-cursor fp "flatpak uninstall -y % && flatpak uninstall -y --unused"
     abbr fup "flatpak update -y"
+    abbr --set-cursor fp "set target \"%\"; flatpak uninstall -y $target && flatpak uninstall -y --unused $target"
 end
 
 return 0
