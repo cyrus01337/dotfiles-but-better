@@ -292,8 +292,8 @@ return utilities.concatenate_tables(lsp, {
                 typescript = { "prettierd" },
             },
             format_on_save = {
-                lsp_format = "fallback",
-                timeout_ms = 500,
+                lsp_fallback = true,
+                timeout_ms = 2500,
             },
         },
     },
