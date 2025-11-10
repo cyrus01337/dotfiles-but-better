@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pgrep --full "Chaos Zero Nightmare" | xargs kill -s 9
