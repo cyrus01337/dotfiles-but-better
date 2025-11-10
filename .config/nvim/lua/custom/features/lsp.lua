@@ -284,12 +284,12 @@ return utilities.concatenate_tables(lsp, {
         },
         opts = {
             formatters_by_ft = {
-                javascript = { "prettier" },
+                javascript = { "prettierd" },
                 lua = { "stylua" },
                 nix = { "alejandra" },
                 php = { "php-cs-fixer" },
                 python = { "ruff" },
-                typescript = { "prettier" },
+                typescript = { "prettierd" },
             },
             format_on_save = {
                 lsp_format = "fallback",
