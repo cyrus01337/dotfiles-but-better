@@ -299,7 +299,6 @@ prepare_operating_system() {
         "ranger"
         "stow"
         "unzip"
-        $(cross_system_package "bw-cli" "bitwarden-cli")
         $(cross_system_package "" "openssh")
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono")
