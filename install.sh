@@ -107,12 +107,39 @@ warn_if_system_unsupported() {
     fi
 }
 
-install_atuin() {
-    if is_operating_system $ARCH; then
-        install_package atuin
-    else
-        bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
-    fi
+install_mise() {
+    curl https://mise.run | sh
+    eval "$(~/.local/bin/mise activate $(basename $SHELL))"
+}
+
+install_packages_with_mise() {
+    export BUN_INSTALL="$HOME/.local/share/bun"
+    export CARGO_HOME="$HOME/.local/share/cargo"
+    export GNUPGHOME="$HOME/.gnupg"
+    export GOPATH="$HOME/.local/share/go"
+    export RUSTUP_HOME="$HOME/.local/share/rustup"
+
+    mise use --global \
+        atuin \
+        bat \
+        bun \
+        delta \
+        fastfetch \
+        fd \
+        fzf \
+        gh \
+        go \
+        jq \
+        lazydocker \
+        lazygit \
+        lua@5.1 \
+        neovim \
+        node@22 \
+        python@3.13 \
+        rust \
+        starship \
+        tmux \
+        uv
 }
 
 install_qq() {
@@ -165,8 +192,9 @@ setup_automatic_updates() {
     fi
 }
 
+# TODO: Simplify via `basename`
 get_shell() {
-    echo $SHELL | grep -oP '(?<=/bin/)(.+)'
+    echo $(basename $SHELL)
 }
 
 setup_github_signing_key() {
@@ -252,29 +280,24 @@ setup_ssh() {
     fi
 }
 
+setup_sharenv() {
+    uv pip install --system git+https://github.com/cyrus01337/sharenv.git#egg=sharenv
+}
+
 prepare_operating_system() {
     packages=(
         "alacritty"
-        "bat"
         "curl"
-        "fastfetch"
         "fish"
         "flatpak"
-        "fzf"
         "git"
-        "git-delta"
         "htop"
-        "jq"
         "obs-studio"
         "parallel"
         "ranger"
         "stow"
-        "tmux"
         "unzip"
         $(cross_system_package "bw-cli" "bitwarden-cli")
-        $(cross_system_package "fd-find" "fd")
-        $(cross_system_package "gh" "github-cli")
-        $(cross_system_package "lua" "lua51")
         $(cross_system_package "" "openssh")
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
         $(cross_system_package "" "otf-fantasque-sans-mono ttf-fantasque-sans-mono")
@@ -295,25 +318,15 @@ prepare_operating_system() {
     fi
 
     install_package ${packages[@]}
-    install_atuin
+    install_mise
+    install_packages_with_mise
     install_qq
     install_bluetooth_autoconnect
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
     setup_ssh
-}
-
-install_bun() {
-    export BUN_INSTALL="$HOME/.local/share/bun"
-
-    if test -d $BUN_INSTALL || test -d "$HOME/.bun"; then
-        return
-    fi
-
-    log "Installing Bun"
-
-    curl -fsSL https://bun.sh/install | bash
+    setup_sharenv
 }
 
 install_docker() {
@@ -331,126 +344,6 @@ install_docker() {
 
     sudo usermod -aG docker $USER && \
         sudo systemctl enable --now --quiet docker.socket
-}
-
-install_fnm() {
-    directory="$HOME/.local/share/fnm"
-    default_major_node_version="22"
-    export PATH="$PATH:$directory"
-
-    if test -d $directory; then
-        return
-    fi
-
-    log "Installing FNM"
-
-    curl -fsSL https://fnm.vercel.app/install | bash
-    eval "$(fnm env --shell bash)"
-    fnm install $default_major_node_version
-}
-
-install_go() {
-    archive_path="$TEMPORARY_DIRECTORY/lazydocker.tar.gz"
-    export GOPATH="$HOME/.local/share/go"
-
-    if test -d /usr/local/go; then
-        return
-    fi
-
-    log "Installing Go"
-
-    export PATH="$PATH:/usr/local/go/bin"
-
-    curl -Lo $archive_path https://go.dev/dl/go1.24.3.linux-amd64.tar.gz && \
-        sudo tar -C /usr/local -xzf $archive_path
-}
-
-install_lazydocker() {
-    if which lazydocker &> /dev/null; then
-        return
-    fi
-
-    log "Installing Lazydocker"
-
-    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
-}
-
-install_lazygit() {
-    if which lazygit &> /dev/null; then
-        return
-    fi
-
-    log "Installing Lazygit"
-
-    if is_operating_system $FEDORA; then
-        sudo dnf copr enable -y atim/lazygit && \
-            install_package lazygit
-    elif is_operating_system $ARCH; then
-        install_package lazygit
-    fi
-}
-
-install_python_build_dependencies() {
-    log "Installing Python build dependencies"
-
-    if is_operating_system $FEDORA; then
-        install_package bzip2 bzip2-devel gcc gdbm-libs libffi-devel libnsl2 libuuid-devel make openssl-devel patch readline-devel sqlite sqlite-devel tk-devel xz-devel zlib-devel 2> /dev/null
-    elif is_operating_system $ARCH; then
-        install_package base-devel openssl tk xz zlib
-    fi
-}
-
-install_pyenv() {
-    export PYENV_ROOT="$HOME/.local/share/pyenv"
-    default_major_python_version="3.13"
-
-    if test -d $PYENV_ROOT; then
-        return
-    fi
-
-    log "Installing Pyenv and Python"
-
-    export PATH="$PYENV_ROOT/bin:$PATH"
-
-    install_python_build_dependencies
-    curl -fsSL https://pyenv.run | bash
-
-    eval "$(pyenv init - bash)" && \
-        eval "$(pyenv virtualenv-init -)"
-    pyenv install $default_major_python_version && \
-        pyenv virtualenv $default_major_python_version home && \
-        pyenv global home && \
-        pyenv shell home
-    pip install git+https://github.com/cyrus01337/sharenv.git#egg=sharenv uv
-}
-
-install_rust() {
-    export CARGO_HOME="$HOME/.local/share/cargo"
-    export RUSTUP_HOME="$HOME/.local/share/rustup"
-
-    if test -d $CARGO_HOME || test -d $RUSTUP_HOME; then
-        return
-    fi
-
-    log "Installing Rust"
-
-    curl https://sh.rustup.rs -fsS | sh -s -- -y && \
-        source "$CARGO_HOME/env"
-}
-
-install_starship() {
-    if which starship &> /dev/null; then
-        return
-    fi
-
-    log "Installing Starship"
-
-    if is_operating_system $FEDORA; then
-        sudo dnf copr enable -y atim/starship && \
-            install_package starship
-    elif is_operating_system $ARCH; then
-        install_package starship
-    fi
 }
 
 install_dotfiles() {
@@ -489,18 +382,6 @@ install_dotfiles() {
         git -C $directory checkout -f .
 }
 
-install_neovim() {
-    if which nvim &> /dev/null; then
-        return
-    fi
-
-    log "Installing Neovim"
-
-    if is_operating_system $FEDORA || is_operating_system $ARCH; then
-        install_package luarocks neovim
-    fi
-}
-
 prepare_operating_system
 
 if $INSTALL_FLATPAKS; then
@@ -511,17 +392,8 @@ if $INSTALL_FLATPAKS; then
 fi
 
 if ! is_operating_system $NIXOS; then
-    install_bun && \
-        install_docker && \
-        install_fnm && \
-        install_go && \
-        install_lazydocker && \
-        install_lazygit && \
-        install_pyenv && \
-        install_rust
-    install_starship && \
-        install_dotfiles && \
-        install_neovim
+    install_docker
+    install_dotfiles
 
     running_shell="$(get_shell)"
 

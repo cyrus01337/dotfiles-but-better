@@ -34,11 +34,8 @@ in_i3() {
     ps -e | rg "i3"
 }
 
-if test -d $PYENV_ROOT; then
-    export PATH="$PYENV_ROOT/bin:$PATH"
-
-    eval "$(pyenv init - bash)" &> /dev/null
-    eval "$(pyenv virtualenv-init -)" &> /dev/null
+if which mise &> /dev/null; then
+    eval "$(mise activate bash)"
 fi
 
 eval "$(sharenv --shell bash)"

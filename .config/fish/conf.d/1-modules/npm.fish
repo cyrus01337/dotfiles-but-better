@@ -1,6 +1,4 @@
 #!/usr/bin/env fish
-if command -q npm &> /dev/null
-    set -x NPM_CONFIG_USERCONFIG "$HOME/.config/npm/npmrc"
-end
+set -x NPM_CONFIG_USERCONFIG "$HOME/.config/npm/npmrc"
 
 return 0
