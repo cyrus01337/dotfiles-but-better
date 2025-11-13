@@ -141,20 +141,35 @@ install_packages_with_mise() {
         rust \
         starship \
         tmux \
-        uv
+        uv \
+        yay
+}
+
+install_distrobox() {
+    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+}
+
+setup_arch_container() {
+    distrobox --yes --image archlinux --name arch \
+        && distrobox-enter --name arch -- "yay -S --needed --noconfirm base-devel git"
+}
+
+run_in_distrobox() {
+    command_="$@"
+
+    if ! which distrobox &> /dev/null; then
+        install_distrobox \
+            && setup_arch_container
+    fi
+
+    distrobox-enter --name arch -- bash -c $command_
 }
 
 install_qq() {
     if is_operating_system $ARCH; then
         install_package qq-bin
     else
-        tarball_url=$(
-            curl https://api.github.com/repos/JFryy/qq/releases/latest \
-                | jq --raw-output '.assets[] | select(.name | endswith("linux-amd64.tar.gz")) | .browser_download_url'
-        )
-
-        curl -fsSL $tarball_url -o /tmp/qq.tar.gz \
-            && sudo tar -C /usr/local/bin -xzf /tmp/qq.tar.gz
+        run_in_distrobox "yay -S --needed --noconfirm qq-bin && distrobox-export --bin \$(which qq)"
     fi
 }
 
