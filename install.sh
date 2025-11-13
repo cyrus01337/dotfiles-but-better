@@ -124,6 +124,8 @@ install_packages_with_mise() {
         bat \
         bun \
         delta \
+        docker-cli \
+        docker-compose \
         fastfetch \
         fd \
         fzf \
@@ -329,23 +331,6 @@ prepare_operating_system() {
     setup_sharenv
 }
 
-install_docker() {
-    if which docker &> /dev/null; then
-        return
-    fi
-
-    log "Installing Docker"
-
-    if is_operating_system $ARCH; then
-        install_package docker docker-compose
-    else
-        sudo sh -c "$(curl -fsSL https://get.docker.com)"
-    fi
-
-    sudo usermod -aG docker $USER && \
-        sudo systemctl enable --now --quiet docker.socket
-}
-
 install_dotfiles() {
     root="$HOME/Projects/personal"
     directory="$root/dotfiles-but-better"
@@ -392,7 +377,6 @@ if $INSTALL_FLATPAKS; then
 fi
 
 if ! is_operating_system $NIXOS; then
-    install_docker
     install_dotfiles
 
     running_shell="$(get_shell)"
