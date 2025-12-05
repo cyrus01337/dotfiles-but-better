@@ -37,7 +37,7 @@ local function config()
         language_server.setup(utilities.extend_lsp_options(options))
     end
 
-    otter.activate({ "javascript", "nix", "python", "typescript" })
+    otter.activate({ "javascript", "nix", "python", "sql", "typescript" })
 end
 
 if utilities.exists("/etc/nixos") then
