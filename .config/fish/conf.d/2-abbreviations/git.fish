@@ -8,7 +8,7 @@ if command -q git &> /dev/null
     abbr gch "git checkout"
     abbr gcl "git clone --recurse-submodules"
     abbr gcn "git config"
-    abbr gco "git commit"
+    abbr --set-cursor gco "git commit -m \"%\""
     abbr gcog "git config --global"
     abbr gd "git diff"
     abbr gds "git diff --staged"
