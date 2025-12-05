@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 function p_detect
-    if command -q dnf &> /dev/null
+    if string match -e --quiet -- "Fedora" (grep -oPm1 "NAME=[\"']?\K.[^\"']+" /etc/os-release)
         return 0
     end
 

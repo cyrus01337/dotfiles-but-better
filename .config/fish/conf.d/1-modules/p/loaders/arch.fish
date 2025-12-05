@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 function p_detect
-    if command -q yay &> /dev/null; or command -q pacman &> /dev/null
+    # https://unix.stackexchange.com/a/671133
+    if string match -e --quiet -- "Arch" (grep -oPm1 "NAME=[\"']?\K.[^\"']+" /etc/os-release)
         return 0
     end
 
