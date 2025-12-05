@@ -26,6 +26,14 @@ return {
                 },
             },
         },
+        ts_ls = {
+            init_options = {
+                preferences = {
+                    importModuleSpecifierPreference = "non-relative",
+                    preferTypeOnlyAutoImports = true,
+                },
+            },
+        },
     },
     NO_CONFIGURATION_LSPS = {
         "astro",
