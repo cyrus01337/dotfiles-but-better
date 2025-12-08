@@ -27,7 +27,7 @@ if command -q git &> /dev/null
     abbr gusmr "git submodule update --remote --recursive"
 
     abbr git-add-submodule "git submodule add"
-    abbr git-fix-formatting-commit "p format && git add . && git commit -m \"Fix formatting\" && git push"
+    abbr git-fix-formatting-commit "pf && git add . && git commit -m \"Fix formatting\" && git push"
     abbr git-initialise-submodules "git submodule update --init --recursive"
     abbr git-push-upstream "git push --set-upstream origin (git branch --show-current)"
     abbr git-save-credentials "git config --global credential.helper store"
