@@ -7,6 +7,7 @@ opt.wrap = false
 opt.termguicolors = true
 opt.showmode = false
 opt.signcolumn = "yes"
+opt.winborder = "rounded"
 
 -- highlight line that cursor is at
 opt.cursorline = true
