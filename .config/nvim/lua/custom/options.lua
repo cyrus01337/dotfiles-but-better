@@ -52,3 +52,5 @@ opt.fixendofline = true
 -- limelight configuration
 vim.g.limelight_conceal_ctermfg = "gray"
 vim.g.limelight_conceal_guifg = "DarkGray"
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
