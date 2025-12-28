@@ -33,11 +33,11 @@ is_operating_system() {
 }
 
 log() {
-    echo -e "\n\x1b[33;1m$@...\x1b[0m\n" >&2
+    echo -e "\x1b[33;1m$@...\x1b[0m" >&2
 }
 
 log_red() {
-    echo -e "\n\x1b[31;1m$@...\x1b[0m\n" >&2
+    echo -e "\x1b[31;1m$@...\x1b[0m" >&2
 }
 
 upgrade_system() {
@@ -155,7 +155,7 @@ install_distrobox() {
 
 setup_arch_container() {
     distrobox --yes --image archlinux --name arch \
-        && distrobox-enter --name arch -- "yay -S --needed --noconfirm base-devel git"
+        && distrobox-enter --name arch -- "yay -S --needed --noconfirm base-devel"
 }
 
 run_in_distrobox() {
