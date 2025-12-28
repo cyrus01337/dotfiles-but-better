@@ -30,7 +30,7 @@ style = "Bold Italic"
 
 [keyboard]
 bindings = [
-    { key = "Back", mods = "Control", chars = "\u001b[7;5~" }
+    { key = "Back", mods = "Control", chars = "\u001b[127;5u" }
 ]
 
 [mouse]

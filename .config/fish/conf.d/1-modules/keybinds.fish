@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-bind \e\[7\;5~ "backward-kill-word"
+bind ctrl-backspace "backward-kill-word"
 bind \e\[1\;5H "beginning-of-buffer"
 bind \e\[1\;5F "end-of-buffer"
 bind -M insert tab '
