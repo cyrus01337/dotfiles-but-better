@@ -35,16 +35,16 @@ set(mode.NORMAL, "d['", "d/[<CR>")
 set(mode.NORMAL, "d<'", "d/<<CR>")
 
 -- ctrl+up/down jump through paragraphs/functions
-set(mode.NORMAL, "<C-Up>", "{", { remap = true })
-set(mode.NORMAL, "<C-Down>", "}", { remap = true })
+-- set(mode.NORMAL, "<C-Up>", "{", { remap = true })
+-- set(mode.NORMAL, "<C-Down>", "}", { remap = true })
 
 -- B/E to jump from Beginning/End of line respectively
 set(mode.NORMAL, "E", "$", { remap = true })
 set(mode.NORMAL, "B", "^", { remap = true })
 
 -- move to start and end of file
-set({ mode.NORMAL, mode.INSERT }, "jtb", "gg^", { remap = true })
-set({ mode.NORMAL, mode.INSERT }, "jte", "G$", { remap = true })
+-- set({ mode.NORMAL, mode.INSERT }, "jtb", "gg^", { remap = true })
+-- set({ mode.NORMAL, mode.INSERT }, "jte", "G$", { remap = true })
 
 -- newline on enter in normal mode
 set(mode.NORMAL, "<CR>", "o<Esc>", { remap = true })
@@ -139,13 +139,13 @@ set(mode.NORMAL, "<leader>o", "<CMD>messages<CR>", { remap = true })
 set(mode.NORMAL, "r", "<C-r>", { remap = true })
 
 -- rebind mass indent/dedent
-set(mode.NORMAL, "<Tab>", ">>", { remap = true })
 set(mode.NORMAL, "<S-Tab>", "<<", { remap = true })
-set(mode.VISUAL_SELECT, "<Tab>", ">gv", { remap = true })
+set(mode.NORMAL, "<Tab>", ">>", { remap = true })
 set(mode.VISUAL_SELECT, "<S-Tab>", "<gv", { remap = true })
+set(mode.VISUAL_SELECT, "<Tab>", ">gv", { remap = true })
 
 -- sort selection
-set({ mode.VISUAL, mode.VISUAL_SELECT }, "<leader>s", "<CMD>'<,'>Sort<CR>", { remap = true })
+set({ mode.VISUAL }, "<leader>s", "<CMD>'<,'>Sort<CR>", { remap = true })
 
 -- LSP options
 set(mode.NORMAL, "h", vim.lsp.buf.hover, { remap = true })
