@@ -3,7 +3,7 @@ set COMMAND_TIMER_FILE (status --current-filename)
 set COMMAND_TIMER_DIRECTORY (dirname $COMMAND_TIMER_FILE)
 set COMMAND_TIMER_ENVIRONMENT_FILEPATH "$COMMAND_TIMER_DIRECTORY/environment.toml"
 
-if not command -q custom_command_timer &> /dev/null; and command -q qq &> /dev/null; and not set -q DISABLE_COMMAND_TIMER; and test -f $COMMAND_TIMER_ENVIRONMENT_FILEPATH; or test "$DISABLE_COMMAND_TIMER" != true
+if not set -q DISABLE_COMMAND_TIMER; and not command -q custom_command_timer &> /dev/null; and command -q qq &> /dev/null; and test -f $COMMAND_TIMER_ENVIRONMENT_FILEPATH
     function read_environment
         qq $argv[1] $COMMAND_TIMER_ENVIRONMENT_FILEPATH --monochrome-output --raw-output
     end
