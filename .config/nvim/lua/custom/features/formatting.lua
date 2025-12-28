@@ -1,3 +1,5 @@
+local PRETTIER = { "prettierd", "prettier", stop_at_first = true }
+
 return {
     {
         "cappyzawa/trim.nvim",
@@ -22,14 +24,14 @@ return {
         },
         opts = {
             formatters_by_ft = {
-                javascript = { "prettierd" },
-                javascriptreact = { "prettierd" },
+                javascript = PRETTIER,
+                javascriptreact = PRETTIER,
                 lua = { "stylua" },
                 nix = { "alejandra" },
                 php = { "php-cs-fixer" },
                 python = { "ruff" },
-                typescript = { "prettierd" },
-                typescriptreact = { "prettierd" },
+                typescript = PRETTIER,
+                typescriptreact = PRETTIER,
             },
             format_on_save = {
                 lsp_fallback = true,
