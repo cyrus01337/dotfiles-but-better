@@ -119,6 +119,10 @@ install_packages_with_mise() {
     export GOPATH="$HOME/.local/share/go"
     export RUSTUP_HOME="$HOME/.local/share/rustup"
 
+    if is_operating_system $FEDORA; then
+        install_package "@development-tools readline-devel"
+    fi
+
     mise use --global \
         atuin \
         bat \
@@ -140,7 +144,6 @@ install_packages_with_mise() {
         python@3.13 \
         rust \
         starship \
-        tmux \
         uv \
         yay
 }
@@ -313,6 +316,7 @@ prepare_operating_system() {
         "parallel"
         "ranger"
         "stow"
+        "tmux"
         "unzip"
         $(cross_system_package "" "openssh")
         $(cross_system_package "open-vm-tools-desktop" "open-vm-tools")
