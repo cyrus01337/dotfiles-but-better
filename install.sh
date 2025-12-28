@@ -149,7 +149,8 @@ install_packages_with_mise() {
 }
 
 install_distrobox() {
-    curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+    install_package "podman" && \
+        curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
 }
 
 setup_arch_container() {
