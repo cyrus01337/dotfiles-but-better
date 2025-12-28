@@ -15,4 +15,6 @@ return {
             create_keymaps = false,
         },
     },
+                javascriptreact = { "prettierd" },
+                typescriptreact = { "prettierd" },
 }
