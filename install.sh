@@ -147,7 +147,7 @@ install_packages_with_mise() {
         uv \
         yay
 
-    export PATH="$PATH:$HOME/.local/bin/mise"
+    eval "$(mise activate bash)"
 }
 
 install_distrobox() {
