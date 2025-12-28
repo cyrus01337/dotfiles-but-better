@@ -23,7 +23,7 @@ function in_shell
     test $running_process = "fish"; or test $running_process = "bash"
 end
 
-function run_depdendant_shell_command
+function run_dependant_shell_command
     set command_ $argv[1]
 
     if in_shell
@@ -85,19 +85,19 @@ function edit-fzf --inherit-variable CONFIGURATION_DIRECTORY --inherit-variable 
         return 127
     end
 
-    run_depdendant_shell_command "n $chosen_filepath"
+    run_dependant_shell_command "n $chosen_filepath"
 
     if test "$chosen_file_name" = "fish"; and command -q fish &> /dev/null
-        run_depdendant_shell_command "source $XDG_CONFIG_HOME/fish/config.fish"
-        run_depdendant_shell_command "source $XDG_CONFIG_HOME/fish/conf.d/initialise.fish"
+        run_dependant_shell_command "source $XDG_CONFIG_HOME/fish/config.fish"
+        run_dependant_shell_command "source $XDG_CONFIG_HOME/fish/conf.d/initialise.fish"
     else if test "$chosen_file_name" = "niri"; and command -q niri &> /dev/null
-        run_depdendant_shell_command "niri validate"
+        run_dependant_shell_command "niri validate"
     else if test "$chosen_file_name" = "nixos"; and test -d /etc/nixos
-        run_depdendant_shell_command "nr"
+        run_dependant_shell_command "nr"
     else if test "$chosen_file_name" = "sway"; and command -q sway &> /dev/null
-        run_depdendant_shell_command "sway reload"
+        run_dependant_shell_command "sway reload"
     else if test "$chosen_file_name" = "tmux"; and command -q tmux &> /dev/null
-        run_depdendant_shell_command "tmux source $XDG_CONFIG_HOME/tmux/tmux.conf"
+        run_dependant_shell_command "tmux source $XDG_CONFIG_HOME/tmux/tmux.conf"
     end
 
     return 0
