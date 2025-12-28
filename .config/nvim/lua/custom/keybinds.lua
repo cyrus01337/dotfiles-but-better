@@ -49,9 +49,11 @@ set({ mode.NORMAL, mode.INSERT }, "jte", "G$", { remap = true })
 -- newline on enter in normal mode
 set(mode.NORMAL, "<CR>", "o<Esc>", { remap = true })
 
--- rebind delete/cut line
+-- rebind copy, delete and cut line
 set(mode.NORMAL, "dd", "<Nop>")
 set(mode.NORMAL, "dl", "dd")
+set(mode.NORMAL, "yy", "<Nop>")
+set(mode.NORMAL, "yl", "yy")
 
 -- view project files
 set(mode.NORMAL, "<leader><Esc>", string.format("<CMD>%s<CR>", constants.FILE_MANAGER))
