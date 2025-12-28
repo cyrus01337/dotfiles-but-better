@@ -43,9 +43,9 @@ return {
         },
     },
     {
-        "sontungexpt/sttusline",
-        branch = "table_version",
+        "sontungexpt/witch-line",
         event = "BufEnter",
+        lazy = false,
         dependencies = {
             "nvim-tree/nvim-web-devicons",
             "echasnovski/mini.icons",
@@ -54,27 +54,39 @@ return {
             vim.opt.laststatus = 3
         end,
         opts = {
-            components = {
-                "mode",
-                "filename",
-                "git-branch",
-                "git-diff",
-                "%=",
-                "diagnostics",
-                "indent",
-                "encoding",
-                "pos-cursor",
-                "datetime",
-            },
-            disabled = {
-                filetypes = {
-                    "telescope",
-                    "No File",
-                },
-                buftypes = {
-                    "terminal",
+            statusline = {
+                global = {
+                    "mode",
+                    "git.branch",
+                    "file.icon",
+                    "file.name",
+                    "%=",
+                    "diagnostic.warn",
+                    "diagnostic.error",
+                    "cursor.pos",
                 },
             },
+            -- components = {
+            --     "mode",
+            --     "filename",
+            --     "git-branch",
+            --     "git-diff",
+            --     "%=",
+            --     "diagnostics",
+            --     "indent",
+            --     "encoding",
+            --     "pos-cursor",
+            --     "datetime",
+            -- },
+            -- disabled = {
+            --     filetypes = {
+            --         "telescope",
+            --         "No File",
+            --     },
+            --     buftypes = {
+            --         "terminal",
+            --     },
+            -- },
         },
     },
     {
