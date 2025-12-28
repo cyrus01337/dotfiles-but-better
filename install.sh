@@ -146,6 +146,8 @@ install_packages_with_mise() {
         starship \
         uv \
         yay
+
+    export PATH="$PATH:$HOME/.local/bin/mise"
 }
 
 install_distrobox() {
