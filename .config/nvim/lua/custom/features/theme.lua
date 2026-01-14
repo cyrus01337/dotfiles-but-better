@@ -95,7 +95,7 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = true,
         keys = {
-            { "<leader>ft", "<CMD>TodoTelescope<CR>", mode = mode.NORMAL },
+            { "<leader>ft", "<CMD>TodoTelescope keywords=FIXME,TODO<CR>", mode = mode.NORMAL },
         },
     },
     {
