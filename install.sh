@@ -51,11 +51,7 @@ upgrade_system() {
 }
 
 setup_yay() {
-    log "Setting up Yay"
-
-    git clone https://aur.archlinux.org/yay.git /tmp/yay && \
-        env GOFLAGS=-buildvcs=false makepkg -cfirsC --needed --noconfirm --dir /tmp/yay && \
-        yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all
+    yay --cleanafter --removemake --save --answerclean all --answerdiff none --answeredit none --answerupgrade all
 }
 
 install_package() {
@@ -330,9 +326,6 @@ prepare_operating_system() {
 
     log "Preparing operating system"
 
-    if is_operating_system $ARCH && ! which yay &> /dev/null; then
-        setup_yay
-    fi
 
     upgrade_system
 
@@ -345,11 +338,13 @@ prepare_operating_system() {
     install_packages_with_mise
     install_qq
     install_bluetooth_autoconnect
+
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
     setup_ssh
     setup_sharenv
+    setup_yay
 }
 
 install_dotfiles() {
