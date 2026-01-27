@@ -77,8 +77,8 @@ set(mode.NORMAL, "<CS-s>", "<CMD>wa<CR>", { remap = true })
 set({ mode.INSERT, mode.VISUAL_SELECT }, "<CS-s>", "<CMD>wa<CR>", { remap = true })
 
 -- close buffer
-set(mode.ALL, "<C-w>", "<CMD>bdelete<CR>", { remap = true })
-set({ mode.NORMAL, mode.VISUAL_SELECT }, "<leader>w", "<CMD>bdelete<CR>")
+set(mode.ALL, "<C-w>", "<CMD>BufferClose<CR>", { remap = true })
+set({ mode.NORMAL, mode.VISUAL_SELECT }, "<leader>w", "<CMD>BufferClose<CR>")
 set(mode.ALL, "<CS-w>", "<CMD>bdelete!<CR>")
 set({ mode.NORMAL, mode.VISUAL_SELECT }, "<leader><S-w>", "<CMD>bdelete!<CR>")
 
