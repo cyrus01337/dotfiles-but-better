@@ -12,6 +12,33 @@ end
 
 return {
     {
+        "romgrk/barbar.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "lewis6991/gitsigns.nvim",
+            "nvim-tree/nvim-web-devicons",
+        },
+        init = function()
+            vim.g.barbar_auto_setup = false
+        end,
+        opts = {
+            auto_hide = 1,
+            buffer_number = true,
+            clickable = false,
+            exclude_name = { "nvim" },
+            icons = {
+                buffer_index = true,
+                inactive = {
+                    button = "",
+                },
+            },
+            insert_at_end = true,
+            no_name_title = "Untitled",
+            preset = "slanted",
+            separator_at_end = true,
+        },
+    },
+    {
         "christoomey/vim-tmux-navigator",
         cmd = {
             "TmuxNavigateUp",
