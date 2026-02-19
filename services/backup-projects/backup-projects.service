@@ -1,0 +1,11 @@
+[Unit]
+Before=shutdown.target
+Description=Backup projects to alternative partition on system shutdown
+RequiresMountsFor=/mnt/backup-linux
+
+[Service]
+ExecStart=/usr/bin/rsync -auv --exclude=".next/" --exclude="node_modules/" /home/cyrus/Projects /mnt/backup-linux
+Type=oneshot
+
+[Install]
+WantedBy=shutdown.target
