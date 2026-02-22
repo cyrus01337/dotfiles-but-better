@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+
+export YDOTOOL_SOCKET="/tmp/.ydotool_socket"
+export DEBOUNCE_FILE="/tmp/.autoclicker-debounce"
+
+if [[ -f $DEBOUNCE_FILE ]]; then
+    rm $DEBOUNCE_FILE
+
+    exit 0
+else
+    touch $DEBOUNCE_FILE
+fi
+
+while [[ -f $DEBOUNCE_FILE ]]; do
+    ydotool click 0xC0 --next-delay 33
+done
