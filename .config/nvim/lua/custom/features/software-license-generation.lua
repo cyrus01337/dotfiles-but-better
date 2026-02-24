@@ -8,7 +8,7 @@ return {
     config = function()
         local telescope = require("telescope")
 
-        telescope.load_extension("software-licenses")
-        vim.keymap.set(mode.NORMAL, "<leader>gl", "<CMD>Telescope software-licenses find<CR>")
+        telescope.load_extension("software_licenses")
+        vim.keymap.set(mode.NORMAL, "<leader>gl", "<CMD>Telescope software_licenses find<CR>")
     end,
 }
