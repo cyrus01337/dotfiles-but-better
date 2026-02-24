@@ -4,7 +4,7 @@ return {
     init = function()
         local persistence = require("persistence")
 
-        vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+        vim.opt.sessionoptions = "buffers,folds,localoptions,tabpages,terminal,winpos,winsize"
 
         persistence.load()
     end,
