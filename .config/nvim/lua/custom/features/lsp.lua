@@ -174,6 +174,7 @@ return utilities.concatenate_tables(lsp, {
             local cmp = require("cmp")
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
             local cmp_context = require("cmp.config.context")
+            local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
             local function handle_insert(fallback)
                 if cmp.visible() then
@@ -202,6 +203,9 @@ return utilities.concatenate_tables(lsp, {
                 return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Text
             end
 
+            vim.lsp.config("*", {
+                capabilities = cmp_nvim_lsp.default_capabilities(),
+            })
             cmp.setup({
                 enabled = function()
                     if mode.is(mode.COMMAND_LINE) then

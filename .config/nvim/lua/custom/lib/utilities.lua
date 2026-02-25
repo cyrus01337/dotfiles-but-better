@@ -59,19 +59,6 @@ function Utilities.clone_table(container)
     return copy
 end
 
-function Utilities.extend_lsp_options(object)
-    if not cached_default_capabilities then
-        local cmp_lsp = require("cmp_nvim_lsp")
-
-        cached_default_capabilities = cmp_lsp.default_capabilities()
-    end
-
-    local cloned = Utilities.clone_table(object)
-    cloned.capabilities = cached_default_capabilities
-
-    return cloned
-end
-
 -- https://stackoverflow.com/a/41943392
 local function pretty_format(object, indentation)
     if not indentation then

@@ -21,19 +21,8 @@ local OTTER = {
     config = true,
 }
 
--- TODO: Use Neovim v0.11's new LSP bootstrapping system
 local function config()
     local otter = require("otter")
-
-    for _, name in ipairs(constants.NO_CONFIGURATION_LSPS) do
-        vim.lsp.config(name, utilities.extend_lsp_options({}))
-        vim.lsp.enable(name)
-    end
-
-    for name, options in pairs(constants.LSP_OPTIONS) do
-        vim.lsp.config(name, utilities.extend_lsp_options(options))
-        vim.lsp.enable(name)
-    end
 
     otter.activate({ "javascript", "nix", "python", "sql", "typescript" })
 end
@@ -55,6 +44,37 @@ if utilities.exists("/etc/nixos") then
     }
 else
     return {
+        {
+            "mason-org/mason-lspconfig.nvim",
+            dependencies = {
+                { "mason-org/mason.nvim", opts = {} },
+                "neovim/nvim-lspconfig",
+            },
+            opts = {
+                ensure_installed = {
+                    "ast-grep",
+                    "astro",
+                    "bashls",
+                    "cssls",
+                    "eslintls",
+                    "fish_lsp",
+                    "gopls",
+                    "html",
+                    "jsonls",
+                    "lua_ls",
+                    "luau_lsp",
+                    "pyright",
+                    "pylsp",
+                    "rust_analyzer",
+                    "tailwindcss",
+                    "taplo",
+                    "tsls",
+                    "vimls",
+                    "vuels",
+                    "yamlls",
+                },
+            },
+        },
         {
             "neovim/nvim-lspconfig",
             event = { "BufReadPre", "BufNewFile" },
@@ -95,39 +115,19 @@ else
             opts = {
                 auto_update = true,
                 ensure_installed = {
-                    "ast-grep",
-                    "astro-language-server",
-                    "bash-language-server",
                     "beautysh",
-                    "css-lsp",
                     "css-variables-language-server",
-                    "eslint-lsp",
-                    "fish-lsp",
-                    "gopls",
-                    "html-lsp",
-                    "json-lsp",
-                    "lua-language-server",
-                    "luau-lsp",
                     "prettierd",
-                    "pyright",
-                    "python-lsp-server",
                     "ruff",
-                    "rust-analyzer",
                     "stylua",
-                    "tailwindcss-language-server",
-                    "taplo",
                     "ts-standard",
-                    "typescript-language-server",
-                    "vim-language-server",
-                    "vue-language-server",
-                    "yaml-language-server",
                 },
                 integrations = {
                     ["mason-lspconfig"] = true,
                     ["mason-nvim-dap"] = false,
                     ["mason-null-ls"] = false,
                 },
-                run_on_start = false,
+                -- run_on_start = false,
             },
         },
     }
