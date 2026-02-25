@@ -61,6 +61,9 @@ return utilities.concatenate_tables(lsp, {
 
                     -- documentation
                     "markdown",
+
+                    -- game dev
+                    "luau",
                 }
             end
 

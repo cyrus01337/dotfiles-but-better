@@ -14,6 +14,18 @@ return {
                 },
             },
         },
+        luau_lsp = {
+            settings = {
+                ["luau-lsp"] = {
+                    platform = {
+                        type = "roblox",
+                    },
+                    sourcemap = {
+                        enabled = true,
+                    },
+                },
+            },
+        },
         pyright = {
             settings = {
                 pyright = {

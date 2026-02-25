@@ -21,20 +21,18 @@ local OTTER = {
     config = true,
 }
 
+-- TODO: Use Neovim v0.11's new LSP bootstrapping system
 local function config()
-    local lspconfig = require("lspconfig")
     local otter = require("otter")
 
     for _, name in ipairs(constants.NO_CONFIGURATION_LSPS) do
-        local language_server = lspconfig[name]
-
-        language_server.setup(utilities.extend_lsp_options({}))
+        vim.lsp.config(name, utilities.extend_lsp_options({}))
+        vim.lsp.enable(name)
     end
 
     for name, options in pairs(constants.LSP_OPTIONS) do
-        local language_server = lspconfig[name]
-
-        language_server.setup(utilities.extend_lsp_options(options))
+        vim.lsp.config(name, utilities.extend_lsp_options(options))
+        vim.lsp.enable(name)
     end
 
     otter.activate({ "javascript", "nix", "python", "sql", "typescript" })
@@ -109,6 +107,7 @@ else
                     "html-lsp",
                     "json-lsp",
                     "lua-language-server",
+                    "luau-lsp",
                     "prettierd",
                     "pyright",
                     "python-lsp-server",

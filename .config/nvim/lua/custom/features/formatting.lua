@@ -27,6 +27,7 @@ return {
                 javascript = PRETTIER,
                 javascriptreact = PRETTIER,
                 lua = { "stylua" },
+                luau = { "stylua" },
                 nix = { "alejandra" },
                 php = { "php-cs-fixer" },
                 python = { "ruff" },
