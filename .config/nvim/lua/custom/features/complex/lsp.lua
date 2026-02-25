@@ -52,11 +52,11 @@ else
             },
             opts = {
                 ensure_installed = {
-                    "ast-grep",
+                    "ast_grep",
                     "astro",
                     "bashls",
                     "cssls",
-                    "eslintls",
+                    "eslint",
                     "fish_lsp",
                     "gopls",
                     "html",
@@ -68,7 +68,7 @@ else
                     "rust_analyzer",
                     "tailwindcss",
                     "taplo",
-                    "tsls",
+                    "ts_ls",
                     "vimls",
                     "vuels",
                     "yamlls",
