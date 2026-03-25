@@ -1,0 +1,14 @@
+services:
+    search-engine:
+        image: docker.io/searxng/searxng
+        container_name: search-engine
+        restart: unless-stopped
+        ports:
+            - 4001:8080
+        volumes:
+            - configuration:/etc/searxng
+            - data:/var/cache/searxng
+
+volumes:
+    configuration:
+    data:
