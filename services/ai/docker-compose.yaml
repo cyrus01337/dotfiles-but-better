@@ -1,0 +1,31 @@
+services:
+    provider:
+        image: ollama/ollama:latest
+        container_name: ai-provider
+        command: serve
+        restart: unless-stopped
+        environment:
+            - OLLAMA_HOST=0.0.0.0
+            - OLLAMA_ORIGINS=*
+        ports:
+            - 11434:11434
+        volumes:
+            - provider-data:/root/.ollama
+
+    interface:
+        depends_on:
+            - provider
+        image: ghcr.io/open-webui/open-webui:main-slim
+        container_name: ai-interface
+        restart: unless-stopped
+        environment:
+            - OLLAMA_BASE_URL=http://ai-provider:11434
+            - WEBUI_AUTH=False
+        ports:
+            - 4000:8080
+        volumes:
+            - interface-data:/app/backend/data
+
+volumes:
+    provider-data:
+    interface-data:
