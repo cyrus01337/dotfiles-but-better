@@ -8,9 +8,7 @@ NIXOS="NixOS"
 OPERATING_SYSTEM="${OPERATING_SYSTEM-$(hostnamectl | grep 'Operating System')}"
 INSTALL_FLATPAKS=${INSTALL_FLATPAKS-true}
 FLATPAK_SOFTWARE=(
-    "app.zen_browser.zen"
     "com.github.PintaProject.Pinta"
-    "com.github.taiko2k.tauonmb"
     "com.github.wwmm.easyeffects"
     "com.interversehq.qView"
     "com.visualstudio.code"
