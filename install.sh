@@ -210,6 +210,10 @@ setup_automatic_updates() {
     fi
 }
 
+setup_cargo() {
+    cargo install --locked git-credential-keepassxc
+}
+
 # TODO: Simplify via `basename`
 get_shell() {
     echo $(basename $SHELL)
@@ -341,6 +345,7 @@ prepare_operating_system() {
     remove_package $EXCLUDE_KDE_SOFTWARE
 
     setup_automatic_updates
+    setup_cargo
     setup_ssh
     setup_sharenv
     setup_yay
