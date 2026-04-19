@@ -237,7 +237,7 @@ return utilities.concatenate_tables(lsp, {
                     { name = "lazydev" },
                     { name = "cmp_tabnine", group_index = 0, keyword_length = 3 },
                 }, {
-                    { name = "buffer", keyword_length = 1 },
+                    { name = "path" },
                 }),
             })
             cmp.setup.cmdline(":", {
