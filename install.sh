@@ -9,6 +9,7 @@ OPERATING_SYSTEM="${OPERATING_SYSTEM-$(hostnamectl | grep 'Operating System')}"
 INSTALL_FLATPAKS=${INSTALL_FLATPAKS-true}
 FLATPAK_SOFTWARE=(
     "com.github.PintaProject.Pinta"
+    "org.atheme.audacious"
     "com.github.wwmm.easyeffects"
     "com.interversehq.qView"
     "com.visualstudio.code"
