@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+browser=$(printf '%s\n' "LibreWolf" "Google Chrome" "Chromium" | rofi -dmenu -p "Browser")
+
+case "$browser" in
+  "LibreWolf")
+      librewolf
+
+      ;;
+  "Google Chrome")
+      flatpak run com.google.Chrome
+
+      ;;
+  "Chromium")
+      chromium
+
+      ;;
+esac
