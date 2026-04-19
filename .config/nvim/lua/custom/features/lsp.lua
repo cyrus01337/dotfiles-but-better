@@ -218,7 +218,6 @@ return utilities.concatenate_tables(lsp, {
                 experimental = {
                     ghost_text = true,
                 },
-                -- TODO: Resolve type error regarding missing fields
                 formatting = {
                     format = function(entry, item)
                         return require("nvim-highlight-colors").format(entry, item)
