@@ -47,7 +47,7 @@ set(mode.NORMAL, "B", "^", { remap = true })
 -- set({ mode.NORMAL, mode.INSERT }, "jte", "G$", { remap = true })
 
 -- newline on enter in normal mode
-set(mode.NORMAL, "<CR>", "o<Esc>", { remap = true })
+-- set(mode.NORMAL, "<CR>", "o<Esc>", { remap = true })
 
 -- rebind copy, delete and cut line
 set(mode.NORMAL, "dd", "<Nop>")
