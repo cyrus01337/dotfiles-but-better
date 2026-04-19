@@ -59,7 +59,7 @@
 [init]
     defaultBranch = main
 [credential]
-	helper = store
+	helper = keepassxc --git-groups
 [core]
     pager = delta
 [interactive]
