@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 function p_detect
     # https://unix.stackexchange.com/a/671133
-    if string match -e --quiet -- "Arch" (grep -oPm1 "NAME=[\"']?\K.[^\"']+" /etc/os-release)
+    if string match -e --quiet -- Arch (grep -oPm1 "NAME=[\"']?\K.[^\"']+" /etc/os-release)
         return 0
     end
 
@@ -10,11 +10,11 @@ end
 
 function p_setup
     if command -q yay
-        abbr p "yay"
+        abbr p yay
         abbr pc "yes | yay -Scc"
         abbr pi "yay -S --needed --noconfirm"
         abbr pq "yay -Qi"
-        abbr --set-cursor pri "set target %; yay -Rns --noconfirm \$target && yay -S --needed --noconfirm \$target"
+        abbr --set-cursor pri "set target %; yay -Rns --noconfirm \$target && yay -S --needed --noconfirm \$target; set --erase target"
         abbr prm "yay -Rns --noconfirm"
         abbr psr "yay -Ss"
         abbr psu "yay -Syu --noconfirm"
@@ -25,7 +25,7 @@ function p_setup
         abbr pc "yes | sudo pacman -Scc"
         abbr pi "sudo pacman -S --needed --noconfirm"
         abbr pq "sudo pacman -Qi"
-        abbr --set-cursor pri "set target %; sudo pacman -Rns --noconfirm \$target && sudo pacman -S --needed --noconfirm \$target"
+        abbr --set-cursor pri "set target %; sudo pacman -Rns --noconfirm \$target && sudo pacman -S --needed --noconfirm \$target; set --erase target"
         abbr prm "sudo pacman -Rns --noconfirm"
         abbr psr "pacman -Ss"
         abbr psu "sudo pacman -Syu --noconfirm"
