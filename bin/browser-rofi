@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+pkill rofi
+
 browser=$(printf '%s\n' "LibreWolf" "Google Chrome" "Chromium" | rofi -dmenu -p "Browser")
 
 case "$browser" in
