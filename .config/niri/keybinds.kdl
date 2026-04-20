@@ -25,27 +25,15 @@ binds {
 
     Mod+Up { move-window-up; }
     Mod+Down { move-window-down; }
-    // Mod+Left { consume-or-expel-window-left; }
-    // Mod+Right { consume-or-expel-window-right; }
     Mod+Left { move-column-left-or-to-monitor-left; }
     Mod+Right { move-column-right-or-to-monitor-right; }
 
-    // Mod+1 { focus-workspace "main"; }
-    // Mod+2 { focus-workspace "development"; }
-    // Mod+3 { focus-workspace "music"; }
-    // Mod+4 { focus-workspace "communication"; }
-    // Mod+5 { focus-workspace "extra"; }
     Mod+1 { spawn-sh "bin/niri-focus-synced-workspace main"; }
     Mod+2 { spawn-sh "bin/niri-focus-synced-workspace development"; }
     Mod+3 { spawn-sh "bin/niri-focus-synced-workspace music"; }
     Mod+4 { spawn-sh "bin/niri-focus-synced-workspace communication"; }
     Mod+5 { spawn-sh "bin/niri-focus-synced-workspace extra"; }
 
-    // Mod+Shift+1 { move-window-to-workspace "main"; }
-    // Mod+Shift+2 { move-window-to-workspace "development"; }
-    // Mod+Shift+3 { move-window-to-workspace "music"; }
-    // Mod+Shift+4 { move-window-to-workspace "communication"; }
-    // Mod+Shift+5 { move-window-to-workspace "extra"; }
     Mod+Shift+1 { spawn-sh "bin/niri-move-window-to-synced-workspace main"; }
     Mod+Shift+2 { spawn-sh "bin/niri-move-window-to-synced-workspace development"; }
     Mod+Shift+3 { spawn-sh "bin/niri-move-window-to-synced-workspace music"; }
