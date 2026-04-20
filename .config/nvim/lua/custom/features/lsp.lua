@@ -162,6 +162,13 @@ return utilities.concatenate_tables(lsp, {
         end,
     },
     {
+        "tzachar/cmp-tabnine",
+        build = "./install.sh",
+        dependencies = {
+            "hrsh7th/nvim-cmp",
+        },
+    },
+    {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
@@ -169,6 +176,7 @@ return utilities.concatenate_tables(lsp, {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-cmdline",
+            "codota/tabnine-nvim",
         },
         config = function()
             local cmp = require("cmp")
@@ -230,13 +238,12 @@ return utilities.concatenate_tables(lsp, {
                     end,
                 },
                 sources = cmp.config.sources({
+                    { name = "cmp_tabnine", keyword_length = 3 },
                     {
                         name = "nvim_lsp",
                         entry_filter = entry_filter,
                     },
                     { name = "lazydev" },
-                    { name = "cmp_tabnine", group_index = 0, keyword_length = 3 },
-                }, {
                     { name = "path" },
                 }),
             })
