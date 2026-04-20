@@ -1,39 +1,40 @@
 workspace "main-1" {
-    open-on-output "DVI-D-1"
+    open-on-output "HDMI-A-2"
 }
 
 workspace "development-1" {
-    open-on-output "DVI-D-1"
+    open-on-output "HDMI-A-2"
 }
 
 workspace "music-1" {
-    open-on-output "DVI-D-1"
+    open-on-output "HDMI-A-2"
 }
 
 workspace "communication-1" {
-    open-on-output "DVI-D-1"
+    open-on-output "HDMI-A-2"
 }
 
 workspace "extra-1" {
-    open-on-output "DVI-D-1"
+    open-on-output "HDMI-A-2"
 }
 
 workspace "main-2" {
-    open-on-output "HDMI-A-1"
+    open-on-output "DVI-D-1"
 }
 
 workspace "development-2" {
-    open-on-output "HDMI-A-1"
+    open-on-output "DVI-D-1"
 }
 
 workspace "music-2" {
-    open-on-output "HDMI-A-1"
+    open-on-output "DVI-D-1"
 }
 
 workspace "communication-2" {
-    open-on-output "HDMI-A-1"
+    open-on-output "DVI-D-1"
 }
 
 workspace "extra-2" {
-    open-on-output "HDMI-A-1"
+    open-on-output "DVI-D-1"
 }
+
