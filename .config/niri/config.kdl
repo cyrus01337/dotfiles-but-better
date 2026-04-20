@@ -1,7 +1,7 @@
 include "monitors.kdl"
 include "workspaces.kdl"
-include "keybinds.kdl"
 include "startup.kdl"
+include "keybinds.kdl"
 include "rules.kdl"
 
 prefer-no-csd
