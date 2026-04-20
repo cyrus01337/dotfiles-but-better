@@ -1,0 +1,222 @@
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
+spawn-sh-at-startup "swww-daemon & sleep 3 && swww img /home/cyrus/.config/niri/yeah.jpg"
+// spawn-sh-at-startup "sleep 0 && swww img /home/cyrus/.config/niri/yeah.jpg"
+spawn-at-startup "mako"
+// spawn-at-startup "kanshi"
+spawn-at-startup "wl-paste --watch cliphist store"
+spawn-sh-at-startup "flatpak run com.github.zocker_160.SyncThingy"
+spawn-sh-at-startup "flatpak run org.atheme.audacious"
+
+spawn-at-startup "librewolf"
+spawn-at-startup "alacritty"
+spawn-at-startup "gnome-system-monitor"
+
+workspace "main"
+workspace "development"
+workspace "music"
+workspace "communication"
+workspace "extra"
+
+animations {
+    slowdown 1.0
+}
+
+binds {
+    Mod+A { spawn "pavucontrol"; }
+    Mod+B { spawn-sh "pkill rofi || ~/bin/browser-rofi"; }
+    Mod+C { spawn-sh "pkill rofi || cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
+    Mod+E { spawn "dolphin"; }
+    Mod+O { spawn-sh "flatpak run md.obsidian.Obsidian"; }
+    Mod+R { spawn-sh "pkill rofi || rofi -show drun"; }
+    Mod+S { spawn-sh "flatpak run com.spotify.Client"; }
+    Mod+T { spawn "alacritty"; }
+
+    Mod+F { fullscreen-window; }
+    Mod+H { switch-preset-window-height; }
+    Mod+M { spawn-sh "niri msg action set-window-height '100%' & niri msg action set-window-width '100%'"; }
+    Mod+Q { close-window; }
+    Mod+V { switch-preset-column-width; }
+    // Mod+Alt+Q { kill-window; }
+    Mod+Shift+Q { spawn "wlogout"; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Tab { toggle-overview; }
+
+    Mod+Ctrl+Up { focus-window-up-or-column-left; }
+    Mod+Ctrl+Down { focus-window-down-or-column-left; }
+    Mod+Ctrl+Left { focus-column-or-monitor-left; }
+    Mod+Ctrl+Right { focus-column-or-monitor-right; }
+
+    Mod+Up { move-window-up; }
+    Mod+Down { move-window-down; }
+    // Mod+Left { consume-or-expel-window-left; }
+    // Mod+Right { consume-or-expel-window-right; }
+    Mod+Left { move-column-left-or-to-monitor-left; }
+    Mod+Right { move-column-right-or-to-monitor-right; }
+
+    Mod+1 { focus-workspace "main"; }
+    Mod+2 { focus-workspace "development"; }
+    Mod+3 { focus-workspace "music"; }
+    Mod+4 { focus-workspace "communication"; }
+    Mod+5 { focus-workspace "extra"; }
+
+    Mod+Shift+1 { move-window-to-workspace "main"; }
+    Mod+Shift+2 { move-window-to-workspace "development"; }
+    Mod+Shift+3 { move-window-to-workspace "music"; }
+    Mod+Shift+4 { move-window-to-workspace "communication"; }
+    Mod+Shift+5 { move-window-to-workspace "extra"; }
+
+    Print { screenshot ; }
+    Alt+Print { screenshot-window; }
+    Ctrl+Print { screenshot-screen; }
+
+    F8 { spawn "autoclicker"; }
+
+    XF86AudioNext { spawn-sh "playerctl next"; }
+    XF86AudioPause { spawn-sh "playerctl play-pause"; }
+    XF86AudioPlay { spawn-sh "playerctl play-pause"; }
+    XF86AudioPrev { spawn-sh "playerctl previous"; }
+}
+
+clipboard {
+    disable-primary
+}
+
+cursor {
+    hide-after-inactive-ms 250
+    hide-when-typing
+}
+
+environment {
+    DISPLAY ":0"
+    QT_QPA_PLATFORM "wayland"
+    XDG_SESSION_TYPE "wayland"
+    WAYLAND_DISPLAY "wayland-1"
+}
+
+hotkey-overlay {
+    hide-not-bound
+    skip-at-startup
+}
+
+input {
+    disable-power-key-handling
+    mouse
+    workspace-auto-back-and-forth
+
+    keyboard {
+        repeat-delay 250
+        repeat-rate 30
+
+        xkb {
+            layout "gb"
+        }
+    }
+
+    touchpad {
+        off
+    }
+
+    trackpoint {
+        off
+    }
+}
+
+layout {
+    background-color "transparent"
+    gaps 36
+    center-focused-column "never"
+
+    border {
+        off
+    }
+
+    default-column-width {
+        proportion 0.5;
+    }
+
+    focus-ring {
+        active-gradient from="#44475a" to="#bd93f9"
+        inactive-color "#44475aaa"
+        width 4
+    }
+
+    preset-column-widths {
+        proportion 0.334
+        proportion 0.5
+        proportion 0.667
+    }
+
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
+    }
+
+    shadow {
+        color "#1E202966"
+        draw-behind-window true
+        offset x=0 y=5
+        on
+        softness 30
+        spread 8
+    }
+}
+
+layer-rule {
+    match namespace="^swww"
+    place-within-backdrop true
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080@60"
+    position x=-1920 y=0
+
+    hot-corners {
+        off
+    }
+}
+
+output "DVI-D-1" {
+    mode "1920x1080@60"
+    position x=0 y=0
+
+    hot-corners {
+        off
+    }
+}
+
+output "HDMI-A-2" {
+    focus-at-startup
+    mode "1920x1080@60"
+    position x=1920 y=0
+
+    hot-corners {
+        off
+    }
+}
+
+window-rule {
+    clip-to-geometry true
+    geometry-corner-radius 4
+    open-maximized true
+}
+
+window-rule {
+    match at-startup=true app-id="librewolf"
+    open-on-workspace "main"
+}
+
+window-rule {
+    match at-startup=true app-id="Alacritty"
+    open-on-workspace "development"
+}
+
+window-rule {
+    match at-startup=true app-id="audacious"
+    open-on-workspace "music"
+}
+
+window-rule {
+    match at-startup=true app-id="telegram"
+    open-on-workspace "communication"
+}

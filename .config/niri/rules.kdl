@@ -1,0 +1,74 @@
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="^swww"
+    place-within-backdrop true
+}
+
+window-rule {
+    clip-to-geometry true
+    draw-border-with-background false
+    geometry-corner-radius 12
+    match app-id=r#"^org\.gnome\."#
+}
+
+window-rule {
+    default-column-width { proportion 0.5; }
+    match app-id=r#"^gnome-control-center$"#
+    match app-id=r#"^nm-connection-editor$"#
+    match app-id=r#"^pavucontrol$"#
+    open-floating false
+}
+
+window-rule {
+    match app-id=r#"^blueman-manager$"#
+    match app-id=r#"^galculator$"#
+    match app-id=r#"^gnome-calculator$"#
+    match app-id=r#"^org\.gnome\.Calculator$"#
+    match app-id=r#"^org\.gnome\.Nautilus$"#
+    match app-id=r#"^xdg-desktop-portal$"#
+    open-floating true
+}
+
+window-rule {
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+    match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
+    open-focused false
+    open-on-workspace "main-1"
+}
+
+window-rule {
+    draw-border-with-background false
+    match app-id="Alacritty"
+    open-on-workspace "development-1"
+}
+
+window-rule {
+    match app-id=r#"com.danklinux.dms$"#
+    match app-id=r#"org.quickshell$"#
+    open-floating true
+}
+
+window-rule {
+    clip-to-geometry true
+    geometry-corner-radius 4
+    open-maximized true
+}
+
+window-rule {
+    match at-startup=true app-id="librewolf"
+    open-on-workspace "main-1"
+}
+
+window-rule {
+    match at-startup=true app-id="audacious"
+    open-on-workspace "music-1"
+}
+
+window-rule {
+    match at-startup=true app-id="telegram"
+    open-on-workspace "communication-2"
+}
