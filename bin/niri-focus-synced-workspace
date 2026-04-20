@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+EXTRACT_MONITOR_NAME_PATTERN="(?!\()(?:DVI|HDMI).+(?=\))"
+current_monitor_name="$(niri msg focused-output | grep -Po $EXTRACT_MONITOR_NAME_PATTERN)"
+base_name="$1"
+
+resolve_workspace_index() {
+    monitor_name="$1"
+
+    if [[ "$monitor_name" = "DVI-D-1" ]]; then
+        echo 1
+    elif [[ "$monitor_name" = "HDMI-A-2" ]]; then
+        echo 2
+    fi
+}
+
+resolve_workspace() {
+    workspace_base_name="$1"
+    monitor_name="$2"
+    index="$(resolve_workspace_index $monitor_name)"
+
+    echo "$workspace_base_name-$index"
+}
+
+for monitor_name in $(niri msg outputs | grep -Po $EXTRACT_MONITOR_NAME_PATTERN); do
+    niri msg action focus-monitor $monitor_name & \
+        niri msg action focus-workspace $(resolve_workspace $base_name $monitor_name) &
+done
+
+niri msg action focus-workspace $(resolve_workspace $base_name $current_monitor_name)
