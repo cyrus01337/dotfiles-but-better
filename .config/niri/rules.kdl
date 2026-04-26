@@ -72,3 +72,8 @@ window-rule {
     match at-startup=true app-id="telegram"
     open-on-workspace "communication-2"
 }
+
+window-rule {
+    match at-startup=true app-id="gnome-system-monitor"
+    open-on-workspace "extra-1"
+}
