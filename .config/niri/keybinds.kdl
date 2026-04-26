@@ -41,8 +41,8 @@ binds {
     Mod+Shift+5 { spawn-sh "bin/niri-move-window-to-synced-workspace extra"; }
 
     Print { screenshot ; }
-    Alt+Print { screenshot-window; }
-    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window write-to-disk=false; }
+    Ctrl+Print { screenshot-screen write-to-disk=false; }
 
     F8 { spawn "autoclicker"; }
 
