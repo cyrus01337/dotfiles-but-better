@@ -10,7 +10,7 @@ binds {
 
     Mod+F { fullscreen-window; }
     Mod+H { switch-preset-window-height; }
-    Mod+M { spawn-sh "niri msg action set-window-height '100%' & niri msg action set-window-width '100%'"; }
+    Mod+M { spawn-sh "niri msg action set-window-height '100%'; niri msg action set-window-width '100%'"; }
     Mod+Q { close-window; }
     Mod+V { switch-preset-column-width; }
     // Mod+Alt+Q { kill-window; }
