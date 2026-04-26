@@ -14,4 +14,5 @@ fi
 
 while [[ -f $DEBOUNCE_FILE ]]; do
     ydotool click 0xC0 --next-delay 33
+    # ydotool type --next-delay 100 " "
 done
