@@ -1,0 +1,104 @@
+spawn-sh-at-startup "swww-daemon; sleep 3 && swww img /home/cyrus/.config/niri/wallpaper.jpg"
+
+animations {
+    // slowdown 1.0
+
+    // config-notification-open-close {
+    //     spring damping-ratio=0.65 stiffness=923 epsilon=0.001
+    // }
+
+    // horizontal-view-movement {
+    //     spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    // }
+
+    // overview-open-close {
+    //     spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
+    // }
+
+    // screenshot-ui-open {
+    //     duration-ms 200
+    //     curve "ease-out-quad"
+    // }
+
+    // window-close {
+    //     duration-ms 150
+    //     curve "ease-out-quad"
+    // }
+
+    // window-movement {
+    //     spring damping-ratio=0.75 stiffness=323 epsilon=0.0001
+    // }
+
+    // window-open {
+    //     duration-ms 150
+    //     curve "ease-out-expo"
+    // }
+
+    // window-resize {
+    //     spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    // }
+
+    // workspace-switch {
+    //     spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
+    // }
+    slowdown 0.4
+}
+
+config-notification {
+    disable-failed
+}
+
+cursor {
+    hide-after-inactive-ms 250
+    hide-when-typing
+}
+
+hotkey-overlay {
+    hide-not-bound
+    skip-at-startup
+}
+
+layout {
+    background-color "transparent"
+    center-focused-column "never"
+
+    border {
+        off
+    }
+
+    default-column-width {
+        proportion 0.5
+    }
+
+    focus-ring {
+        active-gradient from="#44475a" to="#bd93f9"
+        inactive-color "#44475aaa"
+        width 4
+    }
+
+    preset-column-widths {
+        proportion 0.334
+        proportion 0.5
+        proportion 0.667
+    }
+
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
+    }
+
+    shadow {
+        color "#1E202966"
+        draw-behind-window true
+        offset x=0 y=5
+        on
+        softness 30
+        spread 8
+    }
+}
+
+overview {
+    workspace-shadow {
+        off
+    }
+}
