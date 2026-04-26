@@ -1,4 +1,3 @@
-spawn-sh-at-startup "swww-daemon & sleep 3 && swww img /home/cyrus/.config/niri/yeah.jpg"
 spawn-at-startup "wl-paste --watch cliphist store"
 spawn-sh-at-startup "flatpak run com.github.zocker_160.SyncThingy"
 spawn-sh-at-startup "flatpak run org.atheme.audacious"
