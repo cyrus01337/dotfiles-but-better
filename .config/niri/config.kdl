@@ -4,6 +4,7 @@ include "autostart.kdl"
 include "keybinds.kdl"
 include "rules.kdl"
 include "theme.kdl"
+include "settings.kdl"
 
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"

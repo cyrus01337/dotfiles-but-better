@@ -1,0 +1,50 @@
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+clipboard {
+    disable-primary
+}
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
+environment {
+    DISPLAY ":0"
+    QT_QPA_PLATFORM "wayland"
+    WAYLAND_DISPLAY "wayland-1"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+input {
+    disable-power-key-handling
+    mouse
+
+    keyboard {
+        repeat-delay 250
+        repeat-rate 30
+
+        xkb {
+            layout "gb"
+        }
+    }
+
+    touch {
+        off
+    }
+
+    touchpad {
+        off
+    }
+
+    trackpoint {
+        off
+    }
+}
