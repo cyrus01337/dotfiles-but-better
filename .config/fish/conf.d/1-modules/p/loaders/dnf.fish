@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 function p_detect
-    if string match -e --quiet -- "Fedora" (grep -oPm1 "NAME=[\"']?\K.[^\"']+" /etc/os-release)
+    if string match -e --quiet -- Fedora (grep -oPm1 "NAME=[\"']?\K.[^\"']+" /etc/os-release)
         return 0
     end
 
@@ -8,7 +8,7 @@ function p_detect
 end
 
 function p_setup
-    abbr p "dnf"
+    abbr p dnf
     abbr pce "sudo dnf copr enable -y"
     abbr pcr "sudo dnf copr remove -y"
     abbr pi "sudo dnf install -y"
@@ -16,7 +16,7 @@ function p_setup
     abbr pq "dnf list installed"
     abbr prm "sudo dnf remove -y"
     abbr psr "dnf search"
-    abbr psu "sudo dnf system-upgrade -y"
+    abbr psu "sudo dnf upgrade -y"
     abbr pu "sudo dnf upgrade -y"
     abbr pup "sudo dnf upgrade -y"
 
