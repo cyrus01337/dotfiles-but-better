@@ -30,9 +30,7 @@ family = "FantasqueSansM Nerd Font"
 style = "Bold Italic"
 
 [keyboard]
-bindings = [
-    { key = "Back", mods = "Control", chars = "\u001b[127;5u" }
-]
+bindings = [{ key = "Back", mods = "Control", chars = "\u001b[127;5u" }]
 
 [mouse]
 hide_when_typing = true
