@@ -39,4 +39,5 @@ hide_when_typing = true
 save_to_clipboard = true
 
 [window]
+decorations = "None"
 dynamic_title = false
