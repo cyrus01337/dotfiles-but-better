@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+CURRENT_WINDOW_PID=$(niri msg focused-window | grep -Pio "PID: \K[0-9]+")
+
+kill -9 $CURRENT_WINDOW_PID
