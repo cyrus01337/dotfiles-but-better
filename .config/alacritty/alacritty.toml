@@ -36,7 +36,7 @@ bindings = [{ key = "Back", mods = "Control", chars = "\u001b[127;5u" }]
 hide_when_typing = true
 
 [selection]
-save_to_clipboard = true
+save_to_clipboard = false
 
 [window]
 decorations = "None"
