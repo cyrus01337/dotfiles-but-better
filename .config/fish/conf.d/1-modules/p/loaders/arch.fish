@@ -10,7 +10,7 @@ end
 
 function p_setup
     if command -q yay
-        abbr p yay
+        abbr --position anywhere p yay
         abbr pc "yes | yay -Scc"
         abbr pi "yay -S --needed --noconfirm"
         abbr pq "yay -Qi"
