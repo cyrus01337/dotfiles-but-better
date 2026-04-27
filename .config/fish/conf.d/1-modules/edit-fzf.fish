@@ -51,6 +51,7 @@ function edit-fzf --inherit-variable CONFIGURATION_DIRECTORY --inherit-variable 
         return 1
     end
 
+    set addendum_command ""
     set chosen_file_name (
         qq \
             --monochrome-output \
@@ -76,6 +77,7 @@ function edit-fzf --inherit-variable CONFIGURATION_DIRECTORY --inherit-variable 
             "$filter" \
             $CONFIGURATION_FILEPATH
     )
+
     echo $chosen_file_name
     echo $chosen_filepath
 
@@ -85,19 +87,25 @@ function edit-fzf --inherit-variable CONFIGURATION_DIRECTORY --inherit-variable 
         return 127
     end
 
-    run_dependant_shell_command "n $chosen_filepath"
+    set main_command "n $chosen_filepath"
 
-    if test "$chosen_file_name" = "fish"; and command -q fish &> /dev/null
-        run_dependant_shell_command "source $XDG_CONFIG_HOME/fish/config.fish"
-        run_dependant_shell_command "source $XDG_CONFIG_HOME/fish/conf.d/initialise.fish"
-    else if test "$chosen_file_name" = "niri"; and command -q niri &> /dev/null
-        run_dependant_shell_command "niri validate"
-    else if test "$chosen_file_name" = "nixos"; and test -d /etc/nixos
-        run_dependant_shell_command "nr"
-    else if test "$chosen_file_name" = "sway"; and command -q sway &> /dev/null
-        run_dependant_shell_command "sway reload"
-    else if test "$chosen_file_name" = "tmux"; and command -q tmux &> /dev/null
-        run_dependant_shell_command "tmux source $XDG_CONFIG_HOME/tmux/tmux.conf"
+    if test "$chosen_file_name" = fish; and command -q fish &>/dev/null
+        set addendum_command "source $XDG_CONFIG_HOME/fish/config.fish"
+        set addendum_command "source $XDG_CONFIG_HOME/fish/conf.d/initialise.fish"
+    else if test "$chosen_file_name" = niri; and command -q niri &>/dev/null
+        set addendum_command "niri validate"
+    else if test "$chosen_file_name" = nixos; and test -d /etc/nixos
+        set addendum_command nr
+    else if test "$chosen_file_name" = sway; and command -q sway &>/dev/null
+        set addendum_command "sway reload"
+    else if test "$chosen_file_name" = tmux; and command -q tmux &>/dev/null
+        set addendum_command "tmux source $XDG_CONFIG_HOME/tmux/tmux.conf"
+    end
+
+    if test "$addendum_command" = ""
+        run_dependant_shell_command "$main_command"
+    else
+        run_dependant_shell_command "$main_command && $addendum_command"
     end
 
     return 0
