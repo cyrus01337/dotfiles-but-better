@@ -20,7 +20,7 @@ end
 function in_shell
     set running_process (tmux display-message -p "#{window_name}")
 
-    test $running_process = "fish"; or test $running_process = "bash"
+    test $running_process = fish; or test $running_process = bash
 end
 
 function run_dependant_shell_command
@@ -37,11 +37,11 @@ function run_dependant_shell_command
 end
 
 function edit-fzf --inherit-variable CONFIGURATION_DIRECTORY --inherit-variable FZF_FLAGS
-    if not command -q fzf &> /dev/null
+    if not command -q fzf &>/dev/null
         log_error "fzf is required to run this, please install fzf"
 
         return 127
-    else if not command -q qq &> /dev/null
+    else if not command -q qq &>/dev/null
         log_error "qq is required to run this, please install qq"
 
         return 127
