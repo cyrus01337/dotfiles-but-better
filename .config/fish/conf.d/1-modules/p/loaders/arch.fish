@@ -11,6 +11,7 @@ end
 function p_setup
     if command -q yay
         abbr --position anywhere p yay
+        abbr par "yay -Qdtq | yay -Rns -"
         abbr pc "yes | yay -Scc"
         abbr pi "yay -S --needed --noconfirm"
         abbr pq "yay -Qi"
@@ -21,7 +22,8 @@ function p_setup
         abbr pupd "yay -Sy"
         abbr pupg "yay -S --needed --noconfirm"
     else if command -q pacman
-        abbr p "sudo pacman"
+        abbr --position anywhere p "sudo pacman"
+        abbr par "pacman -Qdtq | sudo pacman -Rns -"
         abbr pc "yes | sudo pacman -Scc"
         abbr pi "sudo pacman -S --needed --noconfirm"
         abbr pq "sudo pacman -Qi"
@@ -39,7 +41,7 @@ function p_setup
 end
 
 function p_teardown
-    abbr --erase p pc pi pq pri prm psr psu pupd pupg
+    abbr --erase p par pc pi pq pri prm psr psu pupd pupg
 
     return 0
 end

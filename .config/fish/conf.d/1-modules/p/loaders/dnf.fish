@@ -9,6 +9,7 @@ end
 
 function p_setup
     abbr --position anywhere p dnf
+    abbr par "sudo dnf autoremove -y"
     abbr pce "sudo dnf copr enable -y"
     abbr pcr "sudo dnf copr remove -y"
     abbr pi "sudo dnf install -y"
@@ -24,7 +25,7 @@ function p_setup
 end
 
 function p_teardown
-    functions --erase p pce pcr pi pinf pq prm psr psu pu pup
+    functions --erase p par pce pcr pi pinf pq prm psr psu pu pup
 
     return 0
 end
