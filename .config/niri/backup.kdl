@@ -101,7 +101,6 @@ hotkey-overlay {
 
 input {
     disable-power-key-handling
-    mouse
     workspace-auto-back-and-forth
 
     keyboard {
@@ -111,6 +110,10 @@ input {
         xkb {
             layout "gb"
         }
+    }
+
+    mouse {
+        off
     }
 
     touchpad {
