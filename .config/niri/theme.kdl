@@ -1,4 +1,5 @@
 spawn-sh-at-startup "swww-daemon; sleep 3 && swww img /home/cyrus/.config/niri/wallpaper.jpg"
+spawn-at-startup "waybar"
 
 animations {
     // slowdown 1.0

@@ -41,7 +41,8 @@ binds {
     Mod+Shift+4 { spawn-sh "bin/niri-move-window-to-synced-workspace communication"; }
     Mod+Shift+5 { spawn-sh "bin/niri-move-window-to-synced-workspace extra"; }
 
-    Print { spawn-sh "grim -t jpeg -g \"$(slurp)\" - | wl-copy"; }
+    // Print { spawn-sh "grim -t jpeg -g \"$(slurp)\" - | wl-copy"; }
+    Print { screenshot; }
     Alt+Print { screenshot-window write-to-disk=false; }
     Ctrl+Print { spawn-sh "grim -t jpeg -o \"$(niri msg --json focused-output | jq -r \".name\")\" - | wl-copy"; }
 
