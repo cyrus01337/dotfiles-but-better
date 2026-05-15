@@ -6,4 +6,4 @@ include "rules.kdl"
 include "theme.kdl"
 include "settings.kdl"
 
-include "dms/layout.kdl"
+// include "dms/layout.kdl"
