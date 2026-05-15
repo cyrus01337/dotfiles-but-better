@@ -4,6 +4,7 @@ if command -q flatpak &>/dev/null
 
     abbr --position anywhere f flatpak
     abbr fi "flatpak install -y"
+    abbr fl "flatpak list"
     abbr fup "flatpak update -y && flatpak uninstall -y --unused"
     abbr --set-cursor fu "flatpak uninstall -y % && flatpak uninstall -y --unused"
 end
