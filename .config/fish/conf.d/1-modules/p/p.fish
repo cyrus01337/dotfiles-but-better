@@ -4,9 +4,9 @@ set P_LOADED
 set P_FILE (status --current-filename)
 set P_DIRECTORY (dirname $P_FILE)
 set P_LOG_FILE "/tmp/p.log"
-set P_SUPPORTED_DEVELOPMENT "web-development"
+set P_SUPPORTED_DEVELOPMENT web-development
 # TODO: Tidy
-set -a P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS "arch" "dnf"
+set -a P_SUPPORTED_SYSTEM_PACKAGE_MANAGERS arch debian fedora
 
 if not set -q P_DEBUG
     set P_DEBUG false
@@ -16,7 +16,7 @@ function log
     set message "$argv"
 
     if test $P_DEBUG = true
-        echo $message >> $P_LOG_FILE
+        echo $message >>$P_LOG_FILE
     end
 end
 
@@ -31,7 +31,7 @@ function add_log_footer
 end
 
 function teardown_aliases
-    if functions | string match "p_teardown" &> /dev/null
+    if functions | string match p_teardown &>/dev/null
         log "Found teardown hook, running..."
 
         p_teardown
@@ -79,7 +79,7 @@ end
 function bootstrap
     set package_manager $argv[1]
 
-    if not functions | string match "p_detect" &> /dev/null
+    if not functions | string match p_detect &>/dev/null
         log "$package_manager is currently unsupported, feature requests and PRs welcome!"
 
         return 1
@@ -93,7 +93,7 @@ function bootstrap
         return 1
     end
 
-    if not functions | string match "p_setup" &> /dev/null
+    if not functions | string match p_setup &>/dev/null
         log "Unable to find detect hook function \"p_setup\" when loading $package_manager"
 
         return 1
@@ -103,7 +103,7 @@ function bootstrap
 
     set cached_status $status
 
-    if test $cached_status !=  0
+    if test $cached_status != 0
         functions --erase p_detect p_setup
 
         log "Bootstrapping $package_manager failed with exit code $cached_status"
@@ -127,10 +127,10 @@ function process_loaders_from_list
         log "Parsing $name ($script_path)"
 
         if not begin
-            loader_exists $script_path
-            and loader_runs $script_path
-            and bootstrap $name
-        end
+                loader_exists $script_path
+                and loader_runs $script_path
+                and bootstrap $name
+            end
             log "Skipping..."
 
             continue
@@ -164,7 +164,7 @@ function auto_detect_package_manager
     add_log_footer
 
     if test $P_DEBUG = true
-        if command -q bat &> /dev/null
+        if command -q bat &>/dev/null
             bat $P_LOG_FILE
         else
             cat $P_LOG_FILE
