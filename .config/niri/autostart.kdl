@@ -1,6 +1,7 @@
 spawn-at-startup "wl-paste --watch cliphist store"
 spawn-sh-at-startup "flatpak run com.github.zocker_160.SyncThingy"
 spawn-sh-at-startup "flatpak run org.atheme.audacious"
+spawn-at-startup "keepassxc --minimized"
 
 spawn-at-startup "librewolf"
 spawn-at-startup "alacritty"
