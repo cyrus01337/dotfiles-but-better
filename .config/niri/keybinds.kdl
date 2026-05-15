@@ -4,6 +4,7 @@ binds {
     Mod+C { spawn-sh "pkill rofi || cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
     Mod+E { spawn "dolphin"; }
     Mod+O { spawn-sh "flatpak run md.obsidian.Obsidian"; }
+    Mod+P { spawn "keepassxc"; }
     Mod+R { spawn-sh "pkill rofi || rofi -show drun"; }
     Mod+S { spawn-sh "flatpak run com.spotify.Client"; }
     Mod+T { spawn "alacritty"; }
