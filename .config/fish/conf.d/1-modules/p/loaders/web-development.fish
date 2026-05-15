@@ -1,12 +1,13 @@
 #!/usr/bin/env fish
 function p_detect
     if begin
-        test -f "package-lock.json"
-        # or test -f "yarn.lock"
-        # or test -f "pnpm-lock.yaml"
-        # or test -f "deno.lock"
-        or test -f "bun.lockb" ; or test -f "bun.lock"
-    end
+            test -f "package-lock.json"
+            # or test -f "yarn.lock"
+            # or test -f "pnpm-lock.yaml"
+            # or test -f "deno.lock"
+            or test -f "bun.lockb"; or test -f "bun.lock"
+        end
+
         return 0
     end
 
@@ -15,7 +16,7 @@ end
 
 function p_setup
     if test -f "package-lock.json"
-        abbr p "npm"
+        abbr p npm
         abbr pa "npm install"
         abbr pad "npm install --save-dev"
         abbr pb "npm run build"
@@ -32,9 +33,9 @@ function p_setup
         abbr pst "npm run start"
         abbr pt "npm run test"
         abbr pup "npm update"
-        abbr px "npx"
+        abbr px npx
     else if test -f "bun.lockb"; or test -f "bun.lock"
-        abbr p "bun"
+        abbr p bun
         abbr pa "bun add"
         abbr pad "bun add --dev"
         abbr pb "bun run build"
@@ -51,7 +52,7 @@ function p_setup
         abbr pst "bun run start"
         abbr pt "bun test"
         abbr pup "bun update"
-        abbr px "bunx"
+        abbr px bunx
     else
         return 127
     end
