@@ -7,4 +7,5 @@
 .stow-local-ignore
 .uuid
 __pycache__/
+fstab.bak
 ranger/colorschemes/__init__.py
