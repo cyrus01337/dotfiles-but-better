@@ -11,5 +11,5 @@ niri msg windows
 
 ### Setup
 ```bash
-yay -S --needed --noconfirm flameshot grim libnotify mako niri swww sysmenu xwayland-satellite
+yay -S --needed --noconfirm roji grim libnotify mako niri wbg xwayland-satellite
 ```
