@@ -92,6 +92,8 @@ function edit-fzf --inherit-variable CONFIGURATION_DIRECTORY --inherit-variable 
     if test "$chosen_file_name" = fish; and command -q fish &>/dev/null
         set addendum_command "source $XDG_CONFIG_HOME/fish/config.fish"
         set addendum_command "source $XDG_CONFIG_HOME/fish/conf.d/initialise.fish"
+    else if test "$chosen_file_name" = fstab
+        set addendum_command "$DOTFILES_DIRECTORY/system/fstab/sync.sh"
     else if test "$chosen_file_name" = niri; and command -q niri &>/dev/null
         set addendum_command "niri validate"
     else if test "$chosen_file_name" = nixos; and test -d /etc/nixos
