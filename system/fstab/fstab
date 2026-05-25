@@ -1,0 +1,13 @@
+LABEL=BACKUP            /mnt/backup            ext4     defaults,rw                                            0 2
+LABEL=BACKUP-WINDOWS    /mnt/backup-windows    ext4     defaults,uid=1000,gid=1000,umask=0070,exec             0 2
+LABEL=BOOT              /boot                  vfat     defaults,umask=0077                                    0 2
+LABEL=GAMES             /mnt/games             ext4     defaults,rw                                            0 2
+LABEL=HDD               /mnt/hdd               ntfs3    defaults,uid=1000,gid=1000,umask=0070,exec             0 2
+LABEL=HOME              /home                  ext4     defaults                                               0 2
+LABEL=ROOT              /                      btrfs    subvol=/@,defaults,noatime,compress=zstd:1 0 0
+LABEL=ROOT              /root                  btrfs    subvol=/@root,defaults,noatime,compress=zstd:1 0 0
+LABEL=ROOT              /srv                   btrfs    subvol=/@srv,defaults,noatime,compress=zstd:1 0 0
+LABEL=ROOT              /var/cache             btrfs    subvol=/@cache,defaults,noatime,compress=zstd:1 0 0
+LABEL=ROOT              /var/log               btrfs    subvol=/@log,defaults,noatime,compress=zstd:1 0 0
+LABEL=ROOT              /var/tmp               btrfs    subvol=/@tmp,defaults,noatime,compress=zstd:1 0 0
+tmpfs                   /tmp                   tmpfs    defaults,noatime,mode=1777                             0 0
