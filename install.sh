@@ -151,7 +151,7 @@ install_distrobox() {
 }
 
 setup_arch_container() {
-    distrobox --yes --image archlinux --name arch \
+    distrobox create --yes --image archlinux --name arch \
         && distrobox-enter --name arch -- "yay -S --needed --noconfirm base-devel git"
 }
 
