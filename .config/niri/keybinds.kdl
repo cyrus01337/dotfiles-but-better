@@ -13,7 +13,7 @@ binds {
     Mod+H { switch-preset-window-height; }
     Mod+Q { close-window; }
     Mod+V { switch-preset-column-width; }
-    Mod+Alt+Q { spawn-sh "bin/niri-kill-window"; }
+    Mod+Alt+Q { spawn-sh "~/bin/niri-kill-window"; }
     Mod+Shift+M { spawn-sh "niri msg action set-window-height '100%'; niri msg action set-window-width '100%'"; }
     Mod+Shift+Q { spawn-sh "pkill wlogout || wlogout"; }
     Mod+Shift+Slash { show-hotkey-overlay; }
