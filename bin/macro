@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+CONFIGURATION_DIRECTORY="$XDG_CONFIG_HOME/macros-rofi"
+MACRO="$(cat $CONFIGURATION_DIRECTORY/macro)"
+
 set -e
 
 export YDOTOOL_SOCKET="/tmp/.ydotool_socket"
@@ -13,6 +16,7 @@ else
 fi
 
 while [[ -f $DEBOUNCE_FILE ]]; do
+    $CONFIGURATION_DIRECTORY/macros/$MACRO
     ydotool click 0xC0 --next-delay 33
-    # ydotool type --next-delay 100 " "
+    # ydotool type --next-delay 33 e
 done

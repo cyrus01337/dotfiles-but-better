@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+CONFIGURATION_DIRECTOR="$XDG_CONFIG_HOME/macros-rofi"
+
+pkill rofi
+
+macro=$(printf "%s\n" $(ls $CONFIGURATION_DIRECTOR/macros/) | rofi -dmenu -p "Macro")
+
+echo $macro
+
+if [[ $macro = "" ]]; then
+    exit 1
+fi
+
+echo $macro > $CONFIGURATION_DIRECTOR/macro

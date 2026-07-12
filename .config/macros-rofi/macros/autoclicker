@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ydotool click 0xC0 --next-delay 33
