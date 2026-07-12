@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
-if command -q ssh &> /dev/null
+if command -q ssh &>/dev/null
     set ENVIRONMENTS_DIRECTORY "$__fish_config_dir/completions/environments"
+    set SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 
     function ssh-wp-engine
         set environment_filename $argv[1]
@@ -58,6 +59,14 @@ if command -q ssh &> /dev/null
 
         ssh-keygen -a 10 -b 4096 -f "$HOME/.ssh/$name" -t ed25519
     end
+
+    # if not pgrep -u "$USER" ssh-agent >/dev/null
+    #     ssh-agent -t 1h >"$XDG_RUNTIME_DIR/ssh-agent.env"
+    # end
+
+    # if not test -f "$SSH_AUTH_SOCK"
+    #     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+    # end
 end
 
 return 0
