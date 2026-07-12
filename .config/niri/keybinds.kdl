@@ -1,5 +1,5 @@
 binds {
-    Mod+A { spawn "pavucontrol"; }
+    Mod+A { spawn-sh "pavucontrol"; }
     Mod+B { spawn-sh "pkill rofi || ~/bin/browser-rofi"; }
     Mod+C { spawn-sh "pkill rofi || cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
     Mod+E { spawn "dolphin"; }
