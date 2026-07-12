@@ -10,7 +10,7 @@ debug {
 }
 
 environment {
-    DISPLAY ":0"
+    DISPLAY ":1"
     QT_QPA_PLATFORM "wayland"
     WAYLAND_DISPLAY "wayland-1"
     XDG_CURRENT_DESKTOP "niri"
