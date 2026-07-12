@@ -1,4 +1,4 @@
-spawn-at-startup "wl-paste --watch cliphist store"
+spawn-sh-at-startup "wl-paste --watch cliphist store"
 spawn-sh-at-startup "flatpak run com.github.zocker_160.SyncThingy"
 spawn-sh-at-startup "ydotoold --socket-path /tmp/.ydotool_socket --socket-perm 707"
 spawn-sh-at-startup "flatpak run org.atheme.audacious"
