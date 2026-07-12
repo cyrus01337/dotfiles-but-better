@@ -57,7 +57,7 @@ if command -q ssh &>/dev/null
     function generate-ssh-key
         set name (string join "" $argv[1] "_ed25519")
 
-        ssh-keygen -a 10 -b 4096 -f "$HOME/.ssh/$name" -t ed25519
+        ssh-keygen -a 10 -f "$HOME/.ssh/$name" -t ed25519 -P ""
     end
 
     # if not pgrep -u "$USER" ssh-agent >/dev/null
