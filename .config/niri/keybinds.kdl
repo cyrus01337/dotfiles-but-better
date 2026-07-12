@@ -16,6 +16,7 @@ binds {
     Mod+V { switch-preset-column-width; }
     Mod+Alt+Q { spawn-sh "bin/niri-kill-window"; }
     Mod+Shift+Q { spawn "wlogout"; }
+    Mod+Shift+Q { spawn-sh "pkill wlogout || wlogout"; }
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Tab { toggle-overview; }
 
