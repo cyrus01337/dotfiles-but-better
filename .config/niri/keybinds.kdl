@@ -2,12 +2,12 @@ binds {
     Mod+A { spawn-sh "pavucontrol"; }
     Mod+B { spawn-sh "~/bin/browser-rofi"; }
     Mod+C { spawn-sh "pkill rofi || cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
-    Mod+E { spawn "dolphin"; }
-    Mod+O { spawn-sh "flatpak run md.obsidian.Obsidian"; }
+    Mod+E { spawn-sh "/opt/niri-ror/ror.sh --app-id dolphin -- dolphin"; }
+    Mod+O { spawn-sh "/opt/niri-ror/ror.sh --app-id obsidian -- flatpak run md.obsidian.Obsidian"; }
     Mod+P { spawn "keepassxc"; }
     Mod+R { spawn-sh "pkill rofi || rofi -show drun"; }
     Mod+S { spawn-sh "flatpak run com.spotify.Client"; }
-    Mod+T { spawn "alacritty"; }
+    Mod+T { spawn-sh "/opt/niri-ror/ror.sh --app-id Alacritty -- alacritty"; }
 
     Mod+F { fullscreen-window; }
     Mod+H { switch-preset-window-height; }
