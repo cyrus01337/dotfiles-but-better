@@ -6,6 +6,8 @@ spawn-at-startup "kded6"
 spawn-at-startup "audacious"
 spawn-at-startup "keepassxc --minimized"
 
+spawn-sh-at-startup "oniri --first-only"
+
 spawn-at-startup "librewolf"
 spawn-at-startup "alacritty"
 spawn-at-startup "gnome-system-monitor"
