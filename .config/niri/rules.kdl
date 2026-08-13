@@ -37,12 +37,6 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"com.danklinux.dms$"#
-    match app-id=r#"org.quickshell$"#
-    open-floating true
-}
-
-window-rule {
     clip-to-geometry true
     geometry-corner-radius 4
     open-maximized true
