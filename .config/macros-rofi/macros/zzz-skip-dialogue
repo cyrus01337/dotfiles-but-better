@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 ydotool click 0xC0
+ydotool type --next-delay 0 1
 ydotool key --next-delay 33 1:1 1:0

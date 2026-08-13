@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ydotool key --next-delay 33 14:1 14:0
