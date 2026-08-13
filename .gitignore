@@ -9,3 +9,4 @@
 __pycache__/
 fstab.bak
 ranger/colorschemes/__init__.py
+.config/macros-rofi/macro
