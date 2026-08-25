@@ -5,8 +5,8 @@ if test -d $SPICETIFY_PATH; or command -q spicetify &>/dev/null
     fish_add_path $SPICETIFY_PATH
 
     function update-spicetify
-        spicetify update
-        spicetify backup apply
+        pkill spotify
+        spicetify restore backup apply
     end
 end
 
