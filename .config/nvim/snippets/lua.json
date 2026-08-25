@@ -1,0 +1,175 @@
+{
+    "Print": {
+        "prefix": "p",
+        "body": [
+            "print($1)"
+        ]
+    },
+    "Variable": {
+        "prefix": "l",
+        "body": [
+            "local ${1:variable} = ${2:nil}"
+        ]
+    },
+    "Module": {
+        "prefix": "m",
+        "body": [
+            "local ${1:name} = require(\"$2\")"
+        ]
+    },
+    "Create module": {
+        "prefix": "mc",
+        "body": [
+            "local ${1:name} = {}",
+            "",
+            "return $1"
+        ]
+    },
+    "Conditional": {
+        "prefix": "i",
+        "body": [
+            "if ${1:condition} then",
+            "\t$2",
+            "end"
+        ]
+    },
+    "Inversed conditional": {
+        "prefix": "ni",
+        "body": [
+            "if not ${1:condition} then",
+            "\t$2",
+            "end"
+        ]
+    },
+    "Elseif": {
+        "prefix": "ei",
+        "body": [
+            "elseif ${1:condition} then",
+            "\t$2"
+        ]
+    },
+    "Inversed elseif": {
+        "prefix": "nei",
+        "body": [
+            "elseif not ${1:condition} then",
+            "\t$2"
+        ]
+    },
+    "For loop": {
+        "prefix": "for",
+        "body": [
+            "for ${1:key}, ${2:value} in $3 do",
+            "\t$4",
+            "end"
+        ]
+    },
+    "Pairs": {
+        "prefix": "forp",
+        "body": [
+            "for ${1:key}, ${2:value} in pairs(${3:container}) do",
+            "\t$4",
+            "end"
+        ]
+    },
+    "IPairs": {
+        "prefix": "fori",
+        "body": [
+            "for ${1:key}, ${2:value} in ipairs(${3:container}) do",
+            "\t$4",
+            "end"
+        ]
+    },
+    "New scope": {
+        "prefix": "d",
+        "body": [
+            "do $1 end"
+        ]
+    },
+    "While loop": {
+        "prefix": "w",
+        "body": [
+            "while ${1:condition} do",
+            "\t$2",
+            "end"
+        ]
+    },
+    "Repeat until loop": {
+        "prefix": "r",
+        "body": [
+            "repeat",
+            "\t$2",
+            "until ${1:condition}"
+        ]
+    },
+    "Function": {
+        "prefix": "f",
+        "body": [
+            "local function ${1:name}(${2:...})",
+            "\t$3",
+            "end"
+        ]
+    },
+    "Anonymous function": {
+        "prefix": "fa",
+        "body": [
+            "function(${1:...})",
+            "\t$3",
+            "end"
+        ]
+    },
+    "Module function": {
+        "prefix": "fm",
+        "body": [
+            "function ${1:module}.${2:name}(${3:...})",
+            "\t$4",
+            "end"
+        ]
+    },
+    "Debounce": {
+        "prefix": "de",
+        "body": [
+            "local ${1:debounce} = false\n",
+            "if $1 then",
+            "\treturn",
+            "end\n",
+            "debounce = true\n",
+            "$2\n",
+            "debounce = false"
+        ]
+    },
+    "Debounce table": {
+        "prefix": "det",
+        "body": [
+            "local ${1:debounce} = {}",
+            "local ${2:debounceHit} = $1[$3]\n",
+            "if $2 then",
+            "\treturn",
+            "end\n",
+            "$1[$3] = ${4:true}\n",
+            "$6\n",
+            "$1[$3] = ${5:nil}"
+        ]
+    },
+    "Self": {
+        "prefix": "ls",
+        "body": [
+            "local self = {$1}\n",
+            "return self"
+        ]
+    },
+    "Weak table": {
+        "prefix": "tw",
+        "body": [
+            "local ${1:variable} = setmetatable(${2:{}}, { __mode = \"k\" })"
+        ]
+    },
+    "Guard clause": {
+        "prefix": "gc",
+        "body": [
+            "if ${1:condition} then",
+            "\treturn",
+            "end\n",
+            "$2"
+        ]
+    }
+}
