@@ -1,4 +1,5 @@
 export PYENV_ROOT="$HOME/.local/share/pyenv"
+export PYENV_VERSION="home"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=true
 export PARENT_TERM_PROGRAM="$TERM_PROGRAM"
 
@@ -7,7 +8,7 @@ if test -f /etc/bashrc; then
 fi
 
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH:$PYENV_ROOT/bin"
 fi
 
 export PATH
@@ -38,6 +39,7 @@ if which mise &> /dev/null; then
     eval "$(mise activate bash)"
 fi
 
+eval "$(pyenv init - bash)"
 eval "$(sharenv --shell bash)"
 
 if (
