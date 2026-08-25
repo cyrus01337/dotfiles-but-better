@@ -63,7 +63,6 @@ window-rule {
 }
 
 window-rule {
-    match at-startup=true title="Waydroid"
+    match at-startup=true app-id=r#"(?i).*waydroid.*"#
     open-on-workspace "main-1"
-    open-fullscreen true
 }

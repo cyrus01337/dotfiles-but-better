@@ -5,8 +5,7 @@ spawn-sh-at-startup "flatpak run com.github.zocker_160.SyncThingy"
 spawn-sh-at-startup "ydotoold --socket-path /tmp/.ydotool_socket --socket-perm 707"
 spawn-at-startup "kded6"
 spawn-at-startup "keepassxc --minimized"
-
-spawn-sh-at-startup "oniri --first-only"
+spawn-at-startup "oniri --edges-maximizing --reclaim-space --tiling-layout"
 
 spawn-at-startup "librewolf"
 spawn-at-startup "alacritty"
