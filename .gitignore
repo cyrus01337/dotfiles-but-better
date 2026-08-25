@@ -2,6 +2,8 @@
 .Trash-*/
 .config/fish/completions/environments/
 .config/fish/fish_variables
+.config/fish/fish_variables
+.config/macros-rofi/macro
 .config/tmux/plugins/*/
 .ssh/
 .stow-local-ignore
@@ -9,4 +11,3 @@
 __pycache__/
 fstab.bak
 ranger/colorschemes/__init__.py
-.config/macros-rofi/macro
