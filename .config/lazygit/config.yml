@@ -1,5 +1,8 @@
 git:
     overrideGpg: true
+
+    log:
+        showAllBranches: true
 gui:
     mouseEvents: false
 os:
