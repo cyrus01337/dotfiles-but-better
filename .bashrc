@@ -1,5 +1,4 @@
 export PYENV_ROOT="$HOME/.local/share/pyenv"
-export PYENV_VERSION="home"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=true
 export PARENT_TERM_PROGRAM="$TERM_PROGRAM"
 
@@ -40,7 +39,7 @@ if which mise &> /dev/null; then
 fi
 
 eval "$(pyenv init - bash)"
-eval "$(sharenv --shell bash)"
+PYENV_VERSION="HOME" eval "$(pyenv exec sharenv --shell bash)"
 
 if (
     is_interactive_shell &&
