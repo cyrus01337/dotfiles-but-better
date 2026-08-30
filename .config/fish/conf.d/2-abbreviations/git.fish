@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
-if command -q git &> /dev/null
-    abbr g "git"
+if command -q git &>/dev/null
+    abbr g git
     abbr ga "git add"
     abbr gasm "git submodule add"
     abbr gb "git branch"
@@ -53,9 +53,9 @@ if command -q git &> /dev/null
     end
 end
 
-if command -q gh &> /dev/null
+if command -q gh &>/dev/null
     function gh-repo-clone --wraps "gh repo clone"
-        if not command -q jq &> /dev/null
+        if not command -q jq &>/dev/null
             echo "JQ is required to run this"
 
             return 127
@@ -75,7 +75,8 @@ if command -q gh &> /dev/null
         gh repo clone "git@github.com:$author/$repository" $destination -- --recurse-submodules --jobs (nproc)
     end
 
-    abbr ghrc "gh-repo-clone"
+    abbr ghrc gh-repo-clone
+    abbr ghrcr "gh repo create (basename \$PWD) --public --source ."
 
     function gh-repo-clone-all
         for repository in (gh repo list --json "name" --jq ".[].name" --limit 1000)
