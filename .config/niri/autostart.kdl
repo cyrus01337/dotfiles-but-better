@@ -7,5 +7,5 @@ spawn-at-startup "kded6"
 spawn-at-startup "keepassxc --minimized"
 spawn-at-startup "oniri --edges-maximizing --reclaim-space --tiling-layout"
 
-spawn-at-startup "librewolf"
+spawn-sh-at-startup "flatpak run io.gitlab.librewolf-community"
 spawn-at-startup "alacritty"

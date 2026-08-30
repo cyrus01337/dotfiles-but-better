@@ -4,16 +4,16 @@ pkill rofi
 browser=$(printf '%s\n' "LibreWolf" "Google Chrome" "Chromium" | rofi -dmenu -p "Browser")
 
 case "$browser" in
-  "LibreWolf")
-      librewolf
+    "LibreWolf")
+        flatpak run io.gitlab.librewolf-community
 
-      ;;
-  "Google Chrome")
-      flatpak run com.google.Chrome
+        ;;
+    "Google Chrome")
+        flatpak run com.google.Chrome
 
-      ;;
-  "Chromium")
-      chromium
+        ;;
+    "Chromium")
+        chromium
 
-      ;;
+        ;;
 esac
