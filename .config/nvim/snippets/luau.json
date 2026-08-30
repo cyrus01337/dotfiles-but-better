@@ -59,5 +59,11 @@
         "body": [
             "local ${1:variable} = setmetatable(${2:{}} ${3::: ${4:{ [${5:any}]: ${6:any} }}}, { __mode = \"k\" })"
         ]
+    },
+    "Lune module": {
+        "prefix": "ml",
+        "body": [
+            "local ${1:module} = require(\"@lune/$1\")"
+        ]
     }
 }
