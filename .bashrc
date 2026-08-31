@@ -39,7 +39,7 @@ if which mise &> /dev/null; then
 fi
 
 eval "$(pyenv init - bash)"
-PYENV_VERSION="HOME" eval "$(pyenv exec sharenv --shell bash)"
+eval "$(PYENV_VERSION='home' pyenv exec sharenv --shell bash)"
 
 if (
     is_interactive_shell &&
